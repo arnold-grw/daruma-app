@@ -13,7 +13,7 @@ import { DarumaColor } from '@/types/daruma'
 export const DARUMA_COLORS: DarumaColorConfig[] = [
   {
     id: 'red',
-    hex: '#CC0000',
+    hex: '#cd4949',
     labelKey: 'colors.red.label',
     meaningKey: 'colors.red.meaning',
     label: 'Red',
@@ -29,7 +29,7 @@ export const DARUMA_COLORS: DarumaColorConfig[] = [
   },
   {
     id: 'blue',
-    hex: '#2255AA',
+    hex: '#5679b6',
     labelKey: 'colors.blue.label',
     meaningKey: 'colors.blue.meaning',
     label: 'Blue',
@@ -37,7 +37,7 @@ export const DARUMA_COLORS: DarumaColorConfig[] = [
   },
   {
     id: 'green',
-    hex: '#2D6A4F',
+    hex: '#3c785d',
     labelKey: 'colors.green.label',
     meaningKey: 'colors.green.meaning',
     label: 'Green',
@@ -45,7 +45,7 @@ export const DARUMA_COLORS: DarumaColorConfig[] = [
   },
   {
     id: 'yellow',
-    hex: '#F4C430',
+    hex: '#c0a450',
     labelKey: 'colors.yellow.label',
     meaningKey: 'colors.yellow.meaning',
     label: 'Yellow',
@@ -53,7 +53,7 @@ export const DARUMA_COLORS: DarumaColorConfig[] = [
   },
   {
     id: 'pink',
-    hex: '#E8829A',
+    hex: '#c57f8f',
     labelKey: 'colors.pink.label',
     meaningKey: 'colors.pink.meaning',
     label: 'Pink',

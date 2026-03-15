@@ -1,12 +1,22 @@
 
 import { router, Tabs } from "expo-router";
 import { Pressable, Text } from "react-native";
+import useTheme from "@/constants/theme";
 
 export default function TabsLayout() {
+  const { colors } = useTheme();
   return (
-    <Tabs screenOptions={{
-      headerShown: false
-    }}>
+    <Tabs
+    screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: colors.background,
+          borderTopColor: colors.border,
+        },
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.textSecondary,
+      }}
+    >
       <Tabs.Screen name="index" options={{ title: 'Shrine' }} />
       <Tabs.Screen
         name="plus"
@@ -18,12 +28,12 @@ export default function TabsLayout() {
               style={{
                 height: 56,
                 borderRadius: 28,
-                backgroundColor: 'lightgrey',
+                backgroundColor: colors.card,
                 justifyContent: 'center',
                 alignItems: 'center'
               }}
             >
-              <Text style={{ color: '#fff', fontSize: 32, lineHeight: 36 }}>+</Text>
+              <Text style={{ color: colors.text, fontSize: 32, lineHeight: 36 }}>+</Text>
             </Pressable>
           ),
         }}

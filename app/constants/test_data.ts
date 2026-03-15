@@ -1,5 +1,5 @@
 import {Daruma} from "../types/daruma";
-//import { randomUUID } from "expo-crypto";
+import 'react-native-get-random-values';
 import { v4 as uuidv4 } from "uuid";
 
 export const TEST_DARUMAS: Daruma[] = [
@@ -19,7 +19,7 @@ export const TEST_DARUMAS: Daruma[] = [
         goal: 'pass math exam',
         notes: 'study 2h every day, do practice exams',
         color: 'blue',
-        isCompleted: false,
+        isCompleted: true,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
     }
