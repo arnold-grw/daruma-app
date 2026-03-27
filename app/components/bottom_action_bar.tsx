@@ -5,9 +5,10 @@ import useTheme from "@/constants/theme";
 interface Props {
   onConfirm: () => void
   confirmLabel?: string
+  cancelLabel?: string
 }
 
-export default function BottomActionBar({ onConfirm, confirmLabel = "Confirm" }: Props) {
+export default function BottomActionBar({ onConfirm, confirmLabel = "Confirm", cancelLabel = "Cancel" }: Props) {
 
   const { colors } = useTheme();
 
@@ -33,7 +34,7 @@ export default function BottomActionBar({ onConfirm, confirmLabel = "Confirm" }:
           borderColor: colors.text,
         }}
       >
-        <Text style={{ color: colors.text }}>Cancel</Text>
+        <Text style={{ color: colors.text }}>{cancelLabel}</Text>
       </Pressable>
 
       {/* Confirm */}

@@ -1,14 +1,16 @@
 
 import { router, useRouter } from 'expo-router'
 import { Text, View, ScrollView, Pressable, Image } from "react-native";
-import { useDarumaStore } from '@/store/daruma_store';
+import { useDarumaStore, useActiveDarumas, useCompletedDarumas } from '@/store/daruma_store';
 import { useEffect } from 'react';
 import { Daruma } from '@/types/daruma';
 import { getDarumaColor } from '@/constants/daruma_colors';
 import useTheme from '@/constants/theme';
   
 export default function Index() {
-  const { darumas, load } = useDarumaStore();
+  const { load } = useDarumaStore()
+  const activeDarumas = useActiveDarumas()
+  const completedDarumas = useCompletedDarumas()
   const { colors } = useTheme();
 
   // Load darumas when the component mounts
@@ -19,9 +21,30 @@ export default function Index() {
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }} >
         {/* <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text }}>Shrine</Text> */}
-        <ScrollView style={{paddingHorizontal: 20, flex: 1 }} contentContainerStyle={{ alignItems: "center" }}>
+        <ScrollView style={{paddingHorizontal: 20, flex: 1, paddingTop: 40 }} contentContainerStyle={{ alignItems: "center" }}>
 
-          {darumas.map(daruma => (
+        {activeDarumas.map(daruma => (
+          <Pressable
+            key={daruma.id}
+            onPress={() => router.push({
+              pathname:'/daruma/view',
+              params: { darumaId: daruma.id }
+            })}
+            style={{ marginBottom: 30, backgroundColor: colors.card, padding: 10, borderRadius: 40 }}
+          >
+            <Image source={{ uri: "https://static.vecteezy.com/system/resources/previews/019/046/456/original/daruma-doll-symbol-png.png" }} style={{ width: 315, height: 350 }} />
+
+            <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text }}>{daruma.goal}</Text>
+          </Pressable>
+        ))}
+
+        {completedDarumas.length > 0 && (
+          <Text style={{ color: colors.textSecondary, fontSize: 24, marginVertical: 16 }}>
+            — completed —
+          </Text>
+        )}
+
+        {completedDarumas.map(daruma => (
           <Pressable
             key={daruma.id}
             onPress={() => router.push({

@@ -17,7 +17,7 @@ export default function NewDaruma() {
   const colorConfig = getDarumaColor(draft.color)
 
   useEffect(() => {
-    setDraft({ color: 'red', goal: '' })
+    setDraft({ color: 'red', goal: '', notes: '' })
   }, [])
 
   const handleConfirm = async () => {
@@ -25,12 +25,8 @@ export default function NewDaruma() {
       console.log("empty goal")
       return;
     }
-
-    console.log("creating daruma", draft.goal, draft.color)
-
-    await commitDraft()
-    console.log("daruma created, going back to home")
-    router.back()
+    await commitDraft();
+    router.back();
 
     //  TODO:
     // router.push('/daruma/draw')
@@ -58,10 +54,23 @@ export default function NewDaruma() {
         </Text>
       </View>
 
-        <TextInput
+      <TextInput
         placeholder="Your goal"
         value={draft.goal}
         onChangeText={(goal) => setDraft({ goal })}
+        style={{
+          borderWidth: 1,
+          borderColor: "#ccc",
+          padding: 10,
+          width: 250,
+          borderRadius: 8,
+        }}
+      />
+
+      <TextInput
+        placeholder="notes"
+        value={draft.notes}
+        onChangeText={(notes) => setDraft({ notes })}
         style={{
           borderWidth: 1,
           borderColor: "#ccc",

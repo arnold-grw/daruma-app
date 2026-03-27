@@ -30,4 +30,14 @@ export class DarumaRepository {
         await AsyncStorage.removeItem(STORAGE_KEY);
     }
 
+    async update(daruma: Daruma): Promise<void> {
+    const darumas = await this.getAll();
+
+    const updated = darumas.map(d =>
+        d.id === daruma.id ? daruma : d
+    );
+
+    await this.saveAll(updated);
+}
+
 }

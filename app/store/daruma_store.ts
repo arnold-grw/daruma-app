@@ -2,15 +2,17 @@
 import { Daruma, DarumaColor } from "../types/daruma";
 import { DarumaRepository } from "../repositories/daruma_repository";
 import { create } from "zustand";
-import { TEST_DARUMAS } from '../constants/test_data';
+import { useShallow } from 'zustand/react/shallow'
 import 'react-native-get-random-values';
-import { v4 as uuidv4 } from "uuid";
+import { createDaruma, completeDaruma, updateDarumaNotes } from "@/domain/daruma_domain";
+
 
 const repo = new DarumaRepository();
 
-interface DarumaDraft {
+export interface DarumaDraft {
   color: DarumaColor
   goal: string
+  notes: string
 }
 
 interface DarumaState {
@@ -19,6 +21,9 @@ interface DarumaState {
 
   load: () => Promise<void>;
   add: (daruma: Daruma) => Promise<void>;
+  complete: (darumaId: string) => Promise<void>;
+  updateNotes: (darumaId: string, notes: string) => Promise<void>;
+  delete: (darumaId: string) => Promise<void>;
 
   setDraft: (values: Partial<DarumaDraft>) => void;
   commitDraft: () => Promise<void>;
@@ -27,6 +32,7 @@ interface DarumaState {
 const DEFAULT_DRAFT: DarumaDraft = {
   color: 'red',
   goal: '',
+  notes: '',
 }
 
 export const useDarumaStore = create<DarumaState>((set, get) => ({
@@ -34,7 +40,7 @@ export const useDarumaStore = create<DarumaState>((set, get) => ({
   draft: DEFAULT_DRAFT,
 
   load: async () => {
-    repo.clearAll(); //clear storage for testing
+    //repo.clearAll(); //clear storage for testing
     const darumas = await repo.getAll();
     set({ darumas });
   },
@@ -52,22 +58,59 @@ export const useDarumaStore = create<DarumaState>((set, get) => ({
   commitDraft: async () => {
     const { draft } = get()
 
-    const newDaruma: Daruma = {
-      id: uuidv4(),
-      userId: 'test-user',
-      goal: draft.goal.trim(),
-      color: draft.color,
-      isCompleted: false,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    }
+    const newDaruma = createDaruma(draft);
 
     await repo.add(newDaruma)
     const darumas = await repo.getAll()
     set({ darumas, draft: DEFAULT_DRAFT })   //clean up draft after commit
 
   },
+
+  complete: async (id: string) => {
+    const { darumas } = get();
+
+    const daruma = darumas.find(d => d.id === id);
+    if (!daruma) return;
+
+    const updated = completeDaruma(daruma);
+
+    await repo.update(updated);
+
+    set({
+      darumas: darumas.map(d => d.id === id ? updated : d)
+    });
+  },
+
+  updateNotes: async (id: string, notes: string) => {
+    const { darumas } = get();
+
+    const daruma = darumas.find(d => d.id === id);
+    if (!daruma) return;
+
+    const updated = updateDarumaNotes(daruma, notes);
+
+    await repo.update(updated);
+
+    set({
+      darumas: darumas.map(d => d.id === id ? updated : d)
+    });
+
+  },
+
+  delete: async (id: string) => {
+    await repo.remove(id);
+
+    const darumas = await repo.getAll();
+    set({ darumas });
+  },
+
 }));
+
+export const useActiveDarumas = () =>
+  useDarumaStore(useShallow(state => state.darumas.filter(d => !d.isCompleted)))
+
+export const useCompletedDarumas = () =>
+  useDarumaStore(useShallow(state => state.darumas.filter(d => d.isCompleted)))
 
 
 
