@@ -3,12 +3,13 @@ import { router } from "expo-router";
 import useTheme from "@/constants/theme";
 
 interface Props {
+  showConfirm?: boolean
   onConfirm: () => void
   confirmLabel?: string
   cancelLabel?: string
 }
 
-export default function BottomActionBar({ onConfirm, confirmLabel = "Confirm", cancelLabel = "Cancel" }: Props) {
+export default function BottomActionBar({ showConfirm = true, onConfirm, confirmLabel = "Confirm", cancelLabel = "Cancel" }: Props) {
 
   const { colors } = useTheme();
 
@@ -38,6 +39,7 @@ export default function BottomActionBar({ onConfirm, confirmLabel = "Confirm", c
       </Pressable>
 
       {/* Confirm */}
+      {showConfirm && (
       <Pressable
         onPress={onConfirm}
         style={{
@@ -51,6 +53,7 @@ export default function BottomActionBar({ onConfirm, confirmLabel = "Confirm", c
           {confirmLabel}
         </Text>
       </Pressable>
+      )}
     </View>
   );
 }

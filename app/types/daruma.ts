@@ -13,3 +13,4 @@ export interface Daruma {
 }
 
 export type DarumaColor = "red" | "blue" | "green" | "yellow" | "pink" | "white";
+

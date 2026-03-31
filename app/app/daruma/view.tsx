@@ -92,6 +92,15 @@ export default function ViewDaruma() {
               cancelLabel="Return"
             ></BottomActionBar>
           )}
+          {daruma.isCompleted && (
+            <BottomActionBar
+              onConfirm={() => {
+                
+              }}
+              showConfirm = {false}
+              cancelLabel="Return"
+            ></BottomActionBar>
+          )}
         
 
         <Modal
