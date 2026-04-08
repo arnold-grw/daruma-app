@@ -1,11 +1,13 @@
 import { router, useLocalSearchParams } from "expo-router";
-import { Text, View, ScrollView, Pressable, TextInput, Modal } from "react-native";
+import { View, ScrollView, Pressable, Modal } from "react-native";
+import { Text, TextInput } from '@/components/typography';
 import { Daruma } from "@/types/daruma";
 import { getDarumaColor } from "@/constants/daruma_colors";
 import { useDarumaStore } from "@/store/daruma_store";
 import useTheme from "@/constants/theme";
 import BottomActionBar from "@/components/bottom_action_bar";
 import { use, useState, useEffect, useRef } from "react";
+import { DarumaDisplay } from "@/components/daruma_display";
 
 
 export default function ViewDaruma() {
@@ -58,16 +60,10 @@ export default function ViewDaruma() {
           <Text style={{ fontSize: 24, color: colors.text }}>⋯</Text>
         </Pressable>
 
-
-          {/* header */}
-          <View>
-            <Pressable onPress={() => router.back()}>
-              <Text style={{ color: colors.text }}>←</Text>
-            </Pressable>
-          </View>
-
           <Text style={{ color: colors.text, fontSize: 24 }}>{daruma.goal}</Text>
-          <Text style={{ color: daruma.color, fontSize: 18 }}>{daruma.color}</Text>
+          
+          <DarumaDisplay color={daruma.color} />
+
           <TextInput
                   placeholder="add notes"
                   value={localNotes}

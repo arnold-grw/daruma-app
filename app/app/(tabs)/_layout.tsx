@@ -1,10 +1,15 @@
 
 import { router, Tabs } from "expo-router";
-import { Pressable, Text } from "react-native";
+import { Pressable} from "react-native";
+import * as SplashScreen from 'expo-splash-screen';
+import { Text } from '@/components/typography';
 import useTheme from "@/constants/theme";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function TabsLayout() {
   const { colors } = useTheme();
+
   return (
     <Tabs
     screenOptions={{
@@ -13,6 +18,7 @@ export default function TabsLayout() {
           backgroundColor: colors.background,
           borderTopColor: colors.border,
         },
+        tabBarLabelStyle: { fontFamily: 'MyFont' },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.textSecondary,
       }}

@@ -1,3 +1,4 @@
+//types/daruma
 
 export interface Daruma {
   id: string;
@@ -12,5 +13,5 @@ export interface Daruma {
   //imageUrl: string;
 }
 
-export type DarumaColor = "red" | "blue" | "green" | "yellow" | "pink" | "white";
+export type DarumaColor = "red" | "blue" | "green" | "yellow" | "pink" | "black";
 

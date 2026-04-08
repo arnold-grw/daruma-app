@@ -3,6 +3,7 @@ import { Dimensions, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { DARUMA_COLORS } from "@/constants/daruma_colors";
 import { DarumaColor } from "@/types/daruma";
+import { DarumaDisplay } from "./daruma_display";
 
 interface Props {
   selected: DarumaColor
@@ -14,6 +15,7 @@ export default function ColorPicker({ selected, onSelect }: Props) {
     const { width } = Dimensions.get("window");
     const carouselWidth = width;
     const cardWidth = Math.min(carouselWidth, 600);
+    const cardHeight = cardWidth * 1.028
 
     const startIndex = DARUMA_COLORS.findIndex(c => c.id === selected)
 
@@ -27,13 +29,11 @@ export default function ColorPicker({ selected, onSelect }: Props) {
       renderItem={({ item }) => (
         <View
           style={{
-            width: cardWidth,
-            height: cardWidth,
-            borderRadius: cardWidth*0.2,
             alignSelf: "center",
-            backgroundColor: item.hex,
           }}
-        />
+          >
+            <DarumaDisplay color={item.id} width={cardWidth} height={cardHeight} />
+        </View>
       )}
       mode="parallax"
       modeConfig={{

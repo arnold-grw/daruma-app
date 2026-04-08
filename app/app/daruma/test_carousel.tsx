@@ -1,5 +1,6 @@
 import React from "react";
-import { FlatList, View, Text, Dimensions } from "react-native";
+import { FlatList, View, Dimensions } from "react-native";
+import { Text } from '@/components/typography';
 
 const { width } = Dimensions.get("window");
 

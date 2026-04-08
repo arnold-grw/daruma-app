@@ -1,4 +1,5 @@
-import { Text, View, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
+import { Text } from '@/components/typography';
 
 export default function Profile() {
   return (

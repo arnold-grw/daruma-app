@@ -1,11 +1,13 @@
 
 import { router, useRouter } from 'expo-router'
-import { Text, View, ScrollView, Pressable, Image } from "react-native";
+import { View, ScrollView, Pressable, Image } from "react-native";
+import { Text } from '@/components/typography';
 import { useDarumaStore, useActiveDarumas, useCompletedDarumas } from '@/store/daruma_store';
 import { useEffect } from 'react';
 import { Daruma } from '@/types/daruma';
 import { getDarumaColor } from '@/constants/daruma_colors';
 import useTheme from '@/constants/theme';
+import { DarumaDisplay } from '@/components/daruma_display'
   
 export default function Index() {
   const { load } = useDarumaStore()
@@ -32,17 +34,14 @@ export default function Index() {
             })}
             style={{ marginBottom: 30, backgroundColor: colors.card, padding: 10, borderRadius: 40 }}
           >
-            <Image
-              source={require('../../assets/daruma/daruma.svg')}
-              style={{ width: 315, height: 324 }}
-            />
+            <DarumaDisplay color={daruma.color} />
 
             <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text }}>{daruma.goal}</Text>
           </Pressable>
         ))}
 
         {completedDarumas.length > 0 && (
-          <Text style={{ color: colors.textSecondary, fontSize: 24, marginVertical: 16 }}>
+          <Text style={{ color: colors.card, fontSize: 24, marginVertical: 16 }}>
             — completed —
           </Text>
         )}
@@ -56,10 +55,7 @@ export default function Index() {
             })}
             style={{ marginBottom: 30, backgroundColor: colors.card, padding: 10, borderRadius: 40 }}
           >
-            <Image
-              source={require('../../assets/daruma/daruma.svg')}
-              style={{ width: 315, height: 324 }}
-            />
+            <DarumaDisplay color={daruma.color} />
 
             <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text }}>{daruma.goal}</Text>
           </Pressable>

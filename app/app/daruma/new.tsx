@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Text, View, ScrollView, Pressable, FlatList, Dimensions, TextInput } from "react-native";
+import { View, ScrollView, Pressable, FlatList, Dimensions } from "react-native";
+import { Text, TextInput } from '@/components/typography';
 import { router } from "expo-router";
 import useTheme from "@/constants/theme";
 import ColorPicker from "@/components/color_picker";

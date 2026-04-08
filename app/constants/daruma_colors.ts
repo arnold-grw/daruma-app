@@ -1,3 +1,4 @@
+//constants/daruma_colors
 
 export interface DarumaColorConfig {
   id: DarumaColor
@@ -20,12 +21,12 @@ export const DARUMA_COLORS: DarumaColorConfig[] = [
     meaning: 'Good luck & success',
   },
   {
-    id: 'white',
-    hex: '#F5F5F5',
-    labelKey: 'colors.white.label',
-    meaningKey: 'colors.white.meaning',
-    label: 'White',
-    meaning: 'Purity & clarity of mind',
+    id: 'black',
+    hex: '#313131',
+    labelKey: 'colors.black.label',
+    meaningKey: 'colors.black.meaning',
+    label: 'Black',
+    meaning: 'Secret & business',
   },
   {
     id: 'blue',
@@ -45,7 +46,7 @@ export const DARUMA_COLORS: DarumaColorConfig[] = [
   },
   {
     id: 'yellow',
-    hex: '#c0a450',
+    hex: '#e9c454',
     labelKey: 'colors.yellow.label',
     meaningKey: 'colors.yellow.meaning',
     label: 'Yellow',
@@ -53,7 +54,7 @@ export const DARUMA_COLORS: DarumaColorConfig[] = [
   },
   {
     id: 'pink',
-    hex: '#c57f8f',
+    hex: '#db7d93',
     labelKey: 'colors.pink.label',
     meaningKey: 'colors.pink.meaning',
     label: 'Pink',
