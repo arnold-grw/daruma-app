@@ -32,7 +32,10 @@ export default function Index() {
             })}
             style={{ marginBottom: 30, backgroundColor: colors.card, padding: 10, borderRadius: 40 }}
           >
-            <Image source={{ uri: "https://static.vecteezy.com/system/resources/previews/019/046/456/original/daruma-doll-symbol-png.png" }} style={{ width: 315, height: 350 }} />
+            <Image
+              source={require('../../assets/daruma/daruma.svg')}
+              style={{ width: 315, height: 324 }}
+            />
 
             <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text }}>{daruma.goal}</Text>
           </Pressable>
@@ -53,7 +56,10 @@ export default function Index() {
             })}
             style={{ marginBottom: 30, backgroundColor: colors.card, padding: 10, borderRadius: 40 }}
           >
-            <Image source={{ uri: "https://static.vecteezy.com/system/resources/previews/019/046/456/original/daruma-doll-symbol-png.png" }} style={{ width: 315, height: 350 }} />
+            <Image
+              source={require('../../assets/daruma/daruma.svg')}
+              style={{ width: 315, height: 324 }}
+            />
 
             <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text }}>{daruma.goal}</Text>
           </Pressable>
