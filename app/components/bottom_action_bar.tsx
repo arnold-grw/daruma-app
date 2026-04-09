@@ -32,7 +32,7 @@ export default function BottomActionBar({ showConfirm = true, onConfirm, confirm
           paddingVertical: 12,
           paddingHorizontal: 20,
           borderRadius: 8,
-          borderWidth: 1,
+          borderWidth: 2,
           borderColor: colors.text,
         }}
       >

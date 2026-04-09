@@ -32,7 +32,7 @@ export default function Index() {
               pathname:'/daruma/view',
               params: { darumaId: daruma.id }
             })}
-            style={{ marginBottom: 30, backgroundColor: colors.card, padding: 10, borderRadius: 40 }}
+            style={{ marginBottom: 30, backgroundColor: colors.card, padding: 20, borderRadius: 40 }}
           >
             <DarumaDisplay color={daruma.color} />
 
@@ -41,7 +41,7 @@ export default function Index() {
         ))}
 
         {completedDarumas.length > 0 && (
-          <Text style={{ color: colors.card, fontSize: 24, marginVertical: 16 }}>
+          <Text style={{ color: colors.textSecondary, fontSize: 24, marginVertical: 16 }}>
             — completed —
           </Text>
         )}
@@ -53,7 +53,7 @@ export default function Index() {
               pathname:'/daruma/view',
               params: { darumaId: daruma.id }
             })}
-            style={{ marginBottom: 30, backgroundColor: colors.card, padding: 10, borderRadius: 40 }}
+            style={{ marginBottom: 30, backgroundColor: colors.card, padding: 20, borderRadius: 40 }}
           >
             <DarumaDisplay color={daruma.color} />
 

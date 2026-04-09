@@ -9,11 +9,11 @@ export default function useTheme() {
 }
 
 export const lightColors = {
-  background: "#e8e0dc",
-  card: "#caae94",
-  primary: "#bb7c49",
+  background: "#f2edea",
+  card: "#d4c3b2",
+  primary: "#b78358",
   text: "#201c18",
-  textSecondary: "#433a32",
+  textSecondary: "#8e847c",
   border: "#e6d3bc",
   danger: "#FF4B4B",
 };

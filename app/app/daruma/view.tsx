@@ -66,13 +66,13 @@ export default function ViewDaruma() {
 
           <TextInput
             placeholder="notes"
-            placeholderTextColor="gray"
+            placeholderTextColor={colors.textSecondary}
             value={localNotes}
             onChangeText={handleNotesChange}
             multiline={true}
             style={{
               borderWidth: 2,
-              borderColor: "gray",
+              borderColor: colors.textSecondary,
               padding: 10,
               width: 250,
               borderRadius: 8,
@@ -81,7 +81,7 @@ export default function ViewDaruma() {
             }}
           />
 
-          <Text style={{ color: 'gray', fontSize: 18 }}>{daruma.createdAt}</Text>
+          <Text style={{ color: colors.textSecondary, fontSize: 18 }}>{daruma.createdAt}</Text>
           <Text style={{ color: colors.text}}>{daruma.isCompleted ? "Completed" : "In Progress"}</Text>
 
           {!daruma.isCompleted && (
@@ -148,12 +148,12 @@ export default function ViewDaruma() {
                 <Text style={{ color: colors.text, fontSize: 18, fontWeight: '600' }}>
                   Daruma Info
                 </Text>
-                <Text style={{ color: 'gray' }}>Created: {daruma.createdAt}</Text>
-                <Text style={{ color: 'gray' }}>Updated: {daruma.updatedAt}</Text>
+                <Text style={{ color: colors.textSecondary }}>Created: {daruma.createdAt}</Text>
+                <Text style={{ color: colors.textSecondary }}>Updated: {daruma.updatedAt}</Text>
 
                 <Pressable
                   onPress={() => setConfirmDelete(true)}
-                  style={{ marginTop: 8, padding: 14, borderRadius: 12, backgroundColor: '#ffeeee' }}
+                  style={{ marginTop: 8, padding: 14, borderRadius: 12, borderWidth: 2, borderColor: colors.danger }}
                 >
                   <Text style={{ color: colors.danger, textAlign: 'center', fontWeight: '600' }}>
                     Delete Daruma
@@ -161,7 +161,7 @@ export default function ViewDaruma() {
                 </Pressable>
 
                 <Pressable onPress={() => setSheetOpen(false)}>
-                  <Text style={{ textAlign: 'center', color: 'gray' }}>Cancel</Text>
+                  <Text style={{ textAlign: 'center', color: colors.textSecondary }}>Cancel</Text>
                 </Pressable>
               </>
             ) : (
@@ -170,7 +170,7 @@ export default function ViewDaruma() {
                 <Text style={{ color: colors.text, fontSize: 18, fontWeight: '600' }}>
                   Are you sure?
                 </Text>
-                <Text style={{ color: 'gray' }}>
+                <Text style={{ color: colors.textSecondary }}>
                   This cannot be undone.
                 </Text>
 
@@ -178,13 +178,13 @@ export default function ViewDaruma() {
                   onPress={handleDelete}
                   style={{ padding: 14, borderRadius: 12, backgroundColor: colors.danger }}
                 >
-                  <Text style={{ color: 'white', textAlign: 'center', fontWeight: '600' }}>
+                  <Text style={{ color: colors.background, textAlign: 'center', fontWeight: '600' }}>
                     Yes, delete
                   </Text>
                 </Pressable>
 
                 <Pressable onPress={() => setConfirmDelete(false)}>
-                  <Text style={{ textAlign: 'center', color: 'gray' }}>Go back</Text>
+                  <Text style={{ textAlign: 'center', color: colors.textSecondary }}>Go back</Text>
                 </Pressable>
               </>
             )}
