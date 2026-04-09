@@ -30,7 +30,6 @@ export default function BottomActionBar({ showConfirm = true, onConfirm, confirm
       <Pressable
         onPress={() => router.back()}
         style={{
-          paddingVertical: 12,
           paddingHorizontal: 20,
           borderRadius: 8,
           borderWidth: 3,
@@ -46,7 +45,6 @@ export default function BottomActionBar({ showConfirm = true, onConfirm, confirm
       <Pressable
         onPress={onConfirm}
         style={{
-          paddingVertical: 12,
           paddingHorizontal: 20,
           borderRadius: 8,
           backgroundColor: colors.primary,

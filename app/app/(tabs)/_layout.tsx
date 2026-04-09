@@ -21,7 +21,7 @@ export default function TabsLayout() {
           height: 85,
         },
         tabBarItemStyle: {
-          width: 70,
+          height: 85,
           justifyContent: 'center',
           alignItems: 'center',
         },
