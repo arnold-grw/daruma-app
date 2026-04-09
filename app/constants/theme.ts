@@ -10,7 +10,7 @@ export default function useTheme() {
 
 export const lightColors = {
   background: "#f2edea",
-  card: "#d4c3b2",
+  card: "#dccdbf",
   primary: "#b78358",
   text: "#201c18",
   textSecondary: "#8e847c",

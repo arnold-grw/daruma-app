@@ -17,8 +17,8 @@ export default function TabsLayout() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: colors.background,
-          height: 70,
+          backgroundColor: colors.card,
+          height: 85,
         },
         tabBarItemStyle: {
           width: 70,
@@ -63,15 +63,15 @@ export default function TabsLayout() {
               style={{
                 width: 50,
                 height: 50,
-                borderRadius: 25,
-                borderWidth: 4,
-                borderColor: colors.textSecondary,
-                backgroundColor: colors.background,
+                borderRadius: 15,
+                //borderWidth: 4,
+                //borderColor: colors.textSecondary,
+                backgroundColor: colors.text,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
             >
-              <Text style={{ color: colors.textSecondary, fontSize: 40, lineHeight: 36 }}>+</Text>
+              <Text style={{ color: colors.card, fontSize: 40}}>+</Text>
             </Pressable>
           ),
         }}

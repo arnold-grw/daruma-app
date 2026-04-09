@@ -29,7 +29,7 @@ export default function NewDaruma() {
       return;
     }
     await commitDraft();
-    router.back();
+    router.push('/');
 
     //  TODO:
     // router.push('/daruma/draw')

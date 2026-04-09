@@ -18,6 +18,7 @@ export default function BottomActionBar({ showConfirm = true, onConfirm, confirm
     <View
       style={{
         width: "100%",
+        height: 85,
         flexDirection: "row",
         justifyContent: "space-between",
         paddingHorizontal: 30,
@@ -32,11 +33,12 @@ export default function BottomActionBar({ showConfirm = true, onConfirm, confirm
           paddingVertical: 12,
           paddingHorizontal: 20,
           borderRadius: 8,
-          borderWidth: 2,
+          borderWidth: 3,
           borderColor: colors.text,
+          justifyContent: "center"
         }}
       >
-        <Text style={{ color: colors.text }}>{cancelLabel}</Text>
+        <Text style={{ color: colors.text, fontSize: 18}}>{cancelLabel}</Text>
       </Pressable>
 
       {/* Confirm */}
@@ -48,9 +50,10 @@ export default function BottomActionBar({ showConfirm = true, onConfirm, confirm
           paddingHorizontal: 20,
           borderRadius: 8,
           backgroundColor: colors.primary,
+          justifyContent: "center"
         }}
       >
-        <Text style={{ color: "white", fontWeight: "600" }}>
+        <Text style={{ color: "white", fontSize: 18 }}>
           {confirmLabel}
         </Text>
       </Pressable>

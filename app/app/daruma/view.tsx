@@ -34,14 +34,14 @@ export default function ViewDaruma() {
   const handleComplete = async () => {
     if (!daruma || !darumaId) return;
     await complete(darumaId as string);
-    router.back();
+    router.push('/');
   }
 
   const handleDelete = async () => {
     if (!daruma || !darumaId) return;
     await deleteDaruma(darumaId as string);
     setSheetOpen(false)
-    router.back();
+    router.push('/');
   }
 
     if (!daruma) return (
