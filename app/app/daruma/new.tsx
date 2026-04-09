@@ -18,7 +18,9 @@ export default function NewDaruma() {
   const colorConfig = getDarumaColor(draft.color)
 
   useEffect(() => {
-    setDraft({ color: 'red', goal: '', notes: '' })
+    if (!draft.color) {
+      setDraft({ color: 'red', goal: '', notes: '' });
+    }
   }, [])
 
   const handleConfirm = async () => {
@@ -43,7 +45,7 @@ export default function NewDaruma() {
         <ColorPicker
           selected={draft.color}
           onSelect={(color: DarumaColor) => setDraft({ color })}
-      />
+        />
 
       <View style={{ alignItems: "center", gap: 4, paddingBottom: 30 }}>
         <Text style={{ color: colorConfig.hex ,fontSize: 18, fontWeight: "600" }}>
@@ -56,12 +58,13 @@ export default function NewDaruma() {
       </View>
 
       <TextInput
-        placeholder="Your goal"
+        placeholder="describe your goal"
+        placeholderTextColor="gray"
         value={draft.goal}
         onChangeText={(goal) => setDraft({ goal })}
         style={{
-          borderWidth: 1,
-          borderColor: "#ccc",
+          borderWidth: 2,
+          borderColor: "gray",
           padding: 10,
           width: 250,
           borderRadius: 8,
@@ -70,14 +73,18 @@ export default function NewDaruma() {
 
       <TextInput
         placeholder="notes"
+        placeholderTextColor="gray"
         value={draft.notes}
         onChangeText={(notes) => setDraft({ notes })}
+        multiline={true}
         style={{
-          borderWidth: 1,
-          borderColor: "#ccc",
+          borderWidth: 2,
+          borderColor: "gray",
           padding: 10,
           width: 250,
           borderRadius: 8,
+          height: 80,
+          textAlignVertical: 'top',
         }}
       />
 

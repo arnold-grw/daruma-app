@@ -65,17 +65,22 @@ export default function ViewDaruma() {
           <DarumaDisplay color={daruma.color} />
 
           <TextInput
-                  placeholder="add notes"
-                  value={localNotes}
-                  onChangeText={handleNotesChange}
-                  style={{
-                    borderWidth: 1,
-                    borderColor: "#ccc",
-                    padding: 10,
-                    width: 250,
-                    borderRadius: 8,
-                  }}
+            placeholder="notes"
+            placeholderTextColor="gray"
+            value={localNotes}
+            onChangeText={handleNotesChange}
+            multiline={true}
+            style={{
+              borderWidth: 2,
+              borderColor: "gray",
+              padding: 10,
+              width: 250,
+              borderRadius: 8,
+              height: 80,
+              textAlignVertical: 'top',
+            }}
           />
+
           <Text style={{ color: 'gray', fontSize: 18 }}>{daruma.createdAt}</Text>
           <Text style={{ color: colors.text}}>{daruma.isCompleted ? "Completed" : "In Progress"}</Text>
 
