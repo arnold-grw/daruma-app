@@ -29,7 +29,7 @@ export default function ColorPicker({ selected, onSelect }: Props) {
       renderItem={({ item }) => (
         <View
           style={{
-            alignSelf: "center",
+            alignSelf: "center", marginTop: -20,
           }}
           >
             <DarumaDisplay color={item.id} width={cardWidth} height={cardHeight} />
@@ -38,7 +38,7 @@ export default function ColorPicker({ selected, onSelect }: Props) {
       mode="parallax"
       modeConfig={{
         parallaxScrollingScale: 0.8,
-		parallaxScrollingOffset: cardWidth*0.25,
+		    parallaxScrollingOffset: cardWidth*0.25,
       }}
     />
   )

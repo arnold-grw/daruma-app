@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, ScrollView, Pressable, FlatList, Dimensions } from "react-native";
+import { View, ScrollView, Pressable, FlatList, Dimensions, KeyboardAvoidingView } from "react-native";
 import { Text, TextInput } from '@/components/typography';
 import { router } from "expo-router";
 import useTheme from "@/constants/theme";
@@ -14,7 +14,7 @@ export default function NewDaruma() {
   const { width } = Dimensions.get("window");
   const { colors } = useTheme();
 
-  const { draft, setDraft, commitDraft } = useDarumaStore()
+  const { draft, setDraft, commitDraft, resetDraft } = useDarumaStore()
   const colorConfig = getDarumaColor(draft.color)
 
   useEffect(() => {
@@ -23,77 +23,91 @@ export default function NewDaruma() {
     }
   }, [])
 
+  useEffect(() => {
+    return () => {
+      resetDraft();
+    };
+  }, [])
+
   const handleConfirm = async () => {
     if (!draft.goal.trim()) {
       console.log("empty goal")
       return;
     }
-    await commitDraft();
-    router.push('/');
-
-    //  TODO:
-    // router.push('/daruma/draw')
+    router.push({
+      pathname: '/daruma/paint_start'
+    });
   }
 
+  const canConfirm = draft.goal.trim().length > 0;
 
   return (
     <View style={{ justifyContent: "space-between", alignItems: "center", backgroundColor: colors.background, flex: 1}}>
-      <View style={{ alignItems: "center", gap: 10 }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1, backgroundColor: colors.background }}
+        behavior="position"
+        keyboardVerticalOffset={-40}
+        >
+          <ScrollView>
+            <View style={{ alignItems: "center", gap: 10 }}>
 
-        <Text style={{ color: colors.text, fontSize: 24 }}>new Daruma</Text>
+              <Text style={{ color: colors.text, fontSize: 24, marginTop: 40 }}>new Daruma</Text>
 
-        <ColorPicker
-          selected={draft.color}
-          onSelect={(color: DarumaColor) => setDraft({ color })}
-        />
+              <ColorPicker
+                selected={draft.color}
+                onSelect={(color: DarumaColor) => setDraft({ color })}
+              />
 
-      <View style={{ alignItems: "center", gap: 4, paddingBottom: 30 }}>
-        <Text style={{ color: colorConfig.hex ,fontSize: 18, fontWeight: "600" }}>
-          {colorConfig.label}
-        </Text>
+              <View style={{ alignItems: "center", gap: 4, paddingBottom: 30, marginTop: -30 }}>
+                <Text style={{ color: colorConfig.hex ,fontSize: 18, fontWeight: "600" }}>
+                  {colorConfig.label}
+                </Text>
 
-        <Text style={{ color: "gray" }}>
-          {colorConfig.meaning}
-        </Text>
-      </View>
+                <Text style={{ color: colors.textSecondary }}>
+                  {colorConfig.meaning}
+                </Text>
+              </View>
 
-      <TextInput
-        placeholder="describe your goal"
-        placeholderTextColor="gray"
-        value={draft.goal}
-        onChangeText={(goal) => setDraft({ goal })}
-        style={{
-          borderWidth: 2,
-          borderColor: "gray",
-          padding: 10,
-          width: 250,
-          borderRadius: 8,
-        }}
-      />
+              <TextInput
+                placeholder="describe your goal in a short sentence"
+                placeholderTextColor={colors.textSecondary}
+                value={draft.goal}
+                onChangeText={(goal) => setDraft({ goal })}
+                maxLength={40}
+                style={{
+                  borderWidth: 2,
+                  borderColor: colors.textSecondary,
+                  padding: 10,
+                  width: 300,
+                  borderRadius: 8,
+                }}
+              />
 
-      <TextInput
-        placeholder="notes"
-        placeholderTextColor="gray"
-        value={draft.notes}
-        onChangeText={(notes) => setDraft({ notes })}
-        multiline={true}
-        style={{
-          borderWidth: 2,
-          borderColor: "gray",
-          padding: 10,
-          width: 250,
-          borderRadius: 8,
-          height: 80,
-          textAlignVertical: 'top',
-        }}
-      />
+              <TextInput
+                placeholder="notes (optional)"
+                placeholderTextColor={colors.textSecondary}
+                value={draft.notes}
+                onChangeText={(notes) => setDraft({ notes})}
+                multiline={true}
+                style={{
+                  borderWidth: 2,
+                  borderColor: colors.textSecondary,
+                  padding: 10,
+                  width: 300,
+                  borderRadius: 8,
+                  height: 120,
+                  textAlignVertical: 'top',
+                }}
+              />
 
-      
-       </View>
-       <BottomActionBar
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      <BottomActionBar
         onConfirm={() => {
-          handleConfirm()
+          handleConfirm();
         }}
+        canConfirm={canConfirm}
       />
     </View>
   );

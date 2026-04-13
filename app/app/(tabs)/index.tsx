@@ -8,6 +8,7 @@ import { Daruma } from '@/types/daruma';
 import { getDarumaColor } from '@/constants/daruma_colors';
 import useTheme from '@/constants/theme';
 import { DarumaDisplay } from '@/components/daruma_display'
+import Card from '@/components/card'
   
 export default function Index() {
   const { load } = useDarumaStore()
@@ -26,18 +27,7 @@ export default function Index() {
         <ScrollView style={{paddingHorizontal: 20, flex: 1, paddingTop: 40 }} contentContainerStyle={{ alignItems: "center" }}>
 
         {activeDarumas.map(daruma => (
-          <Pressable
-            key={daruma.id}
-            onPress={() => router.push({
-              pathname:'/daruma/view',
-              params: { darumaId: daruma.id }
-            })}
-            style={{ marginBottom: 30, backgroundColor: colors.card, padding: 20, borderRadius: 40 }}
-          >
-            <DarumaDisplay color={daruma.color} />
-
-            <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text }}>{daruma.goal}</Text>
-          </Pressable>
+          <Card key={daruma.id} daruma={daruma} />
         ))}
 
         {completedDarumas.length > 0 && (
@@ -47,18 +37,7 @@ export default function Index() {
         )}
 
         {completedDarumas.map(daruma => (
-          <Pressable
-            key={daruma.id}
-            onPress={() => router.push({
-              pathname:'/daruma/view',
-              params: { darumaId: daruma.id }
-            })}
-            style={{ marginBottom: 30, backgroundColor: colors.card, padding: 20, borderRadius: 40 }}
-          >
-            <DarumaDisplay color={daruma.color} />
-
-            <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text }}>{daruma.goal}</Text>
-          </Pressable>
+          <Card key={daruma.id} daruma={daruma} />
         ))}
 
         </ScrollView>

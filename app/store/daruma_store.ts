@@ -27,6 +27,7 @@ interface DarumaState {
 
   setDraft: (values: Partial<DarumaDraft>) => void;
   commitDraft: () => Promise<void>;
+  resetDraft: () => void;
 }
 
 const DEFAULT_DRAFT: DarumaDraft = {
@@ -53,6 +54,10 @@ export const useDarumaStore = create<DarumaState>((set, get) => ({
 
   setDraft: (values) => {
     set(state => ({ draft: { ...state.draft, ...values } }))
+  },
+
+  resetDraft: () => {
+    set({ draft: DEFAULT_DRAFT })
   },
 
   commitDraft: async () => {

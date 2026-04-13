@@ -1,5 +1,5 @@
 import { router, useLocalSearchParams } from "expo-router";
-import { View, ScrollView, Pressable, Modal } from "react-native";
+import { View, ScrollView, Pressable, Modal, KeyboardAvoidingView } from "react-native";
 import { Text, TextInput } from '@/components/typography';
 import { Daruma } from "@/types/daruma";
 import { getDarumaColor } from "@/constants/daruma_colors";
@@ -8,12 +8,13 @@ import useTheme from "@/constants/theme";
 import BottomActionBar from "@/components/bottom_action_bar";
 import { use, useState, useEffect, useRef } from "react";
 import { DarumaDisplay } from "@/components/daruma_display";
+import { formatDate, DEFAULT_DATE_FORMAT } from "@/utils/date_formatter";
 
 
 export default function ViewDaruma() {
 
   const { darumaId } = useLocalSearchParams();
-  const { complete, updateNotes, delete: deleteDaruma } = useDarumaStore()
+  const { updateNotes, delete: deleteDaruma } = useDarumaStore()
   const daruma = useDarumaStore(state => state.darumas.find(d => d.id === darumaId));
 
   const { colors } = useTheme();
@@ -33,8 +34,10 @@ export default function ViewDaruma() {
 
   const handleComplete = async () => {
     if (!daruma || !darumaId) return;
-    await complete(darumaId as string);
-    router.push('/');
+    router.push({
+      pathname: '/daruma/paint_finish',
+      params: { darumaId: daruma.id }
+    });
   }
 
   const handleDelete = async () => {
@@ -45,64 +48,55 @@ export default function ViewDaruma() {
   }
 
     if (!daruma) return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.background }}>
         <Text>Daruma not found</Text>
       </View>
     )
     return (
       <View style={{ justifyContent: "space-between", alignItems: "center", backgroundColor: colors.background, flex: 1 }}>
-
-        {/* options button */}
-        <Pressable
-          onPress={() => { setSheetOpen(true); setConfirmDelete(false) }}
-          style={{ position: 'absolute', top: 50, right: 24 }}
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior="position"
+          keyboardVerticalOffset={-140}
         >
-          <Text style={{ fontSize: 24, color: colors.text }}>⋯</Text>
-        </Pressable>
+          <ScrollView>
+            <View style={{ alignItems: "center", gap: 30}}>
+            {/* options button */}
+            <Pressable
+              onPress={() => { setSheetOpen(true); setConfirmDelete(false) }}
+              style={{ position: 'absolute', top: 55, right: 0}}
+            >
+              <Text style={{ fontSize: 24, color: colors.text }}>⋯</Text>
+            </Pressable>
 
-          <Text style={{ color: colors.text, fontSize: 24 }}>{daruma.goal}</Text>
-          
-          <DarumaDisplay color={daruma.color} />
+            <Text style={{ color: colors.text, fontSize: 24, marginTop: 50, textAlign: "center", maxWidth: 300, paddingHorizontal: 30 }}>{daruma.goal}</Text>
+            
+            <DarumaDisplay color={daruma.color} />
 
-          <TextInput
-            placeholder="notes"
-            placeholderTextColor={colors.textSecondary}
-            value={localNotes}
-            onChangeText={handleNotesChange}
-            multiline={true}
-            style={{
-              borderWidth: 2,
-              borderColor: colors.textSecondary,
-              padding: 10,
-              width: 250,
-              borderRadius: 8,
-              height: 80,
-              textAlignVertical: 'top',
-            }}
-          />
-
-          <Text style={{ color: colors.textSecondary, fontSize: 18 }}>{daruma.createdAt}</Text>
-          <Text style={{ color: colors.text}}>{daruma.isCompleted ? "Completed" : "In Progress"}</Text>
-
-          {!daruma.isCompleted && (
-            <BottomActionBar
-              onConfirm={() => {
-                handleComplete();
+            <TextInput
+              placeholder="notes"
+              placeholderTextColor={colors.textSecondary}
+              value={localNotes}
+              onChangeText={handleNotesChange}
+              multiline={true}
+              style={{
+                borderWidth: 2,
+                borderColor: colors.textSecondary,
+                padding: 10,
+                width: 300,
+                borderRadius: 8,
+                height: 120,
+                textAlignVertical: 'top',
               }}
-              confirmLabel="Complete"
-              cancelLabel="Return"
-            ></BottomActionBar>
-          )}
-          {daruma.isCompleted && (
-            <BottomActionBar
-              onConfirm={() => {
-                
-              }}
-              showConfirm = {false}
-              cancelLabel="Return"
-            ></BottomActionBar>
-          )}
+            />
+
+            {/* <Text style={{ color: colors.textSecondary, fontSize: 18 }}>{formatDate(daruma.createdAt, DEFAULT_DATE_FORMAT)}</Text> */}
+            {/*<Text style={{ color: colors.text}}>{daruma.isCompleted ? "Completed" : "In Progress"}</Text>}*/}
+            </View>
+          </ScrollView>
+        </KeyboardAvoidingView>
         
+
 
         <Modal
           visible={sheetOpen}
@@ -148,8 +142,8 @@ export default function ViewDaruma() {
                 <Text style={{ color: colors.text, fontSize: 18, fontWeight: '600' }}>
                   Daruma Info
                 </Text>
-                <Text style={{ color: colors.textSecondary }}>Created: {daruma.createdAt}</Text>
-                <Text style={{ color: colors.textSecondary }}>Updated: {daruma.updatedAt}</Text>
+                <Text style={{ color: colors.textSecondary }}>Created: {formatDate(daruma.createdAt, DEFAULT_DATE_FORMAT)}</Text>
+                <Text style={{ color: colors.textSecondary }}>Updated: {formatDate(daruma.updatedAt, DEFAULT_DATE_FORMAT)}</Text>
 
                 <Pressable
                   onPress={() => setConfirmDelete(true)}
@@ -193,6 +187,24 @@ export default function ViewDaruma() {
           </View>
         </Modal>
 
+        {!daruma.isCompleted && (
+          <BottomActionBar
+            onConfirm={() => {
+              handleComplete();
+            }}
+            confirmLabel="Complete"
+            cancelLabel="Return"
+          ></BottomActionBar>
+        )}
+        {daruma.isCompleted && (
+          <BottomActionBar
+            onConfirm={() => {
+              
+            }}
+            showConfirm = {false}
+            cancelLabel="Return"
+          ></BottomActionBar>
+        )}
       </View>
     );
 }

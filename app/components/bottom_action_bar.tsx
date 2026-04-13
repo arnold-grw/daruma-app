@@ -5,12 +5,13 @@ import useTheme from "@/constants/theme";
 
 interface Props {
   showConfirm?: boolean
+  canConfirm?: boolean
   onConfirm: () => void
   confirmLabel?: string
   cancelLabel?: string
 }
 
-export default function BottomActionBar({ showConfirm = true, onConfirm, confirmLabel = "Confirm", cancelLabel = "Cancel" }: Props) {
+export default function BottomActionBar({ showConfirm = true, canConfirm = true, onConfirm, confirmLabel = "Confirm", cancelLabel = "Cancel" }: Props) {
 
   const { colors } = useTheme();
 
@@ -43,15 +44,16 @@ export default function BottomActionBar({ showConfirm = true, onConfirm, confirm
       {/* Confirm */}
       {showConfirm && (
       <Pressable
-        onPress={onConfirm}
+        onPress={canConfirm ? onConfirm : undefined}
+        disabled={!canConfirm}
         style={{
           paddingHorizontal: 20,
           borderRadius: 8,
-          backgroundColor: colors.primary,
+          backgroundColor: canConfirm ? colors.primary : colors.textSecondary,
           justifyContent: "center"
         }}
       >
-        <Text style={{ color: "white", fontSize: 18 }}>
+        <Text style={{ color: colors.background, fontSize: 18 }}>
           {confirmLabel}
         </Text>
       </Pressable>
