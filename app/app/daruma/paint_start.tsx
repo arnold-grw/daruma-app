@@ -1,9 +1,11 @@
 import { View } from 'react-native';
 import { Text } from '@/components/typography';
+//import { PinchGestureHandler } from 'react-native-gesture-handler';
 import BottomActionBar from '@/components/bottom_action_bar';
 import { router } from 'expo-router';
 import useTheme from "@/constants/theme";
 import { useDarumaStore } from "@/store/daruma_store";
+import { DarumaDisplay } from '@/components/daruma_display';
 
 export default function PaintStart() {
 
@@ -16,8 +18,12 @@ export default function PaintStart() {
   }
     
     return (
-        <View style={{ flex: 1, justifyContent: "space-between", alignItems: "center", backgroundColor: useTheme().colors.background }}>
+        <View style={{ flex: 1, justifyContent: "space-between", alignItems: "center", overflow: 'hidden', backgroundColor: useTheme().colors.background }}>
             <Text style={{ fontSize: 24, marginTop: 50, textAlign: "center", paddingHorizontal: 20 }}>Paint the left eye to start your Journey</Text>
+
+            <View style={{ position: 'absolute', top: '50%', right: -60, transform: [{ translateY: -200 }], zIndex: -1 }}>
+                <DarumaDisplay color={draft.color} width={315*2.5} height={324*2.5} />
+            </View>
 
             <BottomActionBar
                 onConfirm={() => {
