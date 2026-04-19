@@ -66,3 +66,5 @@ export const DARUMA_COLORS: DarumaColorConfig[] = [
 export const getDarumaColor = (id: DarumaColor): DarumaColorConfig => {
   return DARUMA_COLORS.find(c => c.id === id) ?? DARUMA_COLORS[0]
 }
+
+export const eyeColor = '#302925'

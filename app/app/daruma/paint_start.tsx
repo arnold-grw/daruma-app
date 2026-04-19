@@ -5,7 +5,7 @@ import BottomActionBar from '@/components/bottom_action_bar';
 import { router } from 'expo-router';
 import useTheme from "@/constants/theme";
 import { useDarumaStore } from "@/store/daruma_store";
-import { DarumaDisplay } from '@/components/daruma_display';
+import { DarumaDetails } from '@/components/daruma_details';
 
 export default function PaintStart() {
 
@@ -22,7 +22,7 @@ export default function PaintStart() {
             <Text style={{ fontSize: 24, marginTop: 50, textAlign: "center", paddingHorizontal: 20 }}>Paint the left eye to start your Journey</Text>
 
             <View style={{ position: 'absolute', top: '50%', right: -60, transform: [{ translateY: -200 }], zIndex: -1 }}>
-                <DarumaDisplay color={draft.color} width={315*2.5} height={324*2.5} />
+                <DarumaDetails color={draft.color} width={315*2.5} height={324*2.5} />
             </View>
 
             <BottomActionBar

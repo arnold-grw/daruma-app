@@ -1,4 +1,5 @@
 //types/daruma
+import { DrawingData } from "@/types/drawing";
 
 export interface Daruma {
   id: string;
@@ -10,7 +11,9 @@ export interface Daruma {
   createdAt: string;
   completedAt?: string;
   updatedAt: string;
-  //imageUrl: string;
+
+  leftEyeDrawing?: DrawingData;
+  rightEyeDrawing?: DrawingData;
 }
 
 export type DarumaColor = "red" | "blue" | "green" | "yellow" | "pink" | "black";

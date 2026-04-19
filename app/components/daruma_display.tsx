@@ -1,25 +1,61 @@
 import { View } from 'react-native';
 import { Image } from 'expo-image';
 import { getDarumaColor } from '@/constants/daruma_colors';
-import { DarumaColor } from '@/types/daruma';
-import { DarumaBody } from '@/components/icons/daruma_body';
+import { Daruma } from '@/types/daruma';
+import { DarumaDetails } from './daruma_details';
+import { DrawingRenderer } from './drawing/drawing_renderer';
 
 interface DarumaDisplayProps {
-  color: DarumaColor;
+  daruma: Daruma;
   width?: number;
   height?: number;
 }
 
-export function DarumaDisplay({ color, width = 315, height = 324 }: DarumaDisplayProps) {
-  const { hex } = getDarumaColor(color);
-
+export function DarumaDisplay({ daruma, width = 315, height = 324 }: DarumaDisplayProps) {
+  const { hex } = getDarumaColor(daruma.color);
+  var eyeSize = 65;
+  var eyeXOffset = 52.5;
+  var eyeYOffset = -62.5;
+  
   return (
     <View style={{ width, height }}>
-      <DarumaBody color={hex} width={width} height={height} />
-      <Image
-        source={require('@/assets/daruma/details.svg')}
-        style={{ width, height, position: 'absolute' }}
-      />
+      <DarumaDetails color={daruma.color} width={width} height={height} />
+      {daruma.leftEyeDrawing && (
+        <View style={{ 
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          transform: [
+            { translateX: eyeXOffset },  // Offset X (adjust as needed)
+            { translateY: eyeYOffset }  // Offset Y (adjust as needed)
+          ]
+        }}>
+          <DrawingRenderer 
+            drawingData={daruma.leftEyeDrawing} 
+            width={eyeSize} 
+            height={eyeSize}
+            centered={true}
+          />
+        </View>
+      )}
+      {daruma.rightEyeDrawing && (
+        <View style={{ 
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          transform: [
+            { translateX: -eyeXOffset },
+            { translateY: eyeYOffset }
+          ]
+        }}>
+          <DrawingRenderer 
+            drawingData={daruma.rightEyeDrawing} 
+            width={eyeSize} 
+            height={eyeSize}
+            centered={true}
+          />
+        </View>
+      )}
     </View>
   );
 }

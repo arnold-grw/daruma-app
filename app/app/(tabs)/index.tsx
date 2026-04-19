@@ -5,9 +5,7 @@ import { Text } from '@/components/typography';
 import { useDarumaStore, useActiveDarumas, useCompletedDarumas } from '@/store/daruma_store';
 import { useEffect } from 'react';
 import { Daruma } from '@/types/daruma';
-import { getDarumaColor } from '@/constants/daruma_colors';
 import useTheme from '@/constants/theme';
-import { DarumaDisplay } from '@/components/daruma_display'
 import Card from '@/components/card'
   
 export default function Index() {

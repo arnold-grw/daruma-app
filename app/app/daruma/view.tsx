@@ -71,7 +71,7 @@ export default function ViewDaruma() {
 
             <Text style={{ color: colors.text, fontSize: 24, marginTop: 50, textAlign: "center", maxWidth: 300, paddingHorizontal: 30 }}>{daruma.goal}</Text>
             
-            <DarumaDisplay color={daruma.color} />
+            <DarumaDisplay daruma={daruma} />
 
             <TextInput
               placeholder="notes"

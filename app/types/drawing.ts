@@ -1,8 +1,7 @@
 
-interface PointData{
+export interface PointData{
     x: number;
     y: number;
-    width?: number;
 }
 
 export class Point {
@@ -20,7 +19,7 @@ export class Point {
 }
 
 
-interface LineData{
+export interface LineData{
     //id: string;
     points: PointData[];
     width?: number;
@@ -29,7 +28,8 @@ interface LineData{
 export class Line {
     //ggf width, origin, color
     constructor(
-        public points: Point[] = []
+        public points: Point[] = [],
+        public width: number = 0.5
     ) {}
 
     addPoint(point: Point): void {
@@ -40,9 +40,9 @@ export class Line {
 }
 
 
-interface DrawingData{
+export interface DrawingData{
     //id: string;
-    lines: Line[];
+    lines: LineData[];
 }
 
 export class Drawing {
