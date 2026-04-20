@@ -21,7 +21,7 @@ export default function PaintStart() {
         <View style={{ flex: 1, justifyContent: "space-between", alignItems: "center", overflow: 'hidden', backgroundColor: useTheme().colors.background }}>
             <Text style={{ fontSize: 24, marginTop: 50, textAlign: "center", paddingHorizontal: 20 }}>Paint the left eye to start your Journey</Text>
 
-            <View style={{ position: 'absolute', top: '50%', right: -60, transform: [{ translateY: -200 }], zIndex: -1 }}>
+            <View style={{ position: 'absolute', top: '50%', transform: [{ translateX: -140 }, {translateY: -200 }], zIndex: -1 }}>
                 <DarumaDetails color={draft.color} width={315*2.5} height={324*2.5} />
             </View>
 

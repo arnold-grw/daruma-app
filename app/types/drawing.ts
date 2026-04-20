@@ -50,5 +50,8 @@ export class Drawing {
         public lines: Line[] = []
     ) {}
 
+    addLine(line: Line): void {
+        this.lines.push(line);
+    }
     //ggf transform() (translate, rotate, scale) -> für linien anwenden
 }

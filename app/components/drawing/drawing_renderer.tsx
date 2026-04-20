@@ -29,7 +29,7 @@ export function DrawingRenderer({ drawingData, width = 100, height = 100, center
   };
 
   // Stroke width scale
-  var minWidth = 100;
+  var minWidth = 50;
   var maxWidth = 500;
   const getStrokeWidth = (lineWidth: number = 0.5) => (minWidth + lineWidth * (maxWidth - minWidth)).toString();
 

@@ -5,6 +5,7 @@ import Svg, { Polyline } from 'react-native-svg';
 import { DrawingRenderer } from "@/components/drawing/drawing_renderer";
 import { TEST_DARUMA } from "@/constants/test_data";
 import { Daruma } from "@/types/daruma";
+import { Canvas } from "@/components/drawing/canvas";
 
 export default function DrawingTest() {
 
@@ -30,6 +31,7 @@ export default function DrawingTest() {
         {testDaruma.leftEyeDrawing && (
             <DrawingRenderer drawingData={testDaruma.leftEyeDrawing} width={100} height={100} />
         )}
+        <Canvas size={300} />
     </View>
   );
 }
