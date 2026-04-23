@@ -7,13 +7,17 @@ interface Props {
   showConfirm?: boolean
   canConfirm?: boolean
   onConfirm: () => void
+  onCancel?: () => void
   confirmLabel?: string
   cancelLabel?: string
 }
 
-export default function BottomActionBar({ showConfirm = true, canConfirm = true, onConfirm, confirmLabel = "Confirm", cancelLabel = "Cancel" }: Props) {
+export default function BottomActionBar({ showConfirm = true, canConfirm = true, onConfirm, onCancel, confirmLabel = "Confirm", cancelLabel = "Cancel" }: Props) {
 
   const { colors } = useTheme();
+
+  // Default cancel handler: router.back()
+  const handleCancel = onCancel || (() => router.back());
 
   return (
     <View
@@ -29,7 +33,7 @@ export default function BottomActionBar({ showConfirm = true, canConfirm = true,
     >
       {/* Cancel */}
       <Pressable
-        onPress={() => router.back()}
+        onPress={handleCancel}
         style={{
           paddingHorizontal: 20,
           borderRadius: 8,

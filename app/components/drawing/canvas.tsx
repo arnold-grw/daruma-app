@@ -1,22 +1,32 @@
 import { Pressable, View, Text } from "react-native";
-import { Point, Line, Drawing } from "@/types/drawing";
+import { Point, Line, Drawing, DrawingSettings } from "@/types/drawing";
 import { DrawingRenderer } from "./drawing_renderer";
 import { TEST_DARUMA } from "@/constants/test_data";
-import { useRef, useState } from "react";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 
 
 interface Props {
   size: number;
+  settings: DrawingSettings;
+  onDrawingChange?: (drawing: Drawing) => void;
 }
 
-export function Canvas({ size = 200 }: Props) {
+export const Canvas = forwardRef(({ size = 200, settings, onDrawingChange }: Props, ref) => {
+    const canvasRef = useRef<View>(null);
+    const canvasOrigin = useRef({ x: 0, y: 0 });
     const [drawing, setDrawing] = useState(new Drawing());
     const [liveDrawing, setLiveDrawing] = useState(new Drawing());
     const currentLineRef = useRef<Line | null>(null);
-    var drawingSpaceFactor = 0.75;
-    var drawingSpaceSize = size * drawingSpaceFactor;
-    var thickness = 0.5;
-    var minDistance = 0.1; // Minimum distance in normalized coordinates to add a new point
+    const drawingSpaceFactor = 0.75;
+    const drawingSpaceSize = size * drawingSpaceFactor;
+    const { thickness } = settings;
+    const minDistance = 0.05; // Minimum distance in normalized coordinates to add a new point
+
+    const measureCanvas = () => {
+        canvasRef.current?.measure((x, y, width, height, pageX, pageY) => {
+        canvasOrigin.current = { x: pageX, y: pageY };
+        });
+    };
 
     const transformCoordinates = (canvasX: number, canvasY: number): Point => {
         const normalizedX = (canvasX / size) * 2 - 1;
@@ -39,12 +49,14 @@ export function Canvas({ size = 200 }: Props) {
         setLiveDrawing(new Drawing());
     }
 
-    const undoLastLine = () => {
+    useImperativeHandle(ref, () => ({
+        undoLastLine: () => {
         if (drawing.lines.length === 0) return;
         const newLines = drawing.lines.slice(0, -1);
         setDrawing(new Drawing(newLines));
         setLiveDrawing(new Drawing(newLines));
-    }
+        },
+    }));
 
     const startDrawing = (inputX: number, inputY: number) => {
         if (!isInCanvas(inputX, inputY)) return;
@@ -74,9 +86,11 @@ export function Canvas({ size = 200 }: Props) {
         if (isInCanvas(inputX, inputY)) {
             const point = transformCoordinates(inputX, inputY);
             currentLineRef.current.addPoint(point);
+            updateLiveDrawing(currentLineRef.current);
         }
         const newDrawing = new Drawing([...drawing.lines, currentLineRef.current]);
         setDrawing(newDrawing);
+        onDrawingChange?.(newDrawing);
         currentLineRef.current = null;
     }
 
@@ -84,25 +98,32 @@ export function Canvas({ size = 200 }: Props) {
 
   return (
     <View
-      style={{
-        width: size,
-        height: size,
-        borderWidth: 2,
-        borderColor: "red"
-      }}
+      ref={canvasRef}
+      style={{ width: size, height: size }}
+      onLayout={measureCanvas} // re-measure whenever layout changes
       onStartShouldSetResponder={() => true}
       onMoveShouldSetResponder={() => true}
       onResponderGrant={(event) => {
-        const { locationX, locationY } = event.nativeEvent;
-        startDrawing(locationX, locationY);
+        measureCanvas(); // also re-measure on touch start, layout may have shifted
+        const { pageX, pageY } = event.nativeEvent; // ← use pageX/pageY
+        startDrawing(
+          pageX - canvasOrigin.current.x,
+          pageY - canvasOrigin.current.y
+        );
       }}
       onResponderMove={(event) => {
-        const { locationX, locationY } = event.nativeEvent;
-        whileDrawing(locationX, locationY);
+        const { pageX, pageY } = event.nativeEvent;
+        whileDrawing(
+          pageX - canvasOrigin.current.x,
+          pageY - canvasOrigin.current.y
+        );
       }}
       onResponderRelease={(event) => {
-        const { locationX, locationY } = event.nativeEvent;
-        endDrawing(locationX, locationY);
+        const { pageX, pageY } = event.nativeEvent;
+        endDrawing(
+          pageX - canvasOrigin.current.x,
+          pageY - canvasOrigin.current.y
+        );
       }}
     >
         <View style={{
@@ -110,8 +131,6 @@ export function Canvas({ size = 200 }: Props) {
             width: drawingSpaceSize,
             height: drawingSpaceSize,
             backgroundColor: "white",
-            borderWidth: 2,
-            borderColor: "black",
             borderRadius: drawingSpaceSize/2,
             transform: [
                 { translateX: size/2 - drawingSpaceSize/2 },
@@ -130,4 +149,4 @@ export function Canvas({ size = 200 }: Props) {
 
     </View>
   );
-}
+});

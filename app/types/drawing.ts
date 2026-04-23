@@ -55,3 +55,9 @@ export class Drawing {
     }
     //ggf transform() (translate, rotate, scale) -> für linien anwenden
 }
+
+export interface DrawingSettings{
+    //boolean is_drawing -> for when adding of earaser
+    //zoom_factor -> for when adding zoom feature
+    thickness: number;
+}

@@ -1,11 +1,12 @@
 import { View, ScrollView } from "react-native";
 import { Text } from '@/components/typography';
-import { Point, Line, Drawing } from '@/types/drawing';
+import { Point, Line, Drawing, DrawingSettings } from '@/types/drawing';
 import Svg, { Polyline } from 'react-native-svg';
 import { DrawingRenderer } from "@/components/drawing/drawing_renderer";
 import { TEST_DARUMA } from "@/constants/test_data";
 import { Daruma } from "@/types/daruma";
-import { Canvas } from "@/components/drawing/canvas";
+import { DrawingSpace } from "@/components/drawing/drawing_space";
+import { useState } from "react";
 
 export default function DrawingTest() {
 
@@ -23,15 +24,13 @@ export default function DrawingTest() {
 
     const testDaruma: Daruma = TEST_DARUMA
 
+    const [settings, setSettings] = useState<DrawingSettings>({ thickness: 0.25 });
+
 
   return (
     <View style={{ justifyContent: "center", alignItems: "center", backgroundColor: 'white', flex: 1 }}>
         <Text style={{ color: 'black', fontSize: 24 }}>Drawing Test</Text>
-        
-        {testDaruma.leftEyeDrawing && (
-            <DrawingRenderer drawingData={testDaruma.leftEyeDrawing} width={100} height={100} />
-        )}
-        <Canvas size={300} />
+        <DrawingSpace></DrawingSpace>
     </View>
   );
 }

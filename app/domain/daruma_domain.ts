@@ -18,6 +18,7 @@ export function createDaruma(draft: DarumaDraft): Daruma {
         isCompleted: false,
         createdAt: now,
         updatedAt: now,
+        leftEyeDrawing: draft.leftEyeDrawing
     };
 }
 

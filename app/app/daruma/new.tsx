@@ -41,6 +41,13 @@ export default function NewDaruma() {
 
   const canConfirm = draft.goal.trim().length > 0;
 
+  const handleReturn = async () => {
+    resetDraft();
+    router.push({
+      pathname: '/'
+    });
+  }
+
   return (
     <View style={{ justifyContent: "space-between", alignItems: "center", backgroundColor: colors.background, flex: 1}}>
       <KeyboardAvoidingView
@@ -104,6 +111,9 @@ export default function NewDaruma() {
           </ScrollView>
         </KeyboardAvoidingView>
       <BottomActionBar
+        onCancel={() => {
+          handleReturn();
+        }}
         onConfirm={() => {
           handleConfirm();
         }}

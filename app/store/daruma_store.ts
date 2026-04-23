@@ -5,6 +5,7 @@ import { create } from "zustand";
 import { useShallow } from 'zustand/react/shallow'
 import 'react-native-get-random-values';
 import { createDaruma, completeDaruma, updateDarumaNotes } from "@/domain/daruma_domain";
+import { DrawingData } from "@/types/drawing";
 import { TEST_DARUMA } from "@/constants/test_data";
 
 
@@ -14,6 +15,7 @@ export interface DarumaDraft {
   color: DarumaColor
   goal: string
   notes: string
+  leftEyeDrawing?: DrawingData;
 }
 
 interface DarumaState {
@@ -113,7 +115,7 @@ export const useDarumaStore = create<DarumaState>((set, get) => ({
 }));
 
 export const useActiveDarumas = () =>
-  useDarumaStore(useShallow(state => [TEST_DARUMA, ...state.darumas.filter(d => !d.isCompleted)]))   // insert test daruma for development/testing
+  useDarumaStore(useShallow(state => state.darumas.filter(d => !d.isCompleted)))   // insert test daruma for development/testing
 
 export const useCompletedDarumas = () =>
   useDarumaStore(useShallow(state => state.darumas.filter(d => d.isCompleted)))
