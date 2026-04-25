@@ -4,7 +4,7 @@ import { Pressable } from "react-native";
 import * as SplashScreen from 'expo-splash-screen';
 import { Text } from '@/components/typography';
 import useTheme from "@/constants/theme";
-import { HomeIcon, ProfileIcon } from "@/components/icons/tabs";
+import { HomeIcon, ProfileIcon } from "@/components/icons/tab_icons";
 
 SplashScreen.preventAutoHideAsync();
 

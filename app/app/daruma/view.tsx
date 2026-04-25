@@ -64,14 +64,14 @@ export default function ViewDaruma() {
             {/* options button */}
             <Pressable
               onPress={() => { setSheetOpen(true); setConfirmDelete(false) }}
-              style={{ position: 'absolute', top: 55, right: 0}}
+              style={{ position: 'absolute', top: 50, right: 20}}
             >
-              <Text style={{ fontSize: 24, color: colors.text }}>⋯</Text>
+              <Text style={{ fontSize: 32, color: colors.text }}>⋯</Text>
             </Pressable>
 
             <Text style={{ color: colors.text, fontSize: 24, marginTop: 50, textAlign: "center", maxWidth: 300, paddingHorizontal: 30 }}>{daruma.goal}</Text>
             
-            <DarumaDisplay daruma={daruma} />
+            <DarumaDisplay daruma={daruma} width={315*1.15} height={324*1.15} />
 
             <TextInput
               placeholder="notes"
@@ -140,7 +140,7 @@ export default function ViewDaruma() {
               //─ Daruma Info ──
               <>
                 <Text style={{ color: colors.text, fontSize: 18, fontWeight: '600' }}>
-                  Daruma Info
+                  About your Daruma
                 </Text>
                 <Text style={{ color: colors.textSecondary }}>Created: {formatDate(daruma.createdAt, DEFAULT_DATE_FORMAT)}</Text>
                 <Text style={{ color: colors.textSecondary }}>Updated: {formatDate(daruma.updatedAt, DEFAULT_DATE_FORMAT)}</Text>

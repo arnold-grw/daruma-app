@@ -13,7 +13,7 @@ interface DarumaDisplayProps {
 
 export function DarumaDisplay({ daruma, width = 315, height = 324 }: DarumaDisplayProps) {
   const { hex } = getDarumaColor(daruma.color);
-  var eyeSize = width*0.206;
+  var eyeSize = width*0.22;
   var eyeXOffset = width*0.167;
   var eyeYOffset = -height*0.192;
   

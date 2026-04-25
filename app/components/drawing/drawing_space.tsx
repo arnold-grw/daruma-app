@@ -30,6 +30,7 @@ export const DrawingSpace = forwardRef(({ size = 300 }: { size?: number }, ref) 
   useImperativeHandle(ref, () => ({
     getDrawingData: (): DrawingData | null => {
       if (currentDrawing && currentDrawing.lines.length > 0) {
+        console.log("points in first line: "+currentDrawing.lines[0].points.length);
         return {
           lines: currentDrawing.lines.map(line => ({
             points: line.points.map(point => ({ x: point.x, y: point.y })),
@@ -50,7 +51,7 @@ export const DrawingSpace = forwardRef(({ size = 300 }: { size?: number }, ref) 
         onDrawingChange={handleDrawingChange}
       />
       <Toolbar
-        height={size}
+        height={size*1.25}
         width={75}
         settings={settings}
         onThicknessChange={handleThicknessChange}

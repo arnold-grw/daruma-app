@@ -1,7 +1,6 @@
 import { Pressable, View, Text } from "react-native";
 import { Point, Line, Drawing, DrawingSettings } from "@/types/drawing";
 import { DrawingRenderer } from "./drawing_renderer";
-import { TEST_DARUMA } from "@/constants/test_data";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 
 
@@ -20,7 +19,7 @@ export const Canvas = forwardRef(({ size = 200, settings, onDrawingChange }: Pro
     const drawingSpaceFactor = 0.75;
     const drawingSpaceSize = size * drawingSpaceFactor;
     const { thickness } = settings;
-    const minDistance = 0.05; // Minimum distance in normalized coordinates to add a new point
+    const minDistance = 0.1; // Minimum distance in normalized coordinates to add a new point
 
     const measureCanvas = () => {
         canvasRef.current?.measure((x, y, width, height, pageX, pageY) => {
@@ -130,7 +129,9 @@ export const Canvas = forwardRef(({ size = 200, settings, onDrawingChange }: Pro
             position: "absolute",
             width: drawingSpaceSize,
             height: drawingSpaceSize,
-            backgroundColor: "white",
+            borderColor: "red", // visualize canvas
+            borderWidth: 10, // visualize canvas
+            opacity: 0.0,
             borderRadius: drawingSpaceSize/2,
             transform: [
                 { translateX: size/2 - drawingSpaceSize/2 },
