@@ -43,9 +43,7 @@ export default function NewDaruma() {
 
   const handleReturn = async () => {
     resetDraft();
-    router.push({
-      pathname: '/'
-    });
+    router.back();
   }
 
   return (

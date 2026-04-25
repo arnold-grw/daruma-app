@@ -5,7 +5,7 @@ import { router, useLocalSearchParams } from 'expo-router';
 import useTheme from "@/constants/theme";
 import { useDarumaStore } from "@/store/daruma_store";
 import { useRef } from 'react';
-import { DarumaDetails } from '@/components/daruma_details';
+import { DarumaDetails } from '@/components/daruma/daruma_details';
 import { DrawingSpace } from '@/components/drawing/drawing_space';
 
 export default function PaintFinish() {
@@ -24,7 +24,7 @@ export default function PaintFinish() {
             if (drawingData) {
                 //set the darumas rightEyeDrawing
                 await complete(darumaId as string, drawingData);
-                router.push('/');
+                router.push('/archive');
             }
         }
         //failed

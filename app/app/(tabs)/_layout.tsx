@@ -1,15 +1,17 @@
-import { router, Tabs } from "expo-router";
+import { router, Tabs, usePathname } from "expo-router";
 import { useState } from "react";
 import { Pressable } from "react-native";
 import * as SplashScreen from 'expo-splash-screen';
 import { Text } from '@/components/typography';
 import useTheme from "@/constants/theme";
-import { HomeIcon, ProfileIcon } from "@/components/icons/tab_icons";
+import { ArchiveIcon, HomeIcon, ProfileIcon } from "@/components/icons/tab_icons";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function TabsLayout() {
   const { colors } = useTheme();
+  const pathname = usePathname();
+  const isActive = (path: string) => pathname === path;
   const [activeTab, setActiveTab] = useState("index"); // Standardmäßig "index" aktiv
 
   return (
@@ -47,7 +49,53 @@ export default function TabsLayout() {
                 alignItems: 'center',
               }}
             >
-              <HomeIcon color={activeTab === "index" ? colors.text : colors.textSecondary} />
+              <HomeIcon color={isActive('/') ? colors.text : colors.textSecondary} />
+            </Pressable>
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="archive"
+        options={{
+          title: '',
+          tabBarButton: () => (
+            <Pressable
+              onPress={() => {
+                setActiveTab("archive");
+                router.push('/archive');
+              }}
+              style={{
+                width: 70,
+                height: 50,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <ArchiveIcon color={isActive('/archive') ? colors.text : colors.textSecondary} />
+            </Pressable>
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: '',
+          tabBarButton: () => (
+            <Pressable
+              onPress={() => {
+                setActiveTab("profile");
+                router.push('/profile');
+              }}
+              style={{
+                width: 70,
+                height: 50,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <ProfileIcon color={isActive('/profile') ? colors.text : colors.textSecondary} />
             </Pressable>
           ),
         }}
@@ -71,30 +119,7 @@ export default function TabsLayout() {
                 alignItems: 'center',
               }}
             >
-              <Text style={{ color: colors.card, fontSize: 40}}>+</Text>
-            </Pressable>
-          ),
-        }}
-      />
-
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: '',
-          tabBarButton: () => (
-            <Pressable
-              onPress={() => {
-                setActiveTab("profile");
-                router.push('/profile');
-              }}
-              style={{
-                width: 70,
-                height: 50,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <ProfileIcon color={activeTab === "profile" ? colors.text : colors.textSecondary} />
+              <Text style={{ color: colors.card, fontSize: 32}}>+</Text>
             </Pressable>
           ),
         }}

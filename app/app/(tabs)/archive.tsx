@@ -8,7 +8,7 @@ import { Daruma } from '@/types/daruma';
 import useTheme from '@/constants/theme';
 import Card from '@/components/card'
   
-export default function Index() {
+export default function Archive() {
   const { load } = useDarumaStore()
   const activeDarumas = useActiveDarumas()
   const completedDarumas = useCompletedDarumas()
@@ -24,7 +24,13 @@ export default function Index() {
         {/* <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text }}>Shrine</Text> */}
         <ScrollView style={{paddingHorizontal: 20, flex: 1, paddingTop: 40 }} contentContainerStyle={{ alignItems: "center" }}>
 
-        {activeDarumas.map(daruma => (
+        {completedDarumas.length > 0 && (
+          <Text style={{ color: colors.textSecondary, fontSize: 24, marginVertical: 16 }}>
+            — completed —
+          </Text>
+        )}
+
+        {completedDarumas.map(daruma => (
           <Card key={daruma.id} daruma={daruma} />
         ))}
 

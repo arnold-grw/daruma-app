@@ -8,6 +8,7 @@ export interface Daruma {
   notes?: string;
   color: DarumaColor;
   isCompleted: boolean;
+  deadline?: string;
   createdAt: string;
   completedAt?: string;
   updatedAt: string;

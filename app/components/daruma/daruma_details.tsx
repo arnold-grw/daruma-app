@@ -2,7 +2,7 @@ import { View } from 'react-native';
 import { Image } from 'expo-image';
 import { getDarumaColor } from '@/constants/daruma_colors';
 import { DarumaColor } from '@/types/daruma';
-import { DarumaBody } from '@/components/icons/daruma_body';
+import { DarumaBody } from '@/components/daruma/daruma_body';
 
 interface DarumaDetailsProps {
   color: DarumaColor;

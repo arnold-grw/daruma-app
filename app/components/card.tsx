@@ -3,7 +3,7 @@ import { Text } from '@/components/typography';
 import { Daruma } from "@/types/daruma";
 import useTheme from "@/constants/theme";
 import { router } from "expo-router";
-import { DarumaDisplay } from "./daruma_display";
+import { DarumaDisplay } from "./daruma/daruma_display";
 
 interface CardProps {
   daruma: Daruma;

@@ -3,7 +3,7 @@ import { Dimensions, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import { DARUMA_COLORS } from "@/constants/daruma_colors";
 import { DarumaColor } from "@/types/daruma";
-import { DarumaDetails } from "./daruma_details";
+import { DarumaDetails } from "./daruma/daruma_details";
 
 interface Props {
   selected: DarumaColor

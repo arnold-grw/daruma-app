@@ -115,10 +115,18 @@ export const useDarumaStore = create<DarumaState>((set, get) => ({
 }));
 
 export const useActiveDarumas = () =>
-  useDarumaStore(useShallow(state => state.darumas.filter(d => !d.isCompleted)))   // insert test daruma for development/testing
+  useDarumaStore(useShallow(state =>
+    state.darumas
+      .filter(d => !d.isCompleted)
+      .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+  ))
 
 export const useCompletedDarumas = () =>
-  useDarumaStore(useShallow(state => state.darumas.filter(d => d.isCompleted)))
+  useDarumaStore(useShallow(state =>
+    state.darumas
+      .filter(d => d.isCompleted)
+      .sort((a, b) => new Date(b.completedAt!).getTime() - new Date(a.completedAt!).getTime())
+  ))
 
 
 

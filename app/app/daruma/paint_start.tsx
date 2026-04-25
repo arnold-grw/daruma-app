@@ -5,7 +5,7 @@ import BottomActionBar from '@/components/bottom_action_bar';
 import { router } from 'expo-router';
 import useTheme from "@/constants/theme";
 import { useDarumaStore } from "@/store/daruma_store";
-import { DarumaDetails } from '@/components/daruma_details';
+import { DarumaDetails } from '@/components/daruma/daruma_details';
 import { DrawingSpace } from '@/components/drawing/drawing_space';
 import { useRef } from 'react';
 
