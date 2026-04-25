@@ -9,10 +9,6 @@ import { DarumaDetails } from '@/components/daruma_details';
 import { DrawingSpace } from '@/components/drawing/drawing_space';
 import { useRef } from 'react';
 
-import { TEST_DARUMA } from '@/constants/test_data';
-import { Daruma } from '@/types/daruma';
-import { Colors } from '@/app-example/constants/theme';
-
 export default function PaintStart() {
 
     const { draft, setDraft, commitDraft } = useDarumaStore()

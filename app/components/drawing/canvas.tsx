@@ -131,7 +131,7 @@ export const Canvas = forwardRef(({ size = 200, settings, onDrawingChange }: Pro
             height: drawingSpaceSize,
             borderColor: "red", // visualize canvas
             borderWidth: 10, // visualize canvas
-            opacity: 0.0,
+            opacity: 0.0, // opacity 1.0 to visualize canvas
             borderRadius: drawingSpaceSize/2,
             transform: [
                 { translateX: size/2 - drawingSpaceSize/2 },

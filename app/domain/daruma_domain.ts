@@ -1,6 +1,7 @@
-import { Daruma } from "../types/daruma";
+import { Daruma } from "@/types/daruma";
 import { DarumaDraft } from "../store/daruma_store";
 import { v4 as uuidv4 } from "uuid";
+import { DrawingData } from "@/types/drawing"
 
 export function createDaruma(draft: DarumaDraft): Daruma {
     if (!draft.goal.trim()) {
@@ -23,7 +24,7 @@ export function createDaruma(draft: DarumaDraft): Daruma {
 }
 
 
-export function completeDaruma(daruma: Daruma): Daruma {
+export function completeDaruma(daruma: Daruma, drawing: DrawingData): Daruma {
     const now = new Date().toISOString();
 
     return {
@@ -31,6 +32,7 @@ export function completeDaruma(daruma: Daruma): Daruma {
         isCompleted: true,
         completedAt: now,
         updatedAt: now,
+        rightEyeDrawing: drawing,
     };
 }
 

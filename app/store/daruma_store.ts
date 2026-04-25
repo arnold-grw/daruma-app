@@ -24,7 +24,7 @@ interface DarumaState {
 
   load: () => Promise<void>;
   add: (daruma: Daruma) => Promise<void>;
-  complete: (darumaId: string) => Promise<void>;
+  complete: (darumaId: string, drawing: DrawingData) => Promise<void>;
   updateNotes: (darumaId: string, notes: string) => Promise<void>;
   delete: (darumaId: string) => Promise<void>;
 
@@ -74,13 +74,13 @@ export const useDarumaStore = create<DarumaState>((set, get) => ({
 
   },
 
-  complete: async (id: string) => {
+  complete: async (id: string, drawing: DrawingData) => {
     const { darumas } = get();
 
     const daruma = darumas.find(d => d.id === id);
     if (!daruma) return;
 
-    const updated = completeDaruma(daruma);
+    const updated = completeDaruma(daruma, drawing);
 
     await repo.update(updated);
 
