@@ -1,121 +1,95 @@
+// app/daruma/new.tsx
 import { useState, useEffect } from "react";
-import { View, ScrollView, Pressable, FlatList, Dimensions, KeyboardAvoidingView } from "react-native";
-import { Text, TextInput } from '@/components/typography';
+import { View } from "react-native";
+import { Text } from '@/components/typography';
 import { router } from "expo-router";
 import useTheme from "@/constants/theme";
-import ColorPicker from "@/components/color_picker";
+import { DarumaDraft, useDarumaStore } from "@/store/daruma_store";
 import BottomActionBar from "@/components/bottom_action_bar";
-import { DARUMA_COLORS, getDarumaColor } from "@/constants/daruma_colors";
-import { DarumaColor } from "@/types/daruma";
-import { useDarumaStore } from "@/store/daruma_store";
+
+// Import your step components
+import { StepColor } from "@/components/new_daruma/step_color";
+import { StepGoal } from "@/components/new_daruma/step_goal";
+//import { StepDeadline } from "@/components/new_daruma/step_deadline";
+import { StepPaint } from "@/components/new_daruma/step_paint";
+import { Daruma } from "@/types/daruma";
+//import { StepConfirm } from "@/components/new_daruma/step_confirm";
+
+
+// ── Define steps here — reorder or add freely ──────────────────
+const STEPS = [
+  { key: 'color', component: StepColor, canSkip: true  },
+  { key: 'goal',  component: StepGoal,  canSkip: false },
+  //{ key: 'deadline', component: StepDeadline, canSkip: true },
+  { key: 'paint', component: StepPaint, canSkip: false },
+  //{ key: 'confirm', component: StepConfirm, canSkip: false }
+];
+// ───────────────────────────────────────────────────────────────
+
+export interface StepProps {
+  draft: DarumaDraft;
+  setDraft: (values: Partial<DarumaDraft>) => void;
+  onValidChange: (valid: boolean) => void;
+}
 
 export default function NewDaruma() {
-
-  const { width } = Dimensions.get("window");
   const { colors } = useTheme();
+  const { draft, setDraft, commitDraft, resetDraft } = useDarumaStore();
+  const [stepIndex, setStepIndex] = useState(0);
 
-  const { draft, setDraft, commitDraft, resetDraft } = useDarumaStore()
-  const colorConfig = getDarumaColor(draft.color)
+  const currentStep = STEPS[stepIndex];
+  const StepComponent = currentStep.component;
+  const isFirst = stepIndex === 0;
+  const isLast = stepIndex === STEPS.length - 1;
 
   useEffect(() => {
-    if (!draft.color) {
-      setDraft({ color: 'red', goal: '', notes: '' });
+    setDraft({ color: 'red', goal: '', notes: '' });
+    return () => resetDraft(); // clean up on unmount
+  }, []);
+
+  const handleNext = async () => {
+    if (isLast) {
+      await commitDraft();
+      router.replace('/');
+    } else {
+      setStepIndex(i => i + 1);
     }
-  }, [])
+  };
 
-  useEffect(() => {
-    return () => {
+  const handleBack = () => {
+    if (isFirst) {
       resetDraft();
-    };
-  }, [])
-
-  const handleConfirm = async () => {
-    if (!draft.goal.trim()) {
-      console.log("empty goal")
-      return;
+      router.back();
+    } else {
+      setStepIndex(i => i - 1);
     }
-    router.push({
-      pathname: '/daruma/paint_start'
-    });
-  }
+  };
 
-  const canConfirm = draft.goal.trim().length > 0;
-
-  const handleReturn = async () => {
-    resetDraft();
-    router.back();
-  }
+  // Each step tells new.tsx whether it's valid via this callback
+  const [canProceed, setCanProceed] = useState(false);
 
   return (
-    <View style={{ justifyContent: "space-between", alignItems: "center", backgroundColor: colors.background, flex: 1}}>
-      <KeyboardAvoidingView
-        style={{ flex: 1, backgroundColor: colors.background }}
-        behavior="position"
-        keyboardVerticalOffset={-40}
-        >
-          <ScrollView>
-            <View style={{ alignItems: "center", gap: 10 }}>
+    <View style={{ flex: 1, backgroundColor: colors.background }}>
 
-              <Text style={{ color: colors.text, fontSize: 24, marginTop: 40 }}>new Daruma</Text>
+      {/* Progress indicator — just swap this out for a bar later */}
+      <Text style={{ textAlign: 'center', marginTop: 50, color: colors.textSecondary }}>
+        {stepIndex + 1} / {STEPS.length}
+      </Text>
 
-              <ColorPicker
-                selected={draft.color}
-                onSelect={(color: DarumaColor) => setDraft({ color })}
-              />
+      {/* Active step — re-mounts on step change */}
+      <StepComponent
+        key={currentStep.key}
+        draft={draft}
+        setDraft={setDraft}
+        onValidChange={setCanProceed}
+      />
 
-              <View style={{ alignItems: "center", gap: 4, paddingBottom: 30, marginTop: -30 }}>
-                <Text style={{ color: colorConfig.hex ,fontSize: 18, fontWeight: "600" }}>
-                  {colorConfig.label}
-                </Text>
-
-                <Text style={{ color: colors.textSecondary }}>
-                  {colorConfig.meaning}
-                </Text>
-              </View>
-
-              <TextInput
-                placeholder="describe your goal in a short sentence"
-                placeholderTextColor={colors.textSecondary}
-                value={draft.goal}
-                onChangeText={(goal) => setDraft({ goal })}
-                maxLength={40}
-                style={{
-                  borderWidth: 2,
-                  borderColor: colors.textSecondary,
-                  padding: 10,
-                  width: 300,
-                  borderRadius: 8,
-                }}
-              />
-
-              <TextInput
-                placeholder="notes (optional)"
-                placeholderTextColor={colors.textSecondary}
-                value={draft.notes}
-                onChangeText={(notes) => setDraft({ notes})}
-                multiline={true}
-                style={{
-                  borderWidth: 2,
-                  borderColor: colors.textSecondary,
-                  padding: 10,
-                  width: 300,
-                  borderRadius: 8,
-                  height: 120,
-                  textAlignVertical: 'top',
-                }}
-              />
-
-            </View>
-          </ScrollView>
-        </KeyboardAvoidingView>
       <BottomActionBar
-        onCancel={() => {
-          handleReturn();
-        }}
-        onConfirm={() => {
-          handleConfirm();
-        }}
-        canConfirm={canConfirm}
+        onConfirm={handleNext}
+        onCancel={handleBack}
+        canConfirm={canProceed || currentStep.canSkip}
+        confirmLabel={isLast ? "Confirm" : "Next"}
+        cancelLabel={isFirst ? "Cancel" : "Back"}
       />
     </View>
   );

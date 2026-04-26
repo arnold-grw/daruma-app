@@ -4,7 +4,13 @@ import { useState, useRef, forwardRef, useImperativeHandle } from "react";
 import { Canvas } from "@/components/drawing/canvas";
 import { Toolbar } from "@/components/drawing/toolbar";
 
-export const DrawingSpace = forwardRef(({ size = 300 }: { size?: number }, ref) => {
+export const DrawingSpace = forwardRef(({ 
+  size = 300,
+  onDrawingChange,
+}: { 
+  size?: number,
+  onDrawingChange?: () => void,
+}, ref) => {
   const [currentDrawing, setCurrentDrawing] = useState<Drawing>(new Drawing());
   const [settings, setSettings] = useState<DrawingSettings>({ thickness: 0.2 });
   const canvasRef = useRef<any>(null); // Ref to access Canvas methods
@@ -24,6 +30,7 @@ export const DrawingSpace = forwardRef(({ size = 300 }: { size?: number }, ref) 
   // Handle drawing changes from Canvas
   const handleDrawingChange = (drawing: Drawing) => {
     setCurrentDrawing(drawing);
+    onDrawingChange?.();
   };
 
   // Expose drawing data getter via ref

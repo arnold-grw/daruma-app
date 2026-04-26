@@ -5,7 +5,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { Pressable, Text } from 'react-native';
 
-const PIVOT_OFFSET = 120;
+const PIVOT_OFFSET = 140;
 const MAX_VELOCITY = 500;
 
 export function WiggleDaruma({ children }: { children: React.ReactNode }) {
@@ -32,7 +32,7 @@ export function WiggleDaruma({ children }: { children: React.ReactNode }) {
   });
 
   const handlePress = () => {
-    const impulse = 100;
+    const impulse = 150;
     // kick opposite to current velocity so it always adds energy
     velocity.value += velocity.value >= 0 ? impulse : -impulse;
   };

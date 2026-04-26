@@ -1,2 +1,6 @@
 
+fix new daruma tabs (padding, drawing feetback)
+
 implement deadline option -> date selection, move failed to archive, option to extend deadline
+
+changeable description
