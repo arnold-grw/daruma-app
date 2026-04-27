@@ -6,6 +6,7 @@ import { router } from "expo-router";
 import useTheme from "@/constants/theme";
 import { DarumaDraft, useDarumaStore } from "@/store/daruma_store";
 import BottomActionBar from "@/components/bottom_action_bar";
+import { safeBack } from "@/utils/navigation"
 
 // Import your step components
 import { StepColor } from "@/components/new_daruma/step_color";
@@ -59,7 +60,7 @@ export default function NewDaruma() {
   const handleBack = () => {
     if (isFirst) {
       resetDraft();
-      router.back();
+      safeBack();
     } else {
       setStepIndex(i => i - 1);
     }

@@ -19,7 +19,7 @@ export function StepGoal({ draft, setDraft, onValidChange }: StepProps) {
             behavior="position"
             keyboardVerticalOffset={-40}
             >
-            <ScrollView style={{ }}>
+            <ScrollView contentContainerStyle={{ alignItems: "center", paddingHorizontal: 20, paddingTop: 40, gap: 16 }}>
                 <Text style={{ fontSize: 24, textAlign: "center", paddingBottom: 20}}>Put your goal into words</Text>
                 <TextInput
                     placeholder="describe your goal in a short sentence"

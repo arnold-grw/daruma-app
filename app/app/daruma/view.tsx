@@ -9,6 +9,7 @@ import { DarumaDisplay } from "@/components/daruma/daruma_display";
 import { BaseModal } from "@/components/modals/BaseModal";
 import { DarumaInfoContent } from "@/components/modals/DarumaInfoContent";
 import { WiggleDaruma } from "@/components/daruma/daruma_wiggle"
+import { safeBack } from "@/utils/navigation";
 
 export default function ViewDaruma() {
 
@@ -40,11 +41,7 @@ export default function ViewDaruma() {
     if (!daruma || !darumaId) return;
     await deleteDaruma(darumaId as string);
     setSheetOpen(false);
-    if (wasCompleted) {
-      router.push('/archive');
-    } else {
-      router.push('/');
-    }
+    safeBack();
   }
 
   if (!daruma) return (

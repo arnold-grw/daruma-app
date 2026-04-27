@@ -2,6 +2,7 @@ import { View, Pressable } from "react-native";
 import { Text } from '@/components/typography';
 import { router } from "expo-router";
 import useTheme from "@/constants/theme";
+import { safeBack } from "@/utils/navigation";
 
 interface Props {
   showConfirm?: boolean
@@ -16,8 +17,8 @@ export default function BottomActionBar({ showConfirm = true, canConfirm = true,
 
   const { colors } = useTheme();
 
-  // Default cancel handler: router.back()
-  const handleCancel = onCancel || (() => router.back());
+  // Default cancel handler: safeBack(): router.back() or router.push("/")
+  const handleCancel = onCancel || (() => safeBack());
 
   return (
     <View

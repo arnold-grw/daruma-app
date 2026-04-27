@@ -6,6 +6,7 @@ import { StepProps } from "@/app/daruma/new";
 import useTheme from "@/constants/theme";
 import { DarumaDetails } from "@/components/daruma/daruma_details";
 import { DrawingSpace } from "@/components/drawing/drawing_space";
+import { Drawing } from "@/types/drawing"
 
 export function StepPaint({ draft, setDraft, onValidChange }: StepProps) {
   const { colors } = useTheme();
@@ -26,12 +27,18 @@ export function StepPaint({ draft, setDraft, onValidChange }: StepProps) {
     }
   };
 
-  const handleDrawingChange = () => {
-    if (drawingSpaceRef.current) {
-      const drawingData = drawingSpaceRef.current.getDrawingData();
-      const hasLines = drawingData?.lines?.length > 0;
-      onValidChange(hasLines);
-      if (hasLines) setDraft({ leftEyeDrawing: drawingData });
+  const handleDrawingChange = (drawing: Drawing) => {
+    const hasLines = drawing.lines.length > 0;
+    onValidChange(hasLines);
+    if (hasLines) {
+      setDraft({
+        leftEyeDrawing: {
+          lines: drawing.lines.map(line => ({
+            points: line.points.map(p => ({ x: p.x, y: p.y })),
+            width: line.width,
+          }))
+        }
+      });
     }
   };
 
@@ -58,7 +65,7 @@ export function StepPaint({ draft, setDraft, onValidChange }: StepProps) {
           <DarumaDetails color={draft.color} width={315 * 4} height={324 * 4} />
         </View>
         <DrawingSpace
-          ref={drawingSpaceRef}
+          //ref={drawingSpaceRef}
           size={300}
           onDrawingChange={handleDrawingChange}
         />

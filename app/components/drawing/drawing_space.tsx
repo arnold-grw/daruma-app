@@ -9,7 +9,7 @@ export const DrawingSpace = forwardRef(({
   onDrawingChange,
 }: { 
   size?: number,
-  onDrawingChange?: () => void,
+  onDrawingChange?: (drawing: Drawing) => void,
 }, ref) => {
   const [currentDrawing, setCurrentDrawing] = useState<Drawing>(new Drawing());
   const [settings, setSettings] = useState<DrawingSettings>({ thickness: 0.2 });
@@ -30,7 +30,7 @@ export const DrawingSpace = forwardRef(({
   // Handle drawing changes from Canvas
   const handleDrawingChange = (drawing: Drawing) => {
     setCurrentDrawing(drawing);
-    onDrawingChange?.();
+    onDrawingChange?.(drawing);
   };
 
   // Expose drawing data getter via ref
