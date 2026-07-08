@@ -26,10 +26,16 @@ export default function ViewDaruma() {
     setLocalNotes(text)
     localNotesRef.current = text
   }
+  //for wiggle animation when opening page
+  const wiggleRef = useRef<{ applyImpulse: (impulse: number) => void }>(null);
 
   useEffect(() => {
     return () => { updateNotes(darumaId as string, localNotesRef.current) }
   }, [])
+
+  useEffect(() => {
+    setTimeout(() => wiggleRef.current?.applyImpulse(50), 0); // slight delay feels more natural
+  }, []);
 
   const handleComplete = async () => {
     if (!daruma || !darumaId) return;
@@ -66,7 +72,7 @@ export default function ViewDaruma() {
               {daruma.goal}
             </Text>
 
-            <WiggleDaruma>
+            <WiggleDaruma ref={wiggleRef}>
               <DarumaDisplay daruma={daruma} width={315 * 1.1} height={324 * 1.1} />
             </WiggleDaruma>
 
