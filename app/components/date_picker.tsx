@@ -1,7 +1,8 @@
 // components/ui/DatePicker.tsx
 //import RNDatePicker from "@dietime/react-native-date-picker";
+import { Picker, Text } from '@/components/typography';
 import useTheme from "@/constants/theme";
-import { Text } from '@/components/typography';
+import { View } from "react-native";
 
 interface Props {
   value: Date | null;
@@ -14,6 +15,15 @@ export function DatePicker({ value, onChange, minimumDate }: Props) {
   const fallback = minimumDate ?? new Date();
 
   return (
-    <Text>set date here</Text>
+    <View>
+      <Text>set date here</Text>
+      <Picker
+        items={[
+          { label: "Option 1", value: "option1" },
+          { label: "Option 2", value: "option2" }
+        ]}
+        placeholder="Select a date"
+      />
+    </View>
   );
 }

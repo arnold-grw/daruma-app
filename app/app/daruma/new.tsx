@@ -1,19 +1,18 @@
 // app/daruma/new.tsx
-import { useState, useEffect } from "react";
-import { View } from "react-native";
+import BottomActionBar from "@/components/bottom_action_bar";
 import { Text } from '@/components/typography';
-import { router } from "expo-router";
 import useTheme from "@/constants/theme";
 import { DarumaDraft, useDarumaStore } from "@/store/daruma_store";
-import BottomActionBar from "@/components/bottom_action_bar";
-import { safeBack } from "@/utils/navigation"
+import { safeBack } from "@/utils/navigation";
+import { router } from "expo-router";
+import { useEffect, useState } from "react";
+import { View } from "react-native";
 
 // Import your step components
 import { StepColor } from "@/components/new_daruma/step_color";
-import { StepGoal } from "@/components/new_daruma/step_goal";
 import { StepDeadline } from "@/components/new_daruma/step_deadline";
+import { StepGoal } from "@/components/new_daruma/step_goal";
 import { StepPaint } from "@/components/new_daruma/step_paint";
-import { Daruma } from "@/types/daruma";
 //import { StepConfirm } from "@/components/new_daruma/step_confirm";
 
 
