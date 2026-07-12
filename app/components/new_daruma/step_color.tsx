@@ -18,7 +18,7 @@ export function StepColor({ draft, setDraft, onValidChange }: StepProps) {
 
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center", gap: 10 }}>
-      <Text style={{ fontSize: 24, textAlign: "center", paddingBottom: 20}}>First choose a color that resonates with your goal</Text>
+      <Text style={{ fontSize: 24, textAlign: "center", paddingBottom: 20, paddingHorizontal: 20}}>First choose a color that resonates with your goal</Text>
       <ColorPicker
         selected={draft.color}
         onSelect={(color: DarumaColor) => setDraft({ color })}

@@ -16,6 +16,7 @@ export function createDaruma(draft: DarumaDraft): Daruma {
         goal: draft.goal.trim(),
         color: draft.color,
         notes: draft.notes.trim(),
+        deadline: draft.deadline,
         isCompleted: false,
         createdAt: now,
         updatedAt: now,

@@ -29,8 +29,13 @@ export const DarumaInfoContent = ({
           <Text style={{ color: colors.textSecondary }}>
             Created: {formatDate(daruma.createdAt, DEFAULT_DATE_FORMAT)}
           </Text>
+          {daruma.completedAt != null && (
+                  <Text style={{ color: colors.textSecondary }}>
+                    Completed: {formatDate(daruma.completedAt, DEFAULT_DATE_FORMAT)}
+                  </Text>
+                )}
           <Text style={{ color: colors.textSecondary }}>
-            Updated: {formatDate(daruma.updatedAt, DEFAULT_DATE_FORMAT)}
+            Last Updated: {formatDate(daruma.updatedAt, DEFAULT_DATE_FORMAT)}
           </Text>
           <Pressable
             onPress={() => setConfirmDelete(true)}

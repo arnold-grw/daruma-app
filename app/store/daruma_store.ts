@@ -15,6 +15,7 @@ export interface DarumaDraft {
   color: DarumaColor
   goal: string
   notes: string
+  deadline?: string
   leftEyeDrawing?: DrawingData;
 }
 
@@ -36,7 +37,7 @@ interface DarumaState {
 const DEFAULT_DRAFT: DarumaDraft = {
   color: 'red',
   goal: '',
-  notes: '',
+  notes: ''
 }
 
 export const useDarumaStore = create<DarumaState>((set, get) => ({

@@ -11,7 +11,7 @@ import { safeBack } from "@/utils/navigation"
 // Import your step components
 import { StepColor } from "@/components/new_daruma/step_color";
 import { StepGoal } from "@/components/new_daruma/step_goal";
-//import { StepDeadline } from "@/components/new_daruma/step_deadline";
+import { StepDeadline } from "@/components/new_daruma/step_deadline";
 import { StepPaint } from "@/components/new_daruma/step_paint";
 import { Daruma } from "@/types/daruma";
 //import { StepConfirm } from "@/components/new_daruma/step_confirm";
@@ -21,7 +21,7 @@ import { Daruma } from "@/types/daruma";
 const STEPS = [
   { key: 'color', component: StepColor, canSkip: true  },
   { key: 'goal',  component: StepGoal,  canSkip: false },
-  //{ key: 'deadline', component: StepDeadline, canSkip: true },
+  { key: 'deadline', component: StepDeadline, canSkip: true },
   { key: 'paint', component: StepPaint, canSkip: false },
   //{ key: 'confirm', component: StepConfirm, canSkip: false }
 ];
@@ -31,6 +31,7 @@ export interface StepProps {
   draft: DarumaDraft;
   setDraft: (values: Partial<DarumaDraft>) => void;
   onValidChange: (valid: boolean) => void;
+  onConfirmLabelChange?: (label: string) => void;
 }
 
 export default function NewDaruma() {
