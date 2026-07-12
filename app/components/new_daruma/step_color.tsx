@@ -1,14 +1,14 @@
 // components/new_daruma/StepColor.tsx
-import { StepProps } from "@/app/daruma/new";
 import ColorPicker from "@/components/color_picker";
 import { Text } from "@/components/typography";
 import { getDarumaColor } from "@/constants/daruma_colors";
 import useTheme from "@/constants/theme";
 import { DarumaColor } from "@/types/daruma";
+import { StepProps } from "@/types/step_props";
 import { useEffect } from "react";
 import { View } from "react-native";
 
-export function StepColor({ draft, setDraft, onValidChange, onConfirmLabelChange }: StepProps) {
+export function StepColor({ draft, setDraft, onValidChange}: StepProps) {
   const { colors } = useTheme();
   const colorConfig = getDarumaColor(draft.color);
 
@@ -18,7 +18,6 @@ export function StepColor({ draft, setDraft, onValidChange, onConfirmLabelChange
 
   const handleSelect = (color: DarumaColor) => {
     setDraft({ color });
-    //onConfirmLabelChange?.("Next"); // changle label to "Next" when a color is selected
   };
 
   return (

@@ -1,10 +1,13 @@
-// components/new_daruma/StepDeadline.tsx
-import { useEffect, useState } from "react";
-import { View, Pressable } from "react-native";
-import { Text } from "@/components/typography";
-import { StepProps } from "@/app/daruma/new";
-import useTheme from "@/constants/theme";
+
 import { DatePicker } from "@/components/date_picker";
+import { CenterModal } from "@/components/modals/CenterModal";
+import { DateView } from "@/components/modals/date_view";
+import { Text } from "@/components/typography";
+import useTheme from "@/constants/theme";
+import { StepProps } from "@/types/step_props";
+import { formatDate } from "@/utils/date_formatter";
+import { useEffect, useState } from "react";
+import { Pressable, View } from "react-native";
 
 const tomorrow = () => {
   const d = new Date();
@@ -13,60 +16,96 @@ const tomorrow = () => {
   return d;
 };
 
-export function StepDeadline({ draft, setDraft, onValidChange, onConfirmLabelChange }: StepProps) {
+export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
   const { colors } = useTheme();
-  const [date, setDate] = useState<Date | null>(
-    draft.deadline ? new Date(draft.deadline) : null
-  );
+  const date = draft.deadline ? new Date(draft.deadline) : null;
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date>(date ?? tomorrow());
 
   useEffect(() => {
-    onValidChange(true); // always skippable
-    onConfirmLabelChange?.(date ? "Next" : "Skip");
+    onValidChange(true); // immer skippable, egal ob Datum gesetzt
   }, [date]);
 
-  const handleChange = (selected: Date) => {
-    // clamp to tomorrow if somehow below minimum
-    const min = tomorrow();
-    const clamped = selected < min ? min : selected;
-    setDate(clamped);
-    setDraft({ deadline: clamped.toISOString() });
-  };
+  useEffect(() => {
+    setSelectedDate(date ?? tomorrow());
+  }, [date]);
 
   const handleClear = () => {
-    setDate(null);
     setDraft({ deadline: undefined });
+    setIsModalVisible(false);
   };
 
   return (
-    <View style={{ flex: 1, alignItems: "center", paddingTop: 40, gap: 24 }}>
+    <View style={{ flex: 1, alignItems: "center", paddingTop: 40, gap: 30 }}>
       <Text style={{ fontSize: 24, textAlign: "center" }}>Set a deadline?</Text>
-      <Text style={{ color: colors.textSecondary, textAlign: "center", maxWidth: 280 }}>
-        Optional — skip if you prefer no time limit.
+      <Text style={{ color: colors.textSecondary, fontSize: 16, textAlign: "center", maxWidth: 280 }}>
+        or skip if you prefer no time limit.
       </Text>
 
-      <DatePicker
-        value={date}
-        onChange={handleChange}
-        minimumDate={tomorrow()}
-      />
+      <View style={{ flexDirection: "column", gap: 20, justifyContent: "center", maxWidth: 300, top: 40 }}>
+        <DateView date={date ? formatDate(date.toISOString(), "DD/MM/YYYY") : undefined} onPressDate={() => setIsModalVisible(true)} />
 
-      <Text>date: {draft.deadline}</Text>
-
-      {/* Only shown when a date is actively selected */}
-      {date && (
-        <Pressable
+        {date && (
+          <Pressable
             onPress={handleClear}
             style={{
-            paddingHorizontal: 40,
-            paddingVertical: 20,
-            borderRadius: 8,
-            backgroundColor: colors.textSecondary,
-            justifyContent: "center"
+              paddingHorizontal: 40,
+              paddingVertical: 20,
+              borderRadius: 8,
+              backgroundColor: colors.textSecondary,
+              justifyContent: "center",
+              alignItems: "center",
             }}
-        >
-            <Text style={{ color: colors.background, fontSize: 18}}>remove deadline</Text>
-        </Pressable>
-      )}
+          >
+            <Text style={{ color: colors.background, fontSize: 18 }}>remove deadline</Text>
+          </Pressable>
+        )}
+      </View>
+
+      <CenterModal visible={isModalVisible} onClose={() => {
+        setSelectedDate(date ?? tomorrow());
+        setIsModalVisible(false);
+      }}>
+        {/*<Text style={{ fontSize: 20, textAlign: "center" }}>Choose a deadline</Text> */}
+        <DatePicker
+          value={selectedDate}
+          onChange={setSelectedDate}
+          minDate={new Date()}
+          maxYearsAhead={20}
+        />
+        <View style={{ flexDirection: "row", gap: 12, justifyContent: "center" }}>
+          <Pressable
+            onPress={() => {
+              setSelectedDate(date ?? tomorrow());
+              setIsModalVisible(false);
+            }}
+            style={{
+              flex: 1,
+              paddingVertical: 14,
+              borderRadius: 12,
+              backgroundColor: colors.textSecondary,
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: colors.background, fontSize: 16 }}>Cancel</Text>
+          </Pressable>
+          <Pressable
+            onPress={() => {
+              setDraft({ deadline: selectedDate.toISOString() });
+              setIsModalVisible(false);
+            }}
+            style={{
+              flex: 1,
+              paddingVertical: 14,
+              borderRadius: 12,
+              backgroundColor: colors.primary,
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: colors.background, fontSize: 16 }}>Choose</Text>
+          </Pressable>
+        </View>
+      </CenterModal>
     </View>
   );
 }

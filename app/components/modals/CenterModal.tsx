@@ -1,13 +1,13 @@
 import useTheme from "@/constants/theme";
 import { Modal, Pressable, View } from "react-native";
 
-interface BaseModalProps {
+interface CenterModalProps {
   visible: boolean;
   onClose: () => void;
   children: React.ReactNode;
 }
 
-export const BaseModal = ({ visible, onClose, children }: BaseModalProps) => {
+export const CenterModal = ({ visible, onClose, children }: CenterModalProps) => {
   const { colors } = useTheme();
 
   return (
@@ -35,18 +35,21 @@ export const BaseModal = ({ visible, onClose, children }: BaseModalProps) => {
       <View
         pointerEvents="box-none"
         style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          backgroundColor: colors.background,
-          borderTopLeftRadius: 24,
-          borderTopRightRadius: 24,
-          padding: 24,
-          gap: 16,
+          flex: 1,
+          justifyContent: 'center',
         }}
       >
-        {children}
+        <View
+          style={{
+            width: '100%',
+            backgroundColor: colors.background,
+            borderRadius: 24,
+            padding: 24,
+            gap: 16,
+          }}
+        >
+          {children}
+        </View>
       </View>
     </Modal>
   );

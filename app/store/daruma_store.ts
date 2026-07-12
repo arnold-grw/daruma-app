@@ -1,12 +1,11 @@
 
-import { Daruma, DarumaColor } from "../types/daruma";
-import { DarumaRepository } from "../repositories/daruma_repository";
-import { create } from "zustand";
-import { useShallow } from 'zustand/react/shallow'
-import 'react-native-get-random-values';
-import { createDaruma, completeDaruma, updateDarumaNotes } from "@/domain/daruma_domain";
+import { completeDaruma, createDaruma, updateDarumaNotes } from "@/domain/daruma_domain";
 import { DrawingData } from "@/types/drawing";
-import { TEST_DARUMA } from "@/constants/test_data";
+import 'react-native-get-random-values';
+import { create } from "zustand";
+import { useShallow } from 'zustand/react/shallow';
+import { DarumaRepository } from "../repositories/daruma_repository";
+import { Daruma, DarumaColor } from "../types/daruma";
 
 
 const repo = new DarumaRepository();

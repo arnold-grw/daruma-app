@@ -32,23 +32,15 @@ interface CustomPickerProps extends PickerProps {
   placeholder?: string;
 }
 
-export function Picker({ style, items, placeholder, ...props }: CustomPickerProps) {
+export function Picker({ style, items, ...props }: CustomPickerProps) {
   const { colors } = useTheme();
 
   return (
     <RNPicker
-      style={[{ fontFamily: FONT, color: colors.text }, style]}
+      style={[{ fontFamily: FONT, color: colors.text, borderRadius: 8, borderWidth: 3, borderColor: colors.border, backgroundColor: colors.background, fontSize: 16 }, style]}
       dropdownIconColor={colors.textSecondary}
       {...props}
     >
-      {placeholder && (
-        <RNPicker.Item
-          label={placeholder}
-          value={null}
-          color={colors.textSecondary}
-          enabled={false}
-        />
-      )}
       {items.map((item) => (
         <RNPicker.Item
           key={item.value}

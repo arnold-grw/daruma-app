@@ -1,15 +1,15 @@
-import { router, useLocalSearchParams } from "expo-router";
-import { View, ScrollView, Pressable, KeyboardAvoidingView } from "react-native";
-import { Text, TextInput } from '@/components/typography';
-import { useDarumaStore } from "@/store/daruma_store";
-import useTheme from "@/constants/theme";
 import BottomActionBar from "@/components/bottom_action_bar";
-import { useState, useEffect, useRef } from "react";
 import { DarumaDisplay } from "@/components/daruma/daruma_display";
+import { WiggleDaruma } from "@/components/daruma/daruma_wiggle";
 import { BaseModal } from "@/components/modals/BaseModal";
 import { DarumaInfoContent } from "@/components/modals/DarumaInfoContent";
-import { WiggleDaruma } from "@/components/daruma/daruma_wiggle"
+import { Text, TextInput } from '@/components/typography';
+import useTheme from "@/constants/theme";
+import { useDarumaStore } from "@/store/daruma_store";
 import { safeBack } from "@/utils/navigation";
+import { router, useLocalSearchParams } from "expo-router";
+import { useEffect, useRef, useState } from "react";
+import { KeyboardAvoidingView, Pressable, ScrollView, View } from "react-native";
 
 export default function ViewDaruma() {
 

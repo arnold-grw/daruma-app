@@ -1,9 +1,9 @@
 // components/new_daruma/StepGoal.tsx
+import { Text, TextInput } from "@/components/typography";
+import useTheme from "@/constants/theme";
+import { StepProps } from "@/types/step_props";
 import { useEffect } from "react";
 import { KeyboardAvoidingView, ScrollView, View } from "react-native";
-import { Text, TextInput } from "@/components/typography";
-import { StepProps } from "@/app/daruma/new";
-import useTheme from "@/constants/theme";
 
 export function StepGoal({ draft, setDraft, onValidChange }: StepProps) {
   useEffect(() => {

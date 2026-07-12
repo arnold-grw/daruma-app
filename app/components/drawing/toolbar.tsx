@@ -1,10 +1,9 @@
-import { DrawingSettings } from "@/types/drawing";
-import { Pressable, View, StyleSheet } from "react-native";
-import { UndoIcon, BrushIcon } from "../icons/toolbar_icons";
 import useTheme from "@/constants/theme";
+import { DrawingSettings } from "@/types/drawing";
+import { Pressable, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { useSharedValue, useAnimatedStyle, runOnJS } from "react-native-reanimated";
-import Animated from "react-native-reanimated";
+import Animated, { runOnJS, useAnimatedStyle, useSharedValue } from "react-native-reanimated";
+import { BrushIcon, UndoIcon } from "../icons/toolbar_icons";
 
 interface Props {
   height: number;
@@ -48,14 +47,24 @@ export function Toolbar({
     return Math.round((MIN + ratio * (MAX - MIN)) / 0.05) * 0.05;
   };
 
+  // reworked by claude to fix pan gesture break in android studio
   const pan = Gesture.Pan()
-    .onBegin(() => {
-      startY.value = thumbY.value;
-    })
-    .onUpdate((e) => {
-      thumbY.value = clamp(startY.value + e.translationY, 0, trackHeight - thumbSize);
-      runOnJS(onThicknessChange)(yToValue(thumbY.value));
-    });
+  .onBegin(() => {
+    'worklet';
+    startY.value = thumbY.value;
+  })
+  .onUpdate((e) => {
+    'worklet';
+    const raw = startY.value + e.translationY;
+    thumbY.value = Math.min(Math.max(raw, 0), trackHeight - thumbSize);
+  })
+  .onEnd(() => {
+    'worklet';
+    const ratio = 1 - thumbY.value / (trackHeight - thumbSize);
+    const rawValue = MIN + ratio * (MAX - MIN);
+    const steppedValue = Math.round(rawValue / 0.05) * 0.05;
+    runOnJS(onThicknessChange)(steppedValue);
+  });
 
   const thumbStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: thumbY.value }],

@@ -1,12 +1,12 @@
 // components/new_daruma/StepPaint.tsx
-import { useEffect, useRef } from "react";
-import { View } from "react-native";
-import { Text } from "@/components/typography";
-import { StepProps } from "@/app/daruma/new";
-import useTheme from "@/constants/theme";
 import { DarumaDetails } from "@/components/daruma/daruma_details";
 import { DrawingSpace } from "@/components/drawing/drawing_space";
-import { Drawing } from "@/types/drawing"
+import { Text } from "@/components/typography";
+import useTheme from "@/constants/theme";
+import { Drawing } from "@/types/drawing";
+import { StepProps } from "@/types/step_props";
+import { useEffect, useRef } from "react";
+import { View } from "react-native";
 
 export function StepPaint({ draft, setDraft, onValidChange }: StepProps) {
   const { colors } = useTheme();

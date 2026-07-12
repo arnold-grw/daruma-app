@@ -2,7 +2,7 @@
 import BottomActionBar from "@/components/bottom_action_bar";
 import { Text } from '@/components/typography';
 import useTheme from "@/constants/theme";
-import { DarumaDraft, useDarumaStore } from "@/store/daruma_store";
+import { useDarumaStore } from "@/store/daruma_store";
 import { safeBack } from "@/utils/navigation";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
@@ -25,13 +25,6 @@ const STEPS = [
   //{ key: 'confirm', component: StepConfirm, canSkip: false }
 ];
 // ───────────────────────────────────────────────────────────────
-
-export interface StepProps {
-  draft: DarumaDraft;
-  setDraft: (values: Partial<DarumaDraft>) => void;
-  onValidChange: (valid: boolean) => void;
-  onConfirmLabelChange?: (label: string) => void;
-}
 
 export default function NewDaruma() {
   const { colors } = useTheme();
