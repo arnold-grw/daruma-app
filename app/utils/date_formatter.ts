@@ -12,7 +12,9 @@ export type DateFormat =
   | 'DD/MM/YYYY'             // 13/04/2026
   | 'YYYY-MM-DD HH:mm:ss';   // 2026-04-13 18:23:45 (ISO format)
 
-export const DEFAULT_DATE_FORMAT: DateFormat = 'DD.MM.YYYY HH:mm';
+export const DEFAULT_DATE_TIME_FORMAT: DateFormat = 'DD.MM.YYYY HH:mm';
+
+export const DEFAULT_DATE_FORMAT: DateFormat = 'DD.MM.YYYY';
 
 /**
  * Format an ISO date string to a specified format
@@ -22,7 +24,7 @@ export const DEFAULT_DATE_FORMAT: DateFormat = 'DD.MM.YYYY HH:mm';
  */
 export function formatDate(
   isoDateString: string,
-  format: DateFormat = DEFAULT_DATE_FORMAT
+  format: DateFormat = DEFAULT_DATE_TIME_FORMAT
 ): string {
   try {
     const date = new Date(isoDateString);
@@ -90,4 +92,10 @@ export function getAvailableDateFormats(): Array<{ format: DateFormat; descripti
     { format: 'DD/MM/YYYY', description: 'Slash European date only', example: formatDate(exampleDate.toISOString(), 'DD/MM/YYYY') },
     { format: 'YYYY-MM-DD HH:mm:ss', description: 'ISO with seconds', example: formatDate(exampleDate.toISOString(), 'YYYY-MM-DD HH:mm:ss') },
   ];
+}
+
+export function getDaysBetweenDates(startDate: Date, endDate: Date): number {
+  const oneDay = 1000 * 60 * 60 * 24;
+  const diffInMs = endDate.getTime() - startDate.getTime();
+  return Math.floor(diffInMs / oneDay);
 }

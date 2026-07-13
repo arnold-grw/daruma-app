@@ -12,6 +12,7 @@ export interface Daruma {
   createdAt: string;
   completedAt?: string;
   updatedAt: string;
+  isFailed: boolean;
 
   leftEyeDrawing?: DrawingData;
   rightEyeDrawing?: DrawingData;

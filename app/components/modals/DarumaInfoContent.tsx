@@ -1,9 +1,9 @@
-import { Pressable, View } from "react-native";
 import { Text } from "@/components/typography";
 import useTheme from "@/constants/theme";
 import { Daruma } from "@/types/daruma";
-import { formatDate, DEFAULT_DATE_FORMAT } from "@/utils/date_formatter";
+import { DEFAULT_DATE_TIME_FORMAT, formatDate } from "@/utils/date_formatter";
 import { useState } from "react";
+import { Pressable, View } from "react-native";
 
 interface DarumaInfoContentProps {
   daruma: Daruma;
@@ -27,15 +27,20 @@ export const DarumaInfoContent = ({
             About your Daruma
           </Text>
           <Text style={{ color: colors.textSecondary }}>
-            Created: {formatDate(daruma.createdAt, DEFAULT_DATE_FORMAT)}
+            Created: {formatDate(daruma.createdAt, DEFAULT_DATE_TIME_FORMAT)}
           </Text>
           {daruma.completedAt != null && (
-                  <Text style={{ color: colors.textSecondary }}>
-                    Completed: {formatDate(daruma.completedAt, DEFAULT_DATE_FORMAT)}
-                  </Text>
-                )}
+            <Text style={{ color: colors.textSecondary }}>
+              Completed: {formatDate(daruma.completedAt, DEFAULT_DATE_TIME_FORMAT)}
+            </Text>
+          )}
+          {daruma.deadline != null && (
+            <Text style={{ color: colors.textSecondary }}>
+              Deadline: {formatDate(daruma.deadline, DEFAULT_DATE_TIME_FORMAT)}
+            </Text>
+          )}
           <Text style={{ color: colors.textSecondary }}>
-            Last Updated: {formatDate(daruma.updatedAt, DEFAULT_DATE_FORMAT)}
+            Last Updated: {formatDate(daruma.updatedAt, DEFAULT_DATE_TIME_FORMAT)}
           </Text>
           <Pressable
             onPress={() => setConfirmDelete(true)}

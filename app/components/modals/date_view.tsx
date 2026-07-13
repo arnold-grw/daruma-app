@@ -16,7 +16,7 @@ export function DateView({ date, onPressDate }: Props) {
                 alignItems: "center",
                 justifyContent: "center",
                 height: 70,
-                minWidth: 150,
+                minWidth: 250,
                 padding: 16,
                 backgroundColor: colors.background,
                 borderColor: colors.textSecondary,
@@ -31,13 +31,13 @@ export function DateView({ date, onPressDate }: Props) {
                 width: "100%",
                 paddingHorizontal: 10,
             }}>
-                <Text style={{ color: colors.textSecondary, fontSize: 18 }}>
+                <Text style={{ color: colors.text, fontSize: 18 }}>
                     {date?.split("/")[0] ?? "DD"}
                 </Text>
-                <Text style={{ color: colors.textSecondary, fontSize: 18 }}>
+                <Text style={{ color: colors.text, fontSize: 18 }}>
                     {date?.split("/")[1] ?? "MM"}
                 </Text>
-                <Text style={{ color: colors.textSecondary, fontSize: 18 }}>
+                <Text style={{ color: colors.text, fontSize: 18 }}>
                     {date?.split("/")[2] ?? "YYYY"}
                 </Text>
             </View>

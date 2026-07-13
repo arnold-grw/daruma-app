@@ -6,6 +6,7 @@ import { DarumaInfoContent } from "@/components/modals/DarumaInfoContent";
 import { Text, TextInput } from '@/components/typography';
 import useTheme from "@/constants/theme";
 import { useDarumaStore } from "@/store/daruma_store";
+import { DEFAULT_DATE_FORMAT, formatDate, getDaysBetweenDates } from "@/utils/date_formatter";
 import { safeBack } from "@/utils/navigation";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
@@ -63,7 +64,7 @@ export default function ViewDaruma() {
           <View style={{ alignItems: "center", gap: 30 }}>
             <Pressable
               onPress={() => setSheetOpen(true)}
-              style={{ position: 'absolute', top: 50, right: 20 }}
+              style={{ position: 'absolute', top: 45, right: 15 }}
             >
               <Text style={{ fontSize: 32, color: colors.text }}>⋯</Text>
             </Pressable>
@@ -92,6 +93,18 @@ export default function ViewDaruma() {
                 textAlignVertical: 'top',
               }}
             />
+
+            {daruma.deadline != null && (
+              <View style={{ alignItems: 'center', gap: 4 }}>
+                <Text style={{ color: colors.textSecondary }}>
+                  Deadline: {formatDate(daruma.deadline, DEFAULT_DATE_FORMAT)}
+                </Text>
+                <Text style={{ color: colors.textSecondary }}>
+                  Days remaining: {getDaysBetweenDates(new Date(), new Date(daruma.deadline))+1}
+                </Text>
+              </View>
+            )}
+
           </View>
         </ScrollView>
       </KeyboardAvoidingView>
