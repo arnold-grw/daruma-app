@@ -94,13 +94,20 @@ export default function ViewDaruma() {
               }}
             />
 
-            {daruma.deadline != null && (
+            {daruma.deadline != null && !daruma.isFailed && (
               <View style={{ alignItems: 'center', gap: 4 }}>
                 <Text style={{ color: colors.textSecondary }}>
                   Deadline: {formatDate(daruma.deadline, DEFAULT_DATE_FORMAT)}
                 </Text>
                 <Text style={{ color: colors.textSecondary }}>
                   Days remaining: {getDaysBetweenDates(new Date(), new Date(daruma.deadline))+1}
+                </Text>
+              </View>
+            )}
+            {daruma.isFailed && daruma.deadline && (
+              <View style={{ alignItems: 'center', gap: 4 }}>
+                <Text style={{ color: colors.textSecondary }}>
+                  Failed on: {formatDate(daruma.deadline, DEFAULT_DATE_FORMAT)}
                 </Text>
               </View>
             )}
@@ -117,10 +124,10 @@ export default function ViewDaruma() {
         />
       </BaseModal>
 
-      {!daruma.isCompleted && (
+      {!daruma.isCompleted && !daruma.isFailed && (
         <BottomActionBar onConfirm={handleComplete} confirmLabel="Complete" cancelLabel="Return" />
       )}
-      {daruma.isCompleted && (
+      {(daruma.isCompleted || daruma.isFailed) && (
         <BottomActionBar showConfirm={false} cancelLabel="Return" onConfirm={() => {}} />
       )}
     </View>

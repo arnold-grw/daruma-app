@@ -2,6 +2,7 @@ import Svg, { Path, Rect } from 'react-native-svg';
 
 const ICON_SIZE = 35;
 const STROKE_WIDTH = 2.75;
+const HIGHLIGHT_WIDTH = 5;
 
 export function HomeIcon({ color }: { color: string }) {
   return (
@@ -51,6 +52,56 @@ export function ArchiveIcon({ color }: { color: string }) {
         d="M 3 10 l 18 0 z"
         stroke={color}
         strokeWidth={STROKE_WIDTH}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+}
+
+export function HourglassIcon({ color }: { color: string }) {
+  return (
+    <Svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none">
+      <Path
+        d="M 3 3 l 18 0 z"
+        stroke={color}
+        strokeWidth={STROKE_WIDTH}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M 3 21 l 18 0 z"
+        stroke={color}
+        strokeWidth={STROKE_WIDTH}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M 3 21 C 3 15 10 16 10 12 S 3 9 3 3"
+        stroke={color}
+        strokeWidth={STROKE_WIDTH}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M 21 21 C 21 15 14 16 14 12 S 21 9 21 3"
+        stroke={color}
+        strokeWidth={STROKE_WIDTH}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+}
+
+//LATER for highlighting new changes on a tab
+export function HighlightIcon({ color }: { color: string }) {
+  return (
+    <Svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none">
+      <Path
+        d="M 20 3 l 0 0 z"
+        stroke={color}
+        strokeWidth={HIGHLIGHT_WIDTH}
         strokeLinecap="round"
         strokeLinejoin="round"
       />

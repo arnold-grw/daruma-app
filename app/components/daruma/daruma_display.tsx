@@ -1,8 +1,7 @@
-import { View } from 'react-native';
-import { Image } from 'expo-image';
+import { DarumaDetails } from '@/components/daruma/daruma_details';
 import { getDarumaColor } from '@/constants/daruma_colors';
 import { Daruma } from '@/types/daruma';
-import { DarumaDetails } from '@/components/daruma/daruma_details';
+import { View } from 'react-native';
 import { DrawingRenderer } from '../drawing/drawing_renderer';
 
 interface DarumaDisplayProps {
@@ -11,7 +10,7 @@ interface DarumaDisplayProps {
   height?: number;
 }
 
-export function DarumaDisplay({ daruma, width = 315, height = 324 }: DarumaDisplayProps) {
+export function DarumaDisplay({ daruma, width = 315, height = 324}: DarumaDisplayProps) {
   const { hex } = getDarumaColor(daruma.color);
   var eyeSize = width*0.22;
   var eyeXOffset = width*0.167;

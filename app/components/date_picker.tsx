@@ -15,6 +15,7 @@ function daysInMonth(year: number, month: number) {
 }
 
 export function DatePicker({ value, onChange, minDate, maxYearsAhead = 10 }: DatePickerProps) {
+
   const { colors } = useTheme();
   const currentYear = new Date().getFullYear();
 

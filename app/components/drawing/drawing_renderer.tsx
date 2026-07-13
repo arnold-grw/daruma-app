@@ -1,7 +1,7 @@
+import { eyeColor } from '@/constants/daruma_colors';
+import { DrawingData } from '@/types/drawing';
 import { View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-import { DrawingData } from '@/types/drawing';
-import { eyeColor } from '@/constants/daruma_colors';
 
 interface DrawingRendererProps {
   drawingData: DrawingData;

@@ -117,16 +117,42 @@ export const useDarumaStore = create<DarumaState>((set, get) => ({
 export const useActiveDarumas = () =>
   useDarumaStore(useShallow(state =>
     state.darumas
-      .filter(d => !d.isCompleted)
+      .filter(d => !d.isCompleted && !d.isFailed)
       .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
   ))
 
 export const useCompletedDarumas = () =>
   useDarumaStore(useShallow(state =>
     state.darumas
-      .filter(d => d.isCompleted)
+      .filter(d => d.isCompleted && !d.isFailed)
       .sort((a, b) => new Date(b.completedAt!).getTime() - new Date(a.completedAt!).getTime())
   ))
 
+export const useFailedDarumas = () =>
+  useDarumaStore(useShallow(state =>
+    state.darumas
+      .filter(d => d.isFailed)
+      .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+  ))
 
+export const updateFailedDarumas = async () => {
+  const darumas = await repo.getAll();
+  const now = new Date();
 
+  const updatedDarumas = darumas.map(daruma => {
+    if (daruma.deadline && !daruma.isCompleted && !daruma.isFailed) {
+      const deadlineDate = new Date(daruma.deadline);
+      if (deadlineDate <= now) {
+        return { ...daruma, isFailed: true };
+      }
+    }
+    return daruma;
+  });
+
+  // Update the failed darumas in the repository
+  for (const daruma of updatedDarumas) {
+    if (daruma.isFailed) {
+      await repo.update(daruma);
+    }
+  }
+}

@@ -1,10 +1,10 @@
-import { router, Tabs, usePathname } from "expo-router";
-import { useState } from "react";
-import { Pressable } from "react-native";
-import * as SplashScreen from 'expo-splash-screen';
+import { HomeIcon, HourglassIcon, ProfileIcon } from "@/components/icons/tab_icons";
 import { Text } from '@/components/typography';
 import useTheme from "@/constants/theme";
-import { ArchiveIcon, HomeIcon, ProfileIcon } from "@/components/icons/tab_icons";
+import { router, Tabs, usePathname } from "expo-router";
+import * as SplashScreen from 'expo-splash-screen';
+import { useState } from "react";
+import { Pressable } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -72,7 +72,7 @@ export default function TabsLayout() {
                 alignItems: 'center',
               }}
             >
-              <ArchiveIcon color={isActive('/archive') ? colors.text : colors.textSecondary} />
+              <HourglassIcon color={isActive('/archive') ? colors.text : colors.textSecondary} />
             </Pressable>
           ),
         }}

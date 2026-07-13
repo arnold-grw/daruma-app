@@ -70,7 +70,7 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
         <DatePicker
           value={selectedDate}
           onChange={setSelectedDate}
-          minDate={new Date()}
+          minDate={new Date()} //min date should be today instead of tomorrow because minDate itself is not included
           maxYearsAhead={20}
         />
         <View style={{ flexDirection: "row", gap: 12, justifyContent: "center" }}>

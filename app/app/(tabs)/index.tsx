@@ -1,12 +1,9 @@
 
-import { router, useRouter } from 'expo-router'
-import { View, ScrollView, Pressable, Image } from "react-native";
-import { Text } from '@/components/typography';
-import { useDarumaStore, useActiveDarumas, useCompletedDarumas } from '@/store/daruma_store';
-import { useEffect } from 'react';
-import { Daruma } from '@/types/daruma';
+import Card from '@/components/card';
 import useTheme from '@/constants/theme';
-import Card from '@/components/card'
+import { updateFailedDarumas, useActiveDarumas, useCompletedDarumas, useDarumaStore } from '@/store/daruma_store';
+import { useEffect } from 'react';
+import { ScrollView, View } from "react-native";
   
 export default function Index() {
   const { load } = useDarumaStore()
@@ -16,6 +13,7 @@ export default function Index() {
 
   // Load darumas when the component mounts
   useEffect(() => {
+    updateFailedDarumas();
     load();
   }, []);
 
