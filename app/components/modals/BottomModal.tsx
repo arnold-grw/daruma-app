@@ -1,13 +1,14 @@
 import useTheme from "@/constants/theme";
 import { Modal, Pressable, View } from "react-native";
+import { CloseIcon } from "../icons/button_icons";
 
-interface BaseModalProps {
+interface BottomModalProps {
   visible: boolean;
   onClose: () => void;
   children: React.ReactNode;
 }
 
-export const BaseModal = ({ visible, onClose, children }: BaseModalProps) => {
+export const BottomModal = ({ visible, onClose, children }: BottomModalProps) => {
   const { colors } = useTheme();
 
   return (
@@ -46,6 +47,9 @@ export const BaseModal = ({ visible, onClose, children }: BaseModalProps) => {
           gap: 16,
         }}
       >
+        <Pressable onPress={onClose} style={{ position: 'absolute', top: 20, right: 20, zIndex: 1 }}>
+          <CloseIcon color={colors.textSecondary} />
+        </Pressable>
         {children}
       </View>
     </Modal>

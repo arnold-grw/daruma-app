@@ -1,7 +1,7 @@
 import BottomActionBar from "@/components/bottom_action_bar";
 import { DarumaDisplay } from "@/components/daruma/daruma_display";
 import { WiggleDaruma } from "@/components/daruma/daruma_wiggle";
-import { BaseModal } from "@/components/modals/BaseModal";
+import { BottomModal } from "@/components/modals/BottomModal";
 import { DarumaInfoContent } from "@/components/modals/DarumaInfoContent";
 import { Text, TextInput } from '@/components/typography';
 import useTheme from "@/constants/theme";
@@ -51,6 +51,12 @@ export default function ViewDaruma() {
     safeBack();
   }
 
+  const handleChangeGoal = async (newGoal: string) => {
+    if (!daruma || !darumaId) return;
+    daruma.goal = newGoal;
+    setSheetOpen(false);
+  }
+
   if (!daruma) return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.background }}>
       <Text>Daruma not found</Text>
@@ -64,7 +70,7 @@ export default function ViewDaruma() {
           <View style={{ alignItems: "center", gap: 30 }}>
             <Pressable
               onPress={() => setSheetOpen(true)}
-              style={{ position: 'absolute', top: 45, right: 15 }}
+              style={{ position: 'absolute', top: 45, right: 0 }}
             >
               <Text style={{ fontSize: 32, color: colors.text }}>⋯</Text>
             </Pressable>
@@ -106,7 +112,7 @@ export default function ViewDaruma() {
             )}
             {daruma.isFailed && daruma.deadline && (
               <View style={{ alignItems: 'center', gap: 4 }}>
-                <Text style={{ color: colors.textSecondary }}>
+                <Text style={{ color: colors.danger }}>
                   Failed on: {formatDate(daruma.deadline, DEFAULT_DATE_FORMAT)}
                 </Text>
               </View>
@@ -116,13 +122,14 @@ export default function ViewDaruma() {
         </ScrollView>
       </KeyboardAvoidingView>
 
-      <BaseModal visible={sheetOpen} onClose={() => setSheetOpen(false)}>
+      <BottomModal visible={sheetOpen} onClose={() => setSheetOpen(false)}>
         <DarumaInfoContent
           daruma={daruma}
           onConfirmDelete={handleDelete}
+          onChangeGoal={handleChangeGoal}
           onClose={() => setSheetOpen(false)}
         />
-      </BaseModal>
+      </BottomModal>
 
       {!daruma.isCompleted && !daruma.isFailed && (
         <BottomActionBar onConfirm={handleComplete} confirmLabel="Complete" cancelLabel="Return" />

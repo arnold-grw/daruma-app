@@ -1,5 +1,6 @@
 import useTheme from "@/constants/theme";
 import { Modal, Pressable, View } from "react-native";
+import { CloseIcon } from "../icons/button_icons";
 
 interface CenterModalProps {
   visible: boolean;
@@ -48,6 +49,9 @@ export const CenterModal = ({ visible, onClose, children }: CenterModalProps) =>
             gap: 16,
           }}
         >
+          <Pressable onPress={onClose} style={{ position: 'absolute', top: 20, right: 20, zIndex: 1 }}>
+            <CloseIcon color={colors.textSecondary} />
+          </Pressable>
           {children}
         </View>
       </View>

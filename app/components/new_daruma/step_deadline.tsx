@@ -1,7 +1,7 @@
 
-import { DatePicker } from "@/components/date_picker";
+import { DateView } from "@/components/date_view";
 import { CenterModal } from "@/components/modals/CenterModal";
-import { DateView } from "@/components/modals/date_view";
+import { DatePicker } from "@/components/modals/date_picker";
 import { Text } from "@/components/typography";
 import useTheme from "@/constants/theme";
 import { StepProps } from "@/types/step_props";
@@ -74,6 +74,7 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
           maxYearsAhead={20}
         />
         <View style={{ flexDirection: "row", gap: 12, justifyContent: "center" }}>
+          {/*
           <Pressable
             onPress={() => {
               setSelectedDate(date ?? tomorrow());
@@ -89,6 +90,7 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
           >
             <Text style={{ color: colors.background, fontSize: 16 }}>Cancel</Text>
           </Pressable>
+          */}
           <Pressable
             onPress={() => {
               setDraft({ deadline: selectedDate.toISOString() });
@@ -99,6 +101,7 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
               paddingVertical: 14,
               borderRadius: 12,
               backgroundColor: colors.primary,
+              maxWidth: 230,
               alignItems: "center",
             }}
           >
