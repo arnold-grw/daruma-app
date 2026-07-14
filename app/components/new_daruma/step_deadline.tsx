@@ -36,7 +36,7 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: "center", paddingTop: 40, gap: 30 }}>
+    <View style={{ flex: 1, alignItems: "center", paddingTop: 80, gap: 30 }}>
       <Text style={{ fontSize: 24, textAlign: "center" }}>Set a deadline?</Text>
       <Text style={{ color: colors.textSecondary, fontSize: 16, textAlign: "center", maxWidth: 280 }}>
         or skip if you prefer no time limit.

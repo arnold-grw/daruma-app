@@ -1,6 +1,5 @@
 // app/daruma/new.tsx
 import BottomActionBar from "@/components/bottom_action_bar";
-import { Text } from '@/components/typography';
 import useTheme from "@/constants/theme";
 import { useDarumaStore } from "@/store/daruma_store";
 import { safeBack } from "@/utils/navigation";
@@ -9,6 +8,7 @@ import { useEffect, useState } from "react";
 import { View } from "react-native";
 
 // Import your step components
+import { ProgressIndicator } from "@/components/new_daruma/progress_indicator";
 import { StepColor } from "@/components/new_daruma/step_color";
 import { StepDeadline } from "@/components/new_daruma/step_deadline";
 import { StepGoal } from "@/components/new_daruma/step_goal";
@@ -65,10 +65,7 @@ export default function NewDaruma() {
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
 
-      {/* Progress indicator — just swap this out for a bar later */}
-      <Text style={{ textAlign: 'center', marginTop: 50, color: colors.textSecondary }}>
-        {stepIndex + 1} / {STEPS.length}
-      </Text>
+      <ProgressIndicator stepIndex={stepIndex} totalSteps={STEPS.length} />
 
       {/* Active step — re-mounts on step change */}
       <StepComponent

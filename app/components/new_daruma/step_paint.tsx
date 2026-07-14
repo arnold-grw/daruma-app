@@ -43,7 +43,7 @@ export function StepPaint({ draft, setDraft, onValidChange }: StepProps) {
   };
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center", overflow: "hidden"}}>
       <Text style={{
         fontSize: 24,
         textAlign: "center",
@@ -52,6 +52,7 @@ export function StepPaint({ draft, setDraft, onValidChange }: StepProps) {
         maxWidth: 300,
         padding: 20,
         borderRadius: 10,
+        top: -100,
       }}>
         Paint the left eye to start your Journey
       </Text>
