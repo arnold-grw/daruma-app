@@ -1,4 +1,4 @@
-// components/new_daruma/StepGoal.tsx
+// components/new_daruma/step_goal.tsx
 import { Text, TextInput } from "@/components/typography";
 import useTheme from "@/constants/theme";
 import { StepProps } from "@/types/step_props";

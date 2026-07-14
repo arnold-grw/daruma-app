@@ -11,7 +11,7 @@ export function ProgressIndicator({ stepIndex, totalSteps }: { stepIndex: number
                 <View
                     key={index}
                         style={{
-                        width: 80,
+                        width: 60,
                         height: 10,
                         borderRadius: 5,
                         backgroundColor: index <= stepIndex ? colors.primary : colors.card,

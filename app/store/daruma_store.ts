@@ -1,5 +1,5 @@
 
-import { completeDaruma, createDaruma, updateDarumaNotes } from "@/domain/daruma_domain";
+import { completeDaruma, createDaruma, extendDarumaDeadline, updateDarumaNotes } from "@/domain/daruma_domain";
 import { DrawingData } from "@/types/drawing";
 import 'react-native-get-random-values';
 import { create } from "zustand";
@@ -26,6 +26,7 @@ interface DarumaState {
   add: (daruma: Daruma) => Promise<void>;
   complete: (darumaId: string, drawing: DrawingData) => Promise<void>;
   updateNotes: (darumaId: string, notes: string) => Promise<void>;
+  extendDeadline: (darumaID: string, deadline: string) => Promise<void>;
   delete: (darumaId: string) => Promise<void>;
 
   setDraft: (values: Partial<DarumaDraft>) => void;
@@ -103,6 +104,21 @@ export const useDarumaStore = create<DarumaState>((set, get) => ({
       darumas: darumas.map(d => d.id === id ? updated : d)
     });
 
+  },
+
+  extendDeadline: async (id: string, deadline: string) => {
+    const { darumas } = get();
+
+    const daruma = darumas.find(d => d.id === id);
+    if (!daruma) return;
+
+    const updated = extendDarumaDeadline(daruma, deadline);
+
+    await repo.update(updated);
+
+    set({
+      darumas: darumas.map(d => d.id === id ? updated : d)
+    });
   },
 
   delete: async (id: string) => {

@@ -1,3 +1,4 @@
+
 // app/daruma/new.tsx
 import BottomActionBar from "@/components/bottom_action_bar";
 import useTheme from "@/constants/theme";
@@ -10,11 +11,10 @@ import { View } from "react-native";
 // Import your step components
 import { ProgressIndicator } from "@/components/new_daruma/progress_indicator";
 import { StepColor } from "@/components/new_daruma/step_color";
+import { StepConfirm } from "@/components/new_daruma/step_confirm";
 import { StepDeadline } from "@/components/new_daruma/step_deadline";
 import { StepGoal } from "@/components/new_daruma/step_goal";
 import { StepPaint } from "@/components/new_daruma/step_paint";
-//import { StepConfirm } from "@/components/new_daruma/step_confirm";
-
 
 // ── Define steps here — reorder or add freely ──────────────────
 const STEPS = [
@@ -22,7 +22,7 @@ const STEPS = [
   { key: 'goal',  component: StepGoal,  canSkip: false },
   { key: 'deadline', component: StepDeadline, canSkip: true },
   { key: 'paint', component: StepPaint, canSkip: false },
-  //{ key: 'confirm', component: StepConfirm, canSkip: false }
+  { key: 'confirm', component: StepConfirm, canSkip: false }
 ];
 // ───────────────────────────────────────────────────────────────
 
@@ -30,6 +30,7 @@ export default function NewDaruma() {
   const { colors } = useTheme();
   const { draft, setDraft, commitDraft, resetDraft } = useDarumaStore();
   const [stepIndex, setStepIndex] = useState(0);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   const currentStep = STEPS[stepIndex];
   const StepComponent = currentStep.component;
@@ -38,10 +39,22 @@ export default function NewDaruma() {
 
   useEffect(() => {
     setDraft({ color: 'red', goal: '', notes: '' });
-    return () => resetDraft(); // clean up on unmount
+    return () => resetDraft();
   }, []);
 
+  useEffect(() => {
+    if (isNavigating) {
+      const timer = setTimeout(() => {
+        setIsNavigating(false);
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+  }, [stepIndex, isNavigating]);
+
   const handleNext = async () => {
+    if (isNavigating) return;
+    setIsNavigating(true);
+
     if (isLast) {
       await commitDraft();
       router.replace('/');
@@ -51,6 +64,9 @@ export default function NewDaruma() {
   };
 
   const handleBack = () => {
+    if (isNavigating) return;
+    setIsNavigating(true);
+
     if (isFirst) {
       resetDraft();
       safeBack();
@@ -59,15 +75,12 @@ export default function NewDaruma() {
     }
   };
 
-  // Each step tells new.tsx whether it's valid via this callback
   const [canProceed, setCanProceed] = useState(false);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
-
       <ProgressIndicator stepIndex={stepIndex} totalSteps={STEPS.length} />
 
-      {/* Active step — re-mounts on step change */}
       <StepComponent
         key={currentStep.key}
         draft={draft}
@@ -78,9 +91,10 @@ export default function NewDaruma() {
       <BottomActionBar
         onConfirm={handleNext}
         onCancel={handleBack}
-        canConfirm={canProceed || currentStep.canSkip}
+        canConfirm={(canProceed || currentStep.canSkip)}
         confirmLabel={isLast ? "Confirm" : "Next"}
         cancelLabel={isFirst ? "Cancel" : "Back"}
+        canClick={!isNavigating}
       />
     </View>
   );

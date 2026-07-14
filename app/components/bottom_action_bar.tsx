@@ -1,8 +1,7 @@
-import { View, Pressable } from "react-native";
 import { Text } from '@/components/typography';
-import { router } from "expo-router";
 import useTheme from "@/constants/theme";
 import { safeBack } from "@/utils/navigation";
+import { Pressable, View } from "react-native";
 
 interface Props {
   showConfirm?: boolean
@@ -11,9 +10,10 @@ interface Props {
   onCancel?: () => void
   confirmLabel?: string
   cancelLabel?: string
+  canClick?: boolean
 }
 
-export default function BottomActionBar({ showConfirm = true, canConfirm = true, onConfirm, onCancel, confirmLabel = "Confirm", cancelLabel = "Cancel" }: Props) {
+export default function BottomActionBar({ showConfirm = true, canConfirm = true, onConfirm, onCancel, confirmLabel = "Confirm", cancelLabel = "Cancel", canClick = true }: Props) {
 
   const { colors } = useTheme();
 
@@ -34,7 +34,7 @@ export default function BottomActionBar({ showConfirm = true, canConfirm = true,
     >
       {/* Cancel */}
       <Pressable
-        onPress={handleCancel}
+        onPress={canClick ? handleCancel : undefined}
         style={{
           paddingHorizontal: 20,
           borderRadius: 8,
@@ -50,7 +50,7 @@ export default function BottomActionBar({ showConfirm = true, canConfirm = true,
       {showConfirm && (
       <Pressable
         onPress={canConfirm ? onConfirm : undefined}
-        disabled={!canConfirm}
+        disabled={!canConfirm || !canClick}
         style={{
           paddingHorizontal: 20,
           borderRadius: 8,

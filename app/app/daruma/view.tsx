@@ -1,8 +1,9 @@
 import BottomActionBar from "@/components/bottom_action_bar";
 import { DarumaDisplay } from "@/components/daruma/daruma_display";
 import { WiggleDaruma } from "@/components/daruma/daruma_wiggle";
-import { BottomModal } from "@/components/modals/BottomModal";
-import { DarumaInfoContent } from "@/components/modals/DarumaInfoContent";
+import ExtendDeadline from "@/components/extend_deadline";
+import { BottomModal } from "@/components/modals/bottom_modal";
+import { DarumaInfoContent } from "@/components/modals/info_context";
 import { Text, TextInput } from '@/components/typography';
 import useTheme from "@/constants/theme";
 import { useDarumaStore } from "@/store/daruma_store";
@@ -15,7 +16,7 @@ import { KeyboardAvoidingView, Pressable, ScrollView, View } from "react-native"
 export default function ViewDaruma() {
 
   const { darumaId } = useLocalSearchParams();
-  const { updateNotes, delete: deleteDaruma } = useDarumaStore()
+  const { updateNotes, delete: deleteDaruma, extendDeadline } = useDarumaStore()
   const daruma = useDarumaStore(state => state.darumas.find(d => d.id === darumaId));
 
   const { colors } = useTheme();
@@ -44,8 +45,8 @@ export default function ViewDaruma() {
   }
 
   const handleDelete = async () => {
-    var wasCompleted = daruma?.isCompleted;
     if (!daruma || !darumaId) return;
+    var wasCompleted = daruma?.isCompleted;
     await deleteDaruma(darumaId as string);
     setSheetOpen(false);
     safeBack();
@@ -55,6 +56,11 @@ export default function ViewDaruma() {
     if (!daruma || !darumaId) return;
     daruma.goal = newGoal;
     setSheetOpen(false);
+  }
+
+  const handleExtendDeadline = async (newDeadline: string) => {
+    if (!daruma || !darumaId) return;
+    await extendDeadline(darumaId as string, newDeadline);
   }
 
   if (!daruma) return (
@@ -100,22 +106,23 @@ export default function ViewDaruma() {
               }}
             />
 
-            {daruma.deadline != null && !daruma.isFailed && (
+            {daruma.deadline != null && !daruma.isFailed && !daruma.isCompleted && (
               <View style={{ alignItems: 'center', gap: 4 }}>
-                <Text style={{ color: colors.textSecondary }}>
+                <Text style={{ color: colors.textSecondary, fontSize: 16 }}>
                   Deadline: {formatDate(daruma.deadline, DEFAULT_DATE_FORMAT)}
                 </Text>
-                <Text style={{ color: colors.textSecondary }}>
-                  Days remaining: {getDaysBetweenDates(new Date(), new Date(daruma.deadline))+1}
-                </Text>
+                {(() => {
+                  const daysRemaining = getDaysBetweenDates(new Date(), new Date(daruma.deadline)) + 1;
+                  return (
+                    <Text style={{ color: colors.text, fontSize: 18 }}>
+                      {daysRemaining === 1 ? "1 day remaining" : `${daysRemaining} days remaining`}
+                    </Text>
+                  );
+                })()}
               </View>
             )}
-            {daruma.isFailed && daruma.deadline && (
-              <View style={{ alignItems: 'center', gap: 4 }}>
-                <Text style={{ color: colors.danger }}>
-                  Failed on: {formatDate(daruma.deadline, DEFAULT_DATE_FORMAT)}
-                </Text>
-              </View>
+            {daruma.isFailed && daruma.deadline && !daruma.isCompleted && (
+              <ExtendDeadline deadline={daruma.deadline} onConfirm={handleExtendDeadline} />
             )}
 
           </View>

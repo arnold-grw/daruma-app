@@ -1,7 +1,7 @@
-import { Pressable, View, Text } from "react-native";
-import { Point, Line, Drawing, DrawingSettings } from "@/types/drawing";
-import { DrawingRenderer } from "./drawing_renderer";
+import { Drawing, DrawingData, DrawingSettings, Line, Point } from "@/types/drawing";
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { View } from "react-native";
+import { DrawingRenderer } from "./drawing_renderer";
 
 
 interface Props {
@@ -10,11 +10,22 @@ interface Props {
   onDrawingChange?: (drawing: Drawing) => void;
 }
 
-export const Canvas = forwardRef(({ size = 200, settings, onDrawingChange }: Props, ref) => {
+export const Canvas = forwardRef(({ size = 200, settings, onDrawingChange, initialDrawing }: Props & { initialDrawing?: DrawingData | Drawing }, ref) => {
     const canvasRef = useRef<View>(null);
     const canvasOrigin = useRef({ x: 0, y: 0 });
-    const [drawing, setDrawing] = useState(new Drawing());
-    const [liveDrawing, setLiveDrawing] = useState(new Drawing());
+    const convertDrawingData = (data?: DrawingData | Drawing): Drawing => {
+      if (!data) return new Drawing();
+      // If already a Drawing instance, return as-is
+      if ((data as Drawing).lines && (data as any).lines[0] instanceof Line) {
+        return data as Drawing;
+      }
+      const dd = data as DrawingData;
+      const lines = dd.lines.map(l => new Line(l.points.map(p => new Point(p.x, p.y)), l.width ?? 0.5));
+      return new Drawing(lines);
+    }
+
+    const [drawing, setDrawing] = useState(() => convertDrawingData(initialDrawing));
+    const [liveDrawing, setLiveDrawing] = useState(() => convertDrawingData(initialDrawing));
     const currentLineRef = useRef<Line | null>(null);
     const drawingSpaceFactor = 0.75;
     const drawingSpaceSize = size * drawingSpaceFactor;
@@ -49,12 +60,14 @@ export const Canvas = forwardRef(({ size = 200, settings, onDrawingChange }: Pro
     }
 
     useImperativeHandle(ref, () => ({
-        undoLastLine: () => {
+      undoLastLine: () => {
         if (drawing.lines.length === 0) return;
         const newLines = drawing.lines.slice(0, -1);
-        setDrawing(new Drawing(newLines));
-        setLiveDrawing(new Drawing(newLines));
-        },
+        const newDrawing = new Drawing(newLines);
+        setDrawing(newDrawing);
+        setLiveDrawing(newDrawing);
+        onDrawingChange?.(newDrawing);
+      },
     }));
 
     const startDrawing = (inputX: number, inputY: number) => {

@@ -13,7 +13,9 @@ export function StepPaint({ draft, setDraft, onValidChange }: StepProps) {
   const drawingSpaceRef = useRef<any>(null);
 
   useEffect(() => {
-    onValidChange(false); // must draw something to proceed
+    // If there's already a draft drawing, mark valid, otherwise require drawing
+    const hasDraft = !!draft.leftEyeDrawing && draft.leftEyeDrawing.lines.length > 0;
+    onValidChange(hasDraft);
   }, []);
 
   // Called by new.tsx before moving to next step
@@ -39,6 +41,9 @@ export function StepPaint({ draft, setDraft, onValidChange }: StepProps) {
           }))
         }
       });
+    } else {
+      // clear draft when nothing is drawn
+      setDraft({ leftEyeDrawing: undefined });
     }
   };
 
@@ -54,7 +59,7 @@ export function StepPaint({ draft, setDraft, onValidChange }: StepProps) {
         borderRadius: 10,
         top: -100,
       }}>
-        Paint the left eye to start your Journey
+        Paint the left eye to begin your journey
       </Text>
 
       <View style={{ zIndex: -1 }}>
@@ -66,9 +71,10 @@ export function StepPaint({ draft, setDraft, onValidChange }: StepProps) {
           <DarumaDetails color={draft.color} width={315 * 4} height={324 * 4} />
         </View>
         <DrawingSpace
-          //ref={drawingSpaceRef}
+          ref={drawingSpaceRef}
           size={300}
           onDrawingChange={handleDrawingChange}
+          initialDrawing={draft.leftEyeDrawing}
         />
       </View>
     </View>

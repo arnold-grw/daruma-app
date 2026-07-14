@@ -99,3 +99,10 @@ export function getDaysBetweenDates(startDate: Date, endDate: Date): number {
   const diffInMs = endDate.getTime() - startDate.getTime();
   return Math.floor(diffInMs / oneDay);
 }
+
+export function getTomorrow(): Date {
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}

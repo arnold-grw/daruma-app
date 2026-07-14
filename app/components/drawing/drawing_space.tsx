@@ -1,17 +1,25 @@
-import { View } from "react-native";
-import { DrawingSettings, Drawing, DrawingData } from "@/types/drawing";
-import { useState, useRef, forwardRef, useImperativeHandle } from "react";
 import { Canvas } from "@/components/drawing/canvas";
 import { Toolbar } from "@/components/drawing/toolbar";
+import { Drawing, DrawingData, DrawingSettings, Line, Point } from "@/types/drawing";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { View } from "react-native";
 
 export const DrawingSpace = forwardRef(({ 
   size = 300,
   onDrawingChange,
+  initialDrawing,
 }: { 
   size?: number,
   onDrawingChange?: (drawing: Drawing) => void,
+  initialDrawing?: DrawingData,
 }, ref) => {
-  const [currentDrawing, setCurrentDrawing] = useState<Drawing>(new Drawing());
+  const convertDrawingData = (data?: DrawingData): Drawing => {
+    if (!data) return new Drawing();
+    const lines = data.lines.map(l => new Line(l.points.map(p => new Point(p.x, p.y)), l.width ?? 0.5));
+    return new Drawing(lines);
+  }
+
+  const [currentDrawing, setCurrentDrawing] = useState<Drawing>(() => convertDrawingData(initialDrawing));
   const [settings, setSettings] = useState<DrawingSettings>({ thickness: 0.2 });
   const canvasRef = useRef<any>(null); // Ref to access Canvas methods
 
@@ -56,6 +64,7 @@ export const DrawingSpace = forwardRef(({
         size={size}
         settings={settings}
         onDrawingChange={handleDrawingChange}
+        initialDrawing={initialDrawing}
       />
       <Toolbar
         height={size*1.25}

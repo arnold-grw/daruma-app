@@ -1,33 +1,26 @@
 
 import { DateView } from "@/components/date_view";
-import { CenterModal } from "@/components/modals/CenterModal";
+import { CenterModal } from "@/components/modals/center_modal";
 import { DatePicker } from "@/components/modals/date_picker";
 import { Text } from "@/components/typography";
 import useTheme from "@/constants/theme";
 import { StepProps } from "@/types/step_props";
-import { formatDate } from "@/utils/date_formatter";
+import { formatDate, getTomorrow } from "@/utils/date_formatter";
 import { useEffect, useState } from "react";
 import { Pressable, View } from "react-native";
-
-const tomorrow = () => {
-  const d = new Date();
-  d.setDate(d.getDate() + 1);
-  d.setHours(0, 0, 0, 0);
-  return d;
-};
 
 export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
   const { colors } = useTheme();
   const date = draft.deadline ? new Date(draft.deadline) : null;
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedDate, setSelectedDate] = useState<Date>(date ?? tomorrow());
+  const [selectedDate, setSelectedDate] = useState<Date>(date ?? getTomorrow());
 
   useEffect(() => {
     onValidChange(true); // immer skippable, egal ob Datum gesetzt
   }, [date]);
 
   useEffect(() => {
-    setSelectedDate(date ?? tomorrow());
+    setSelectedDate(date ?? getTomorrow());
   }, [date]);
 
   const handleClear = () => {
@@ -63,7 +56,7 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
       </View>
 
       <CenterModal visible={isModalVisible} onClose={() => {
-        setSelectedDate(date ?? tomorrow());
+        setSelectedDate(date ?? getTomorrow());
         setIsModalVisible(false);
       }}>
         {/*<Text style={{ fontSize: 20, textAlign: "center" }}>Choose a deadline</Text> */}
@@ -77,7 +70,7 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
           {/*
           <Pressable
             onPress={() => {
-              setSelectedDate(date ?? tomorrow());
+              setSelectedDate(date ?? getTomorrow());
               setIsModalVisible(false);
             }}
             style={{

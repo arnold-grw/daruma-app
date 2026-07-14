@@ -57,3 +57,14 @@ export function updateDarumGoal(daruma: Daruma, goal: string): Daruma {
         updatedAt: now,
     };
 }
+
+export function extendDarumaDeadline(daruma: Daruma, deadline: string) : Daruma {
+    const now = new Date().toISOString();
+
+    return {
+        ...daruma,
+        deadline: deadline.trim(),
+        isFailed: false,
+        updatedAt: now,
+    };
+}
