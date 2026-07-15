@@ -17,6 +17,8 @@ export default function Index() {
     load();
   }, []);
 
+
+
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }} >
         {/* <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text }}>Shrine</Text> */}

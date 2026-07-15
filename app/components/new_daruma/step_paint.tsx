@@ -9,7 +9,7 @@ import { useEffect, useRef } from "react";
 import { View } from "react-native";
 
 export function StepPaint({ draft, setDraft, onValidChange }: StepProps) {
-  const { colors } = useTheme();
+  const { colors, shadows } = useTheme();
   const drawingSpaceRef = useRef<any>(null);
 
   useEffect(() => {
@@ -58,6 +58,7 @@ export function StepPaint({ draft, setDraft, onValidChange }: StepProps) {
         padding: 20,
         borderRadius: 10,
         top: -100,
+        shadowColor: shadows.color, shadowOffset: { width: shadows.x_offset, height: shadows.y_offset }, shadowOpacity: shadows.opacity, shadowRadius: shadows.radius, elevation: shadows.elevation
       }}>
         Paint the left eye to begin your journey
       </Text>

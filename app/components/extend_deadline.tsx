@@ -30,7 +30,7 @@ export default function ExtendDeadline( { deadline, onConfirm }: ExtendDeadlineP
             <BottomModal visible={modalVisible} onClose={() => setIsModalVisible(false)}>
                 <View style={{ alignItems: 'center', gap: 20, paddingBottom: 150 }}>
                     <Text style={{ color: colors.text, fontSize: 18, fontWeight: '600' }}>
-                        extend deadline
+                        Extend deadline
                     </Text>
                     <DatePicker
                         value={selectedDate}

@@ -9,7 +9,7 @@ interface CenterModalProps {
 }
 
 export const CenterModal = ({ visible, onClose, children }: CenterModalProps) => {
-  const { colors } = useTheme();
+  const { colors, shadows } = useTheme();
 
   return (
     <Modal
@@ -28,7 +28,7 @@ export const CenterModal = ({ visible, onClose, children }: CenterModalProps) =>
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(0,0,0,0.5)',
+          backgroundColor: 'rgba(0,0,0,0.4)',
         }}
         onPress={onClose}
       />
@@ -47,6 +47,7 @@ export const CenterModal = ({ visible, onClose, children }: CenterModalProps) =>
             borderRadius: 24,
             padding: 24,
             gap: 16,
+            shadowColor: shadows.color, shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.5, shadowRadius: 40, elevation: shadows.elevation
           }}
         >
           <Pressable onPress={onClose} style={{ position: 'absolute', top: 20, right: 20, zIndex: 1 }}>

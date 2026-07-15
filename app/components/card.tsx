@@ -11,7 +11,7 @@ interface CardProps {
 }
 
 export default function Card({ daruma, grayscale = false }: CardProps) {
-  const { colors } = useTheme();
+  const { colors, shadows } = useTheme();
 
   const handlePress = () => {
     router.push({
@@ -24,7 +24,8 @@ export default function Card({ daruma, grayscale = false }: CardProps) {
     <Pressable
       key={daruma.id}
       onPress={handlePress}
-      style={{ marginBottom: 30, backgroundColor: colors.card, padding: 20, borderRadius: 40, alignItems: "center" }}
+      style={{ marginBottom: 30, backgroundColor: colors.card, padding: 20, borderRadius: 40, alignItems: "center",
+        shadowColor: shadows.color, shadowOffset: { width: shadows.x_offset, height: shadows.y_offset }, shadowOpacity: shadows.opacity, shadowRadius: shadows.radius, elevation: shadows.elevation }}
     >
       {grayscale ? (
         <View style={{ filter: 'grayscale(1)' }}>

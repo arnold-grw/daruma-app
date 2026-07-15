@@ -13,13 +13,13 @@ export function StepGoal({ draft, setDraft, onValidChange }: StepProps) {
   const colors = useTheme().colors;
 
   return (
-    <View style={{justifyContent: "center", alignItems: "center", backgroundColor: colors.background, flex: 1}}>
+    <View style={{justifyContent: "center", alignItems: "center", backgroundColor: colors.background, flex: 1, paddingTop: 80}}>
         <KeyboardAvoidingView
             style={{ flex: 1, backgroundColor: colors.background }}
             behavior="position"
             keyboardVerticalOffset={-40}
             >
-            <ScrollView contentContainerStyle={{ alignItems: "center", paddingHorizontal: 20, paddingTop: 80, gap: 16 }}>
+            <ScrollView contentContainerStyle={{ alignItems: "center", paddingHorizontal: 20, gap: 16 }}>
                 <Text style={{ fontSize: 24, textAlign: "center", paddingBottom: 20}}>Put your goal into words</Text>
                 <TextInput
                     placeholder="describe your goal in a short sentence"

@@ -9,7 +9,7 @@ import { Pressable } from "react-native";
 SplashScreen.preventAutoHideAsync();
 
 export default function TabsLayout() {
-  const { colors } = useTheme();
+  const { colors, shadows } = useTheme();
   const pathname = usePathname();
   const isActive = (path: string) => pathname === path;
   const [activeTab, setActiveTab] = useState("index"); // Standardmäßig "index" aktiv
@@ -21,6 +21,7 @@ export default function TabsLayout() {
         tabBarStyle: {
           backgroundColor: colors.card,
           height: 85,
+          shadowColor: shadows.color, shadowOffset: { width: shadows.x_offset, height: shadows.y_offset }, shadowOpacity: shadows.opacity, shadowRadius: shadows.radius, elevation: shadows.elevation
         },
         tabBarItemStyle: {
           height: 85,

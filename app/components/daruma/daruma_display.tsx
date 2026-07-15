@@ -18,7 +18,7 @@ export function DarumaDisplay({ daruma, width = 315, height = 324}: DarumaDispla
   
   return (
     <View style={{ width, height}}>
-      <DarumaDetails color={daruma.color} width={width} height={height} />
+      <DarumaDetails color={daruma.color} width={width} height={height}/>
       {daruma.leftEyeDrawing && (
         <View style={{ 
           position: 'absolute',

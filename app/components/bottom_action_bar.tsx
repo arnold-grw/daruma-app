@@ -15,7 +15,7 @@ interface Props {
 
 export default function BottomActionBar({ showConfirm = true, canConfirm = true, onConfirm, onCancel, confirmLabel = "Confirm", cancelLabel = "Cancel", canClick = true }: Props) {
 
-  const { colors } = useTheme();
+  const { colors, shadows } = useTheme();
 
   // Default cancel handler: safeBack(): router.back() or router.push("/")
   const handleCancel = onCancel || (() => safeBack());
@@ -30,6 +30,7 @@ export default function BottomActionBar({ showConfirm = true, canConfirm = true,
         paddingHorizontal: 30,
         paddingVertical: 20,
         backgroundColor: colors.card,
+        shadowColor: shadows.color, shadowOffset: { width: shadows.x_offset, height: shadows.y_offset }, shadowOpacity: shadows.opacity, shadowRadius: shadows.radius, elevation: shadows.elevation
       }}
     >
       {/* Cancel */}

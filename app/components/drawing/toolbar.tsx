@@ -27,7 +27,7 @@ export function Toolbar({
   onThicknessChange,
   onRemoveLastLine,
 }: Props) {
-  const { colors } = useTheme();
+  const { colors, shadows } = useTheme();
 
   const trackHeight = height - ICON_AREA - BUTTON_AREA - PADDING * 2 - BUTTON_MARGIN;
   const thumbSize = 22;
@@ -79,6 +79,7 @@ export function Toolbar({
       alignItems: "center",
       paddingVertical: PADDING,
       justifyContent: "space-between",
+      shadowColor: shadows.color, shadowOffset: { width: shadows.x_offset, height: shadows.y_offset }, shadowOpacity: shadows.opacity, shadowRadius: shadows.radius, elevation: shadows.elevation
     }}>
       {/* Brush icon */}
       <View style={{ height: ICON_AREA, justifyContent: "center" }}>

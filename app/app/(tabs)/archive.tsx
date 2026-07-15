@@ -3,8 +3,15 @@ import Card from '@/components/card';
 import { Text } from '@/components/typography';
 import useTheme from '@/constants/theme';
 import { updateFailedDarumas, useActiveDarumas, useCompletedDarumas, useDarumaStore, useFailedDarumas } from '@/store/daruma_store';
-import { useEffect } from 'react';
+import { useLocalSearchParams } from 'expo-router';
+import { useEffect, useRef } from 'react';
 import { ScrollView, View } from "react-native";
+import { default as ConfettiCannon, default as Explosion } from 'react-native-confetti-cannon';
+
+// Define a type for the ConfettiCannon ref
+type ConfettiCannonRef = {
+  start: () => void;
+};
   
 export default function Archive() {
   const { load } = useDarumaStore()
@@ -12,12 +19,21 @@ export default function Archive() {
   const completedDarumas = useCompletedDarumas()
   const failedDarumas = useFailedDarumas()
   const { colors } = useTheme();
+  const params = useLocalSearchParams();
+  const confettiRef = useRef<Explosion>(null);
 
   // Load darumas when the component mounts
   useEffect(() => {
     updateFailedDarumas();
     load();
   }, []);
+
+  // Trigger confetti if the celebrate flag is set
+  useEffect(() => {
+    if (params.celebrate === 'true' && confettiRef.current) {
+      confettiRef.current.start();
+    }
+  }, [params.celebrate]);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }} >
@@ -45,6 +61,16 @@ export default function Archive() {
         ))}
 
         </ScrollView>
+        <View style={{}}>
+          <ConfettiCannon
+            count={100}
+            origin={{x: screen.availWidth/2, y: -20}}
+            autoStart={false}
+            fadeOut={true}
+            colors={['#deb2d2']}
+            ref={confettiRef}
+          />
+        </View>
     </View>
   );
 }

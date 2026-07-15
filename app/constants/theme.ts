@@ -4,8 +4,9 @@ export default function useTheme() {
   const scheme = useColorScheme();
 
   const colors = lightColors;
+  const shadows = shadowValues;
 
-  return { colors, scheme };
+  return { colors, scheme, shadows };
 }
 
 export const lightColors = {
@@ -27,3 +28,12 @@ export const darkColors = {
   border: "#353537",
   danger: "#FF4B4B",
 };
+
+export const shadowValues = {
+  color: '#000',
+  opacity: 0.33,
+  x_offset: 0,
+  y_offset: 0,
+  radius: 20,
+  elevation: 5,
+}
