@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import { View } from "react-native";
 
 export function StepColor({ draft, setDraft, onValidChange}: StepProps) {
-  const { colors } = useTheme();
+  const { colors, shadows, darkmode } = useTheme();
   const colorConfig = getDarumaColor(draft.color);
 
   useEffect(() => {
@@ -20,6 +20,16 @@ export function StepColor({ draft, setDraft, onValidChange}: StepProps) {
     setDraft({ color });
   };
 
+  const colorLabel = darkmode && colorConfig.id == 'black' ? (
+    <Text style={{ color: colors.text, fontSize: 18, fontWeight: "600" }}>
+      {colorConfig.label}
+    </Text>
+  ) : (
+    <Text style={{ color: colorConfig.hex, fontSize: 18, fontWeight: "600" }}>
+      {colorConfig.label}
+    </Text>
+  );
+
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center", gap: 10 }}>
       <Text style={{ fontSize: 24, textAlign: "center", paddingBottom: 20, paddingHorizontal: 20}}>First choose a color that resonates with your goal</Text>
@@ -28,9 +38,7 @@ export function StepColor({ draft, setDraft, onValidChange}: StepProps) {
         onSelect={handleSelect}
       />
       <View style={{ alignItems: "center", gap: 4 }}>
-        <Text style={{ color: colorConfig.hex, fontSize: 18, fontWeight: "600" }}>
-          {colorConfig.label}
-        </Text>
+        {colorLabel}
         <Text style={{ color: colors.textSecondary }}>
           {colorConfig.meaning}
         </Text>
