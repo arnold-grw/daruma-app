@@ -8,13 +8,14 @@ interface DatePickerProps {
   onChange: (date: Date) => void;
   minDate?: Date;
   maxYearsAhead?: number;
+  width: number;
 }
 
 function daysInMonth(year: number, month: number) {
   return new Date(year, month + 1, 0).getDate();
 }
 
-export function DatePicker({ value, onChange, minDate, maxYearsAhead = 10 }: DatePickerProps) {
+export function DatePicker({ value, onChange, minDate, maxYearsAhead = 10, width = 250 }: DatePickerProps) {
 
   const { colors } = useTheme();
   const currentYear = new Date().getFullYear();
@@ -67,6 +68,8 @@ export function DatePicker({ value, onChange, minDate, maxYearsAhead = 10 }: Dat
         backgroundColor: colors.background,
         borderRadius: 20,
         padding: 12,
+        width: width,
+        borderColor: colors.border, borderWidth: 3
       }}
     >
       <WheelPicker

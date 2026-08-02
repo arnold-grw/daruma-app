@@ -30,13 +30,14 @@ export default function ExtendDeadline( { deadline, onConfirm }: ExtendDeadlineP
             <BottomModal visible={modalVisible} onClose={() => setIsModalVisible(false)}>
                 <View style={{ alignItems: 'center', gap: 20, paddingBottom: 150 }}>
                     <Text style={{ color: colors.text, fontSize: 18, fontWeight: '600' }}>
-                        Extend deadline
+                        Set a new deadline
                     </Text>
                     <DatePicker
                         value={selectedDate}
                         onChange={setSelectedDate}
                         minDate={new Date()} //min date should be today instead of tomorrow because minDate itself is not included
                         maxYearsAhead={20}
+                        width={250}
                     />
                     <Pressable
                         onPress={() => {

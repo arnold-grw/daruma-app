@@ -59,31 +59,15 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
         setSelectedDate(date ?? getTomorrow());
         setIsModalVisible(false);
       }}>
+        <View style={{ flexDirection: "column", gap: 12, justifyContent: "center", alignItems: "center" }}>
         {/*<Text style={{ fontSize: 20, textAlign: "center" }}>Choose a deadline</Text> */}
         <DatePicker
           value={selectedDate}
           onChange={setSelectedDate}
           minDate={new Date()} //min date should be today instead of tomorrow because minDate itself is not included
           maxYearsAhead={20}
+          width={250}
         />
-        <View style={{ flexDirection: "row", gap: 12, justifyContent: "center" }}>
-          {/*
-          <Pressable
-            onPress={() => {
-              setSelectedDate(date ?? getTomorrow());
-              setIsModalVisible(false);
-            }}
-            style={{
-              flex: 1,
-              paddingVertical: 14,
-              borderRadius: 12,
-              backgroundColor: colors.textSecondary,
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ color: colors.background, fontSize: 16 }}>Cancel</Text>
-          </Pressable>
-          */}
           <Pressable
             onPress={() => {
               setDraft({ deadline: selectedDate.toISOString() });
@@ -94,13 +78,13 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
               paddingVertical: 14,
               borderRadius: 12,
               backgroundColor: colors.primary,
-              maxWidth: 230,
+              width: 250,
               alignItems: "center",
             }}
           >
             <Text style={{ color: colors.background, fontSize: 16 }}>Choose</Text>
           </Pressable>
-        </View>
+          </View>
       </CenterModal>
     </View>
   );

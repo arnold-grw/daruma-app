@@ -5,7 +5,8 @@ export interface User {
   email: string;
   createdAt: string;
   updatedAt: string;
-  languagePreference: string;
+  languagePreference?: LangPref;
+  useDarkmode?: boolean;
 }
 
 export interface AuthSession {
@@ -13,3 +14,5 @@ export interface AuthSession {
   email: string;
   accessToken: string;
 }
+
+export type LangPref = "en" | "de" | "jp" | "fr" | "es";
