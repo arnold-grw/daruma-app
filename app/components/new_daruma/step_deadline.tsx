@@ -59,15 +59,15 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
         setSelectedDate(date ?? getTomorrow());
         setIsModalVisible(false);
       }}>
-        <View style={{ flexDirection: "column", gap: 12, justifyContent: "center", alignItems: "center" }}>
-        {/*<Text style={{ fontSize: 20, textAlign: "center" }}>Choose a deadline</Text> */}
-        <DatePicker
-          value={selectedDate}
-          onChange={setSelectedDate}
-          minDate={new Date()} //min date should be today instead of tomorrow because minDate itself is not included
-          maxYearsAhead={20}
-          width={250}
-        />
+        <View style={{ flexDirection: "column", gap: 20, padding: 50, justifyContent: "center", alignItems: "center" }}>
+          {/*<Text style={{ fontSize: 20, textAlign: "center", maxWidth: 280, padding: 20 }}>Until when do you want to reach your goal?</Text>*/}
+          <DatePicker
+            value={selectedDate}
+            onChange={setSelectedDate}
+            minDate={new Date()} //min date should be today instead of tomorrow because minDate itself is not included
+            maxYearsAhead={20}
+            width={250}
+          />
           <Pressable
             onPress={() => {
               setDraft({ deadline: selectedDate.toISOString() });

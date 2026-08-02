@@ -1,5 +1,6 @@
 import { WheelPicker } from "@/components/wheel_picker";
 import useTheme from "@/constants/theme";
+import { getMonthString } from "@/utils/date_formatter";
 import { useMemo } from "react";
 import { View } from "react-native";
 
@@ -17,7 +18,7 @@ function daysInMonth(year: number, month: number) {
 
 export function DatePicker({ value, onChange, minDate, maxYearsAhead = 10, width = 250 }: DatePickerProps) {
 
-  const { colors } = useTheme();
+  const { colors, shadows } = useTheme();
   const currentYear = new Date().getFullYear();
 
   const years = useMemo(
@@ -69,7 +70,8 @@ export function DatePicker({ value, onChange, minDate, maxYearsAhead = 10, width
         borderRadius: 20,
         padding: 12,
         width: width,
-        borderColor: colors.border, borderWidth: 3
+        borderColor: colors.border, borderWidth: 3,
+        //shadowColor: shadows.color, shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.5, shadowRadius: 40, elevation: shadows.elevation
       }}
     >
       <WheelPicker
@@ -83,7 +85,7 @@ export function DatePicker({ value, onChange, minDate, maxYearsAhead = 10, width
         items={visibleMonths}
         selectedIndex={monthIndex}
         onChange={(i) => updateDate(day, visibleMonths[i], year)}
-        renderLabel={(m) => String(m + 1).padStart(2, "0")}
+        renderLabel={(m) => getMonthString(m)}
         width={60}
       />
       <WheelPicker

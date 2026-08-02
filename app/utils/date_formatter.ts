@@ -106,3 +106,11 @@ export function getTomorrow(): Date {
   d.setHours(0, 0, 0, 0);
   return d;
 }
+
+export function getMonthString(monthIndex: number): string {
+  const monthNames = [
+    "JAN", "FEB", "MAR", "APR", "MAY", "JUN",
+    "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
+  ];
+  return monthNames[monthIndex] || "";
+}
