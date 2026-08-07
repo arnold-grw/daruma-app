@@ -79,6 +79,7 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
               borderRadius: 12,
               backgroundColor: colors.primary,
               width: 250,
+              minHeight: 50,
               alignItems: "center",
             }}
           >

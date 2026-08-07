@@ -1,4 +1,4 @@
-import BottomActionBar from '@/components/bottom_action_bar';
+import BottomActionBar from '@/components/action_bar';
 import { DarumaDetails } from '@/components/daruma/daruma_details';
 import { DrawingSpace } from '@/components/drawing/drawing_space';
 import { Text } from '@/components/typography';

@@ -1,6 +1,6 @@
 
 // app/daruma/new.tsx
-import BottomActionBar from "@/components/bottom_action_bar";
+import BottomActionBar from "@/components/action_bar";
 import useTheme from "@/constants/theme";
 import { useDarumaStore } from "@/store/daruma_store";
 import { safeBack } from "@/utils/navigation";

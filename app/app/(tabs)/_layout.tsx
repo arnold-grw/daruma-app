@@ -5,12 +5,14 @@ import { router, Tabs, usePathname } from "expo-router";
 import * as SplashScreen from 'expo-splash-screen';
 import { useState } from "react";
 import { Pressable } from "react-native";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 SplashScreen.preventAutoHideAsync();
 
 export default function TabsLayout() {
   const { colors, shadows } = useTheme();
   const pathname = usePathname();
+  const insets = useSafeAreaInsets();
   const isActive = (path: string) => pathname === path;
   const [activeTab, setActiveTab] = useState("index"); // Standardmäßig "index" aktiv
 
@@ -20,7 +22,9 @@ export default function TabsLayout() {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: colors.card,
-          height: 85,
+          height: 85 + insets.bottom,
+          paddingBottom: insets.bottom,
+          paddingTop: 8,
           shadowColor: shadows.color, shadowOffset: { width: shadows.x_offset, height: shadows.y_offset }, shadowOpacity: shadows.opacity, shadowRadius: shadows.radius, elevation: shadows.elevation
         },
         tabBarItemStyle: {

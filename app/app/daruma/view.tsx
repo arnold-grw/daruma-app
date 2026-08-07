@@ -1,4 +1,4 @@
-import BottomActionBar from "@/components/bottom_action_bar";
+import BottomActionBar from "@/components/action_bar";
 import { DarumaDisplay } from "@/components/daruma/daruma_display";
 import { WiggleDaruma } from "@/components/daruma/daruma_wiggle";
 import ExtendDeadline from "@/components/extend_deadline";

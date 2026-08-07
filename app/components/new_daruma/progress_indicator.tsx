@@ -1,17 +1,20 @@
 import useTheme from "@/constants/theme";
 import { View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export function ProgressIndicator({ stepIndex, totalSteps }: { stepIndex: number; totalSteps: number }) {
     const { colors, shadows } = useTheme();
 
+    const insets = useSafeAreaInsets();
+
 
     return (
-        <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 20, gap: 5 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', marginTop: 5 + insets.top, gap: 5, marginBottom: 5 }}>
             {Array.from({ length: totalSteps }).map((_, index) => (
                 <View
                     key={index}
                         style={{
-                        width: 60,
+                        width: 70,
                         height: 10,
                         borderRadius: 5,
                         backgroundColor: index <= stepIndex ? colors.primary : colors.card,

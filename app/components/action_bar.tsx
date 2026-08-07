@@ -2,6 +2,7 @@ import { Text } from '@/components/typography';
 import useTheme from "@/constants/theme";
 import { safeBack } from "@/utils/navigation";
 import { Pressable, View } from "react-native";
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface Props {
   showConfirm?: boolean
@@ -20,15 +21,18 @@ export default function BottomActionBar({ showConfirm = true, canConfirm = true,
   // Default cancel handler: safeBack(): router.back() or router.push("/")
   const handleCancel = onCancel || (() => safeBack());
 
+  const insets = useSafeAreaInsets();
+
   return (
     <View
       style={{
         width: "100%",
-        height: 85,
+        height: 85 + insets.bottom,
         flexDirection: "row",
         justifyContent: "space-between",
         paddingHorizontal: 30,
         paddingVertical: 20,
+        paddingBottom: insets.bottom,
         backgroundColor: colors.card,
         shadowColor: shadows.color, shadowOffset: { width: shadows.x_offset, height: shadows.y_offset }, shadowOpacity: shadows.opacity, shadowRadius: shadows.radius, elevation: shadows.elevation
       }}
@@ -41,6 +45,7 @@ export default function BottomActionBar({ showConfirm = true, canConfirm = true,
           borderRadius: 8,
           borderWidth: 3,
           borderColor: colors.text,
+          height: 50,
           justifyContent: "center"
         }}
       >
@@ -55,6 +60,7 @@ export default function BottomActionBar({ showConfirm = true, canConfirm = true,
         style={{
           paddingHorizontal: 20,
           borderRadius: 8,
+          height: 50,
           backgroundColor: canConfirm ? colors.primary : colors.textSecondary,
           justifyContent: "center"
         }}
