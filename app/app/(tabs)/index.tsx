@@ -23,7 +23,7 @@ export default function Index() {
     <View style={{ flex: 1, backgroundColor: colors.background }} >
         {/* <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text }}>Shrine</Text> */}
         <ScrollView style={{paddingHorizontal: 20, flex: 1, paddingTop: 40 }} contentContainerStyle={{ alignItems: "center" }}>
-
+        
         {activeDarumas.map(daruma => (
           <Card key={daruma.id} daruma={daruma} />
         ))}

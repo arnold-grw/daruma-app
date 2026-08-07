@@ -61,7 +61,6 @@ export const DARUMA_COLORS: DarumaColorConfig[] = [
     meaning: 'Love & relationships',
   },
 ]
-
 // find color config by id, default to first color if not found
 export const getDarumaColor = (id: DarumaColor): DarumaColorConfig => {
   return DARUMA_COLORS.find(c => c.id === id) ?? DARUMA_COLORS[0]

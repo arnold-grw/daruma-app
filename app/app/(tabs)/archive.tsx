@@ -5,7 +5,7 @@ import useTheme from '@/constants/theme';
 import { updateFailedDarumas, useActiveDarumas, useCompletedDarumas, useDarumaStore, useFailedDarumas } from '@/store/daruma_store';
 import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef } from 'react';
-import { ScrollView, View } from "react-native";
+import { ScrollView, useWindowDimensions, View } from "react-native";
 import { default as ConfettiCannon, default as Explosion } from 'react-native-confetti-cannon';
 
 // Define a type for the ConfettiCannon ref
@@ -20,6 +20,7 @@ export default function Archive() {
   const failedDarumas = useFailedDarumas()
   const { colors } = useTheme();
   const params = useLocalSearchParams();
+  const { width } = useWindowDimensions();
   const confettiRef = useRef<Explosion>(null);
 
   // Load darumas when the component mounts
@@ -64,7 +65,7 @@ export default function Archive() {
         <View style={{}}>
           <ConfettiCannon
             count={100}
-            origin={{x: screen.availWidth/2, y: -20}}
+            origin={{x: width / 2, y: -20}}
             autoStart={false}
             fadeOut={true}
             colors={['#deb2d2']}

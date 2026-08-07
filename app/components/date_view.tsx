@@ -36,10 +36,10 @@ export function DateView({ date, onPressDate }: Props) {
                     {date?.split("/")[0] ?? "DD"}
                 </Text>
                 <Text style={{ color: colors.text, fontSize: 18 }}>
-                    {getMonthString(parseInt(date?.split("/")[1] ?? "0") - 1) || "MM"}
+                    {getMonthString(parseInt(date?.split("/")[1] ?? "0") - 1) || "月"}
                 </Text>
                 <Text style={{ color: colors.text, fontSize: 18 }}>
-                    {date?.split("/")[2] ?? "YYYY"}
+                    {date?.split("/")[2] ?? "年"}
                 </Text>
             </View>
         </Pressable>

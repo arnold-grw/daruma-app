@@ -32,15 +32,12 @@ export function StepConfirm({ draft }: StepProps) {
         <Text style={{ fontSize: 24, textAlign: "center", paddingBottom: 20}}>ready to start your journey?</Text>
         <DarumaDisplay daruma={showDaruma} />
         <Text style={{ color: colors.textSecondary, fontSize: 18, textAlign: "center", maxWidth: 280, paddingTop: 40 }}>
-            your goal: "
-            <Text style={{ color: colors.text, fontSize:20 }}>
-                {showDaruma.goal}
-            </Text>
-            "
+            your goal:
+            <Text style={{ color: colors.text, fontSize:20 }}> {showDaruma.goal}</Text>
         </Text>
         {showDaruma.deadline && (
             <Text style={{ color: colors.textSecondary, fontSize: 18, textAlign: "center", maxWidth: 280 }}>
-                your deadline:
+                due until:
                 <Text style={{ color: colors.text, fontSize:20 }}> {formatDate(showDaruma.deadline, DEFAULT_DATE_FORMAT)}</Text>
             </Text>
         )}
