@@ -7,6 +7,8 @@ import { useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef } from 'react';
 import { ScrollView, useWindowDimensions, View } from "react-native";
 import { default as ConfettiCannon, default as Explosion } from 'react-native-confetti-cannon';
+import { useTranslation } from "react-i18next";
+import { useLanguageStore } from "@/store/language_store";
 
 // Define a type for the ConfettiCannon ref
 type ConfettiCannonRef = {
@@ -22,6 +24,10 @@ export default function Archive() {
   const params = useLocalSearchParams();
   const { width } = useWindowDimensions();
   const confettiRef = useRef<Explosion>(null);
+
+    const language = useLanguageStore((s) => s.language);
+    const setLanguage = useLanguageStore((s) => s.setLanguage);
+    const { t } = useTranslation();
 
   // Load darumas when the component mounts
   useEffect(() => {
@@ -44,7 +50,7 @@ export default function Archive() {
         {/* overdue darumas */}
         {failedDarumas.length > 0 && (
           <Text style={{ color: colors.textSecondary, fontSize: 24, marginVertical: 16 }}>
-            — overdue —
+            — {t("archive.overdue")} —
           </Text>
         )}
         {failedDarumas.map(daruma => (
@@ -54,7 +60,7 @@ export default function Archive() {
         {/* completed darumas */}
         {completedDarumas.length > 0 && (
           <Text style={{ color: colors.textSecondary, fontSize: 24, marginVertical: 16 }}>
-            — completed —
+            — {t("archive.completed")} —
           </Text>
         )}
         {completedDarumas.map(daruma => (

@@ -1,0 +1,27 @@
+{
+  "common": {
+    "confirm": "Bestätigen",
+    "cancel": "Abbrechen",
+    "return": "Zurück",
+    "next": "Weiter",
+    "back": "Zurück"
+  },
+  "profile": {
+    "welcome": "Moin, {{name}}",
+    "settings": {
+        "title": "Einstellungen",
+        "dark_mode": "Dunkles Design",
+        "language": "Sprache"
+    },
+    "account": {
+        "title": "Account"
+    },
+    "widget": {
+        "title": "Widget"
+    }
+  },
+  "archive": {
+    "completed": "abgeschlossen",
+    "overdue": "überfällig"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "common": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "return": "Return",
+    "next": "Next",
+    "back": "Back"
+  },
+  "profile": {
+    "welcome": "Hi, {{name}}",
+    "settings": {
+        "title": "Settings",
+        "dark_mode": "Dark mode",
+        "language": "Language"
+    },
+    "account": {
+        "title": "Account"
+    },
+    "widget": {
+        "title": "Widget"
+    }
+  },
+  "archive": {
+    "completed": "completed",
+    "overdue": "overdue"
+  }
+}
