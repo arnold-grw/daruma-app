@@ -1,8 +1,9 @@
 import { WheelPicker } from "@/components/wheel_picker";
 import useTheme from "@/constants/theme";
-import { getMonthString } from "@/utils/date_formatter";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { View } from "react-native";
+import { useTranslation } from "react-i18next";
+import { DatePart, localDateOrder } from "@/i18n/date_format";
 
 interface DatePickerProps {
   value: Date;
@@ -19,6 +20,7 @@ function daysInMonth(year: number, month: number) {
 export function DatePicker({ value, onChange, minDate, maxYearsAhead = 10, width = 250 }: DatePickerProps) {
 
   const { colors, shadows } = useTheme();
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   const years = useMemo(
@@ -60,6 +62,39 @@ export function DatePicker({ value, onChange, minDate, maxYearsAhead = 10, width
     onChange(next);
   };
 
+  const columns: Record<DatePart, React.ReactNode> = {
+    day: (
+      <WheelPicker
+        key="day"
+        items={visibleDays}
+        selectedIndex={dayIndex}
+        onChange={(i) => updateDate(visibleDays[i], month, year)}
+        renderLabel={(d) => String(d).padStart(2, "0")}
+        width={60}
+      />
+    ),
+    month: (
+      <WheelPicker
+        key="month"
+        items={visibleMonths}
+        selectedIndex={monthIndex}
+        onChange={(i) => updateDate(day, visibleMonths[i], year)}
+        renderLabel={(m) => t(`date.months.${m}`)}
+        width={60}
+      />
+    ),
+    year: (
+      <WheelPicker
+        key="year"
+        items={years}
+        selectedIndex={yearIndex}
+        onChange={(i) => updateDate(day, month, years[i])}
+        renderLabel={(y) => String(y)}
+        width={90}
+      />
+    ),
+  };
+
   return (
     <View
       style={{
@@ -74,27 +109,7 @@ export function DatePicker({ value, onChange, minDate, maxYearsAhead = 10, width
         //shadowColor: shadows.color, shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.5, shadowRadius: 40, elevation: shadows.elevation
       }}
     >
-      <WheelPicker
-        items={visibleDays}
-        selectedIndex={dayIndex}
-        onChange={(i) => updateDate(visibleDays[i], month, year)}
-        renderLabel={(d) => String(d).padStart(2, "0")}
-        width={60}
-      />
-      <WheelPicker
-        items={visibleMonths}
-        selectedIndex={monthIndex}
-        onChange={(i) => updateDate(day, visibleMonths[i], year)}
-        renderLabel={(m) => getMonthString(m)}
-        width={60}
-      />
-      <WheelPicker
-        items={years}
-        selectedIndex={yearIndex}
-        onChange={(i) => updateDate(day, month, years[i])}
-        renderLabel={(y) => String(y)}
-        width={90}
-      />
+      {localDateOrder(t).map((part) => columns[part])}
     </View>
   );
 }

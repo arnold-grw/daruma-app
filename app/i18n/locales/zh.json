@@ -1,0 +1,129 @@
+{
+  "common": {
+    "confirm": "确认",
+    "cancel": "取消",
+    "return": "返回",
+    "next": "下一步",
+    "back": "上一步",
+    "finish": "完成",
+    "complete": "目标达成",
+    "go_back": "返回"
+  },
+  "profile": {
+    "welcome": "你好，{{name}}",
+    "welcome_anonymous": "你好呀",
+    "settings": {
+      "title": "设置",
+      "dark_mode": "深色模式",
+      "language": "语言"
+    },
+    "account": {
+      "title": "账户"
+    },
+    "widget": {
+      "title": "小组件"
+    }
+  },
+  "archive": {
+    "completed": "已达成",
+    "overdue": "已逾期"
+  },
+  "new": {
+    "color": {
+      "title": "先选一个与你的目标相契合的颜色"
+    },
+    "goal": {
+      "title": "用一句话写下你的目标",
+      "placeholder": "简短描述你的目标",
+      "notes": "备注（选填）"
+    },
+    "deadline": {
+      "title": "要设定期限吗？",
+      "subtitle": "不想设限的话，可以直接跳过。",
+      "remove": "移除期限",
+      "choose": "确定"
+    },
+    "paint": {
+      "title": "为达摩点上左眼，开启你的旅程"
+    },
+    "confirm": {
+      "title": "准备好出发了吗？",
+      "due_until": "截止日期："
+    }
+  },
+  "colors": {
+    "red": {
+      "label": "红色",
+      "meaning": "好运・成功"
+    },
+    "black": {
+      "label": "黑色",
+      "meaning": "事业・守护"
+    },
+    "blue": {
+      "label": "蓝色",
+      "meaning": "专注・学业"
+    },
+    "green": {
+      "label": "绿色",
+      "meaning": "健康・安宁"
+    },
+    "yellow": {
+      "label": "黄色",
+      "meaning": "财运・富足"
+    },
+    "pink": {
+      "label": "粉色",
+      "meaning": "爱情・良缘"
+    }
+  },
+  "date": {
+    "format": "YYYY/MM/DD",
+    "format_time": "YYYY/MM/DD HH:mm",
+    "months": [
+      "1月",
+      "2月",
+      "3月",
+      "4月",
+      "5月",
+      "6月",
+      "7月",
+      "8月",
+      "9月",
+      "10月",
+      "11月",
+      "12月"
+    ],
+    "placeholder_day": "日",
+    "placeholder_month": "月",
+    "placeholder_year": "年"
+  },
+  "view": {
+    "not_found": "找不到这个达摩",
+    "notes_placeholder": "备注",
+    "deadline": "截止日期：{{date}}",
+    "last_day": "今天是最后一天",
+    "days_remaining_other": "还剩{{count}}天",
+    "overdue_since": "已于{{date}}逾期",
+    "extend_deadline": "延长期限",
+    "new_deadline_title": "设定新的期限"
+  },
+  "info": {
+    "title": "关于你的达摩",
+    "created": "创建于：{{date}}",
+    "completed": "达成于：{{date}}",
+    "deadline": "截止日期：{{date}}",
+    "updated": "最近更新：{{date}}",
+    "change_title": "修改目标",
+    "delete": "删除达摩",
+    "delete_confirm_title": "确定要删除吗？",
+    "delete_confirm_text": "此操作无法撤销。",
+    "delete_confirm": "删除",
+    "change_title_title": "新的目标是？",
+    "change_title_placeholder": "输入新的目标",
+    "save": "保存修改"
+  },
+  "finish": {
+    "title": "目标达成！为达摩点上右眼，画龙点睛"
+  }
+}

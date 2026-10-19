@@ -4,75 +4,127 @@
     "cancel": "Abbrechen",
     "return": "Zurück",
     "next": "Weiter",
-    "back": "Zurück"
+    "back": "Zurück",
+    "finish": "Abschließen",
+    "complete": "Ziel erreicht",
+    "go_back": "Zurück"
   },
   "profile": {
     "welcome": "Moin, {{name}}",
+    "welcome_anonymous": "Moin Meister!",
     "settings": {
-        "title": "Einstellungen",
-        "dark_mode": "Dunkles Design",
-        "language": "Sprache"
+      "title": "Einstellungen",
+      "dark_mode": "Dunkles Design",
+      "language": "Sprache"
     },
     "account": {
-        "title": "Account"
+      "title": "Account"
     },
     "widget": {
-        "title": "Widget"
+      "title": "Widget"
     }
   },
   "archive": {
     "completed": "abgeschlossen",
     "overdue": "überfällig"
   },
-
   "new": {
     "color": {
-        "title": "Wähle zuerst eine Farbe, die zu deinem Ziel passt"
+      "title": "Wähle zuerst eine Farbe, die zu deinem Ziel passt"
     },
     "goal": {
-        "title": "Fasse dein Ziel in Worte",
-        "placeholder": "Beschreibe kurz dein Ziel",
-        "notes": "Notizen (optional)"
+      "title": "Fasse dein Ziel in Worte",
+      "placeholder": "Beschreibe kurz dein Ziel",
+      "notes": "Notizen (optional)"
     },
     "deadline": {
-        "title": "Möchtest du ein Frist setzen?",
-        "subtitle": "Oder überspringe, wenn du keine Begrenzung möchtest.",
-        "remove":"Frist entfernen",
-        "choose":"bestätigen"
+      "title": "Möchtest du ein Frist setzen?",
+      "subtitle": "Oder überspringe, wenn du keine Begrenzung möchtest.",
+      "remove": "Frist entfernen",
+      "choose": "bestätigen"
     },
     "paint": {
-        "title": "Male das linke Auge aus, um deine Reise zu beginnen"
+      "title": "Male das linke Auge aus, um deine Reise zu beginnen"
     },
     "confirm": {
-        "title": "Bereit, loszulegen?",
-        "due_until": "Frist bis: "
+      "title": "Bereit, loszulegen?",
+      "due_until": "Frist bis: "
     }
-},
-
+  },
   "colors": {
     "red": {
-        "label": "Rot",
-        "meaning": "Glück & Erfolg"
+      "label": "Rot",
+      "meaning": "Glück & Erfolg"
     },
     "black": {
-        "label": "Schwarz",
-        "meaning": "Geheimnis & Geschäft"
+      "label": "Schwarz",
+      "meaning": "Geheimnis & Geschäft"
     },
     "blue": {
-        "label": "Blau",
-        "meaning": "Fokus & Produktivität"
+      "label": "Blau",
+      "meaning": "Fokus & Produktivität"
     },
     "green": {
-        "label": "Grün",
-        "meaning": "Gesundheit & Wohlbefinden"
+      "label": "Grün",
+      "meaning": "Gesundheit & Wohlbefinden"
     },
     "yellow": {
-        "label": "Gelb",
-        "meaning": "Reichtum & Wohlstand"
+      "label": "Gelb",
+      "meaning": "Reichtum & Wohlstand"
     },
     "pink": {
-        "label": "Rosa",
-        "meaning": "Liebe & Beziehungen"
+      "label": "Rosa",
+      "meaning": "Liebe & Beziehungen"
     }
-}
+  },
+  "date": {
+    "format": "DD.MM.YYYY",
+    "format_time": "DD.MM.YYYY HH:mm",
+    "months": [
+      "JAN",
+      "FEB",
+      "MÄR",
+      "APR",
+      "MAI",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OKT",
+      "NOV",
+      "DEZ"
+    ],
+    "placeholder_day": "TT",
+    "placeholder_month": "MM",
+    "placeholder_year": "JJJJ"
+  },
+  "view": {
+    "not_found": "Daruma nicht gefunden",
+    "notes_placeholder": "Notizen",
+    "deadline": "Frist: {{date}}",
+    "last_day": "Heute ist der letzte Tag",
+    "days_remaining_one": "Noch {{count}} Tag",
+    "days_remaining_other": "Noch {{count}} Tage",
+    "overdue_since": "Überfällig seit: {{date}}",
+    "extend_deadline": "Frist verlängern",
+    "new_deadline_title": "Neue Frist setzen"
+  },
+  "info": {
+    "title": "Über dein Daruma",
+    "created": "Erstellt: {{date}}",
+    "completed": "Abgeschlossen: {{date}}",
+    "deadline": "Frist: {{date}}",
+    "updated": "Zuletzt geändert: {{date}}",
+    "change_title": "Titel ändern",
+    "delete": "Daruma löschen",
+    "delete_confirm_title": "Bist du sicher?",
+    "delete_confirm_text": "Das kann nicht rückgängig gemacht werden.",
+    "delete_confirm": "Ja, löschen",
+    "change_title_title": "Wie soll es heißen?",
+    "change_title_placeholder": "Neuen Titel eingeben",
+    "save": "Änderungen speichern"
+  },
+  "finish": {
+    "title": "Male das zweite Auge aus, um dein Ziel abzuschließen"
+  }
 }

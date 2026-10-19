@@ -1,9 +1,12 @@
 import { Text, TextInput } from "@/components/typography";
 import useTheme from "@/constants/theme";
 import { Daruma } from "@/types/daruma";
-import { DEFAULT_DATE_TIME_FORMAT, formatDate } from "@/utils/date_formatter";
+import { formatDate } from "@/utils/date_formatter";
+import { localDateFormat } from "@/i18n/date_format";
 import { useState } from "react";
+import { TFunction } from "i18next";
 import { Pressable, View } from "react-native";
+import { useTranslation } from "react-i18next";
 
 interface DarumaInfoContentProps {
   daruma: Daruma;
@@ -19,6 +22,7 @@ export const DarumaInfoContent = ({
   onClose,
 }: DarumaInfoContentProps) => {
   const { colors } = useTheme();
+  const { t } = useTranslation();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [confirmGoalChange, setConfirmGoalChange] = useState(false);
   const [draft, setDraft] = useState({ goal: daruma.goal });
@@ -26,16 +30,17 @@ export const DarumaInfoContent = ({
   return (
     <View style={{ gap: 18, paddingBottom: 150 }}>
       {confirmDelete
-        ? renderConfirmDeleteView(colors, onConfirmDelete, setConfirmDelete)
+        ? renderConfirmDeleteView(t, colors, onConfirmDelete, setConfirmDelete)
         : confirmGoalChange
-          ? renderConfirmGoalChangeView(colors, draft, setDraft, setConfirmGoalChange, onChangeGoal)
-          : renderDefaultView(daruma, colors, setConfirmGoalChange, setConfirmDelete, onClose)}
+          ? renderConfirmGoalChangeView(t, colors, draft, setDraft, setConfirmGoalChange, onChangeGoal)
+          : renderDefaultView(t, daruma, colors, setConfirmGoalChange, setConfirmDelete, onClose)}
     </View>
   );
 };
 
 // Default view (Daruma info)
 const renderDefaultView = (
+  t: TFunction,
   daruma: Daruma,
   colors: any,
   setConfirmGoalChange: (value: boolean) => void,
@@ -43,46 +48,46 @@ const renderDefaultView = (
   onClose: () => void
 ) => (
   <>
-    <Text style={{ color: colors.text, fontSize: 18, fontWeight: '600' }}>
-      About your Daruma
+    <Text style={{ color: colors.text, fontSize: 18 }}>
+      {t("info.title")}
     </Text>
     <Text style={{ color: colors.textSecondary }}>
-      Created: {formatDate(daruma.createdAt, DEFAULT_DATE_TIME_FORMAT)}
+      {t("info.created", { date: formatDate(daruma.createdAt, localDateFormat(t, true)) })}
     </Text>
     {daruma.completedAt != null && (
       <Text style={{ color: colors.textSecondary }}>
-        Completed: {formatDate(daruma.completedAt, DEFAULT_DATE_TIME_FORMAT)}
+        {t("info.completed", { date: formatDate(daruma.completedAt, localDateFormat(t, true)) })}
       </Text>
     )}
     {daruma.deadline != null && (
       <Text style={{ color: colors.textSecondary }}>
-        Deadline: {formatDate(daruma.deadline, DEFAULT_DATE_TIME_FORMAT)}
+        {t("info.deadline", { date: formatDate(daruma.deadline, localDateFormat(t)) })}
       </Text>
     )}
     <Text style={{ color: colors.textSecondary }}>
-      Last Updated: {formatDate(daruma.updatedAt, DEFAULT_DATE_TIME_FORMAT)}
+      {t("info.updated", { date: formatDate(daruma.updatedAt, localDateFormat(t, true)) })}
     </Text>
 
     <Pressable
       onPress={() => setConfirmGoalChange(true)}
       style={{ marginTop: 8, padding: 14, borderRadius: 12, borderWidth: 2, borderColor: colors.text }}
     >
-      <Text style={{ color: colors.text, textAlign: 'center', fontWeight: '600' }}>
-        Change Title
+      <Text style={{ color: colors.text, textAlign: 'center' }}>
+        {t("info.change_title")}
       </Text>
     </Pressable>
     <Pressable
       onPress={() => setConfirmDelete(true)}
       style={{ marginTop: 8, padding: 14, borderRadius: 12, borderWidth: 2, borderColor: colors.danger }}
     >
-      <Text style={{ color: colors.danger, textAlign: 'center', fontWeight: '600' }}>
-        Delete Daruma
+      <Text style={{ color: colors.danger, textAlign: 'center' }}>
+        {t("info.delete")}
       </Text>
     </Pressable>
 
     {/*
     <Pressable onPress={onClose}>
-      <Text style={{ textAlign: 'center', color: colors.textSecondary }}>Cancel</Text>
+      <Text style={{ textAlign: 'center', color: colors.textSecondary }}>{t("common.cancel")}</Text>
     </Pressable>
     */}
   </>
@@ -90,33 +95,35 @@ const renderDefaultView = (
 
 // Confirm delete view
 const renderConfirmDeleteView = (
+  t: TFunction,
   colors: any,
   onConfirmDelete: () => void,
   setConfirmDelete: (value: boolean) => void
 ) => (
   <>
-    <Text style={{ color: colors.text, fontSize: 18, fontWeight: '600' }}>
-      Are you sure?
+    <Text style={{ color: colors.text, fontSize: 18 }}>
+      {t("info.delete_confirm_title")}
     </Text>
     <Text style={{ color: colors.textSecondary }}>
-      This cannot be undone.
+      {t("info.delete_confirm_text")}
     </Text>
     <Pressable
       onPress={onConfirmDelete}
       style={{ marginTop: 8, padding: 14, borderRadius: 12, backgroundColor: colors.danger }}
     >
-      <Text style={{ color: colors.background, textAlign: 'center', fontWeight: '600' }}>
-        Yes, delete
+      <Text style={{ color: colors.background, textAlign: 'center' }}>
+        {t("info.delete_confirm")}
       </Text>
     </Pressable>
     <Pressable onPress={() => setConfirmDelete(false)}>
-      <Text style={{ textAlign: 'center', color: colors.textSecondary }}>Go back</Text>
+      <Text style={{ textAlign: 'center', color: colors.textSecondary }}>{t("common.go_back")}</Text>
     </Pressable>
   </>
 );
 
 // Confirm goal change view
 const renderConfirmGoalChangeView = (
+  t: TFunction,
   colors: any,
   draft: { goal: string },
   setDraft: (draft: { goal: string }) => void,
@@ -124,11 +131,11 @@ const renderConfirmGoalChangeView = (
   onChangeGoal: (newGoal: string) => void
 ) => (
   <>
-    <Text style={{ color: colors.text, fontSize: 18, fontWeight: '600' }}>
-      What shall it be?
+    <Text style={{ color: colors.text, fontSize: 18 }}>
+      {t("info.change_title_title")}
     </Text>
     <TextInput
-      placeholder="Enter new title"
+      placeholder={t("info.change_title_placeholder")}
       placeholderTextColor={colors.textSecondary}
       value={draft.goal}
       onChangeText={(goal) => setDraft({ goal })}
@@ -153,12 +160,12 @@ const renderConfirmGoalChangeView = (
       }}
       style={{ marginTop: 8, padding: 14, borderRadius: 12, backgroundColor: colors.primary }}
     >
-      <Text style={{ color: colors.background, textAlign: 'center', fontWeight: '600' }}>
-        Save Changes
+      <Text style={{ color: colors.background, textAlign: 'center' }}>
+        {t("info.save")}
       </Text>
     </Pressable>
     <Pressable onPress={() => setConfirmGoalChange(false)}>
-      <Text style={{ textAlign: 'center', color: colors.textSecondary }}>Go back</Text>
+      <Text style={{ textAlign: 'center', color: colors.textSecondary }}>{t("common.go_back")}</Text>
     </Pressable>
   </>
 );

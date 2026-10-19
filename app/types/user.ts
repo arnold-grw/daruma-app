@@ -2,7 +2,7 @@
 export interface User {
   id: string;
   name: string;
-  email: string;
+  email?: string; // only set once accounts exist
   createdAt: string;
   updatedAt: string;
   languagePreference?: LangPref;
@@ -15,4 +15,4 @@ export interface AuthSession {
   accessToken: string;
 }
 
-export type LangPref = "en" | "de" | "jp" | "fr" | "es";
+export type LangPref = "en" | "de" | "fr" | "es" | "ja" | "zh";

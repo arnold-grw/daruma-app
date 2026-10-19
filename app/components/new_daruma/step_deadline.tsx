@@ -5,7 +5,7 @@ import { DatePicker } from "@/components/modals/date_picker";
 import { Text } from "@/components/typography";
 import useTheme from "@/constants/theme";
 import { StepProps } from "@/types/step_props";
-import { formatDate, getTomorrow } from "@/utils/date_formatter";
+import { getTomorrow, parseDate, toDateKey } from "@/utils/date_formatter";
 import { useEffect, useState } from "react";
 import { Pressable, View } from "react-native";
 import { useTranslation } from "react-i18next";
@@ -14,7 +14,7 @@ import { useLanguageStore } from "@/store/language_store";
 
 export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
   const { colors } = useTheme();
-  const date = draft.deadline ? new Date(draft.deadline) : null;
+  const date = draft.deadline ? parseDate(draft.deadline) : null;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>(date ?? getTomorrow());
 
@@ -24,11 +24,12 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
 
   useEffect(() => {
     onValidChange(true); // immer skippable, egal ob Datum gesetzt
-  }, [date]);
+  }, []);
 
+  // depends on the stored string, `date` is a new object on every render
   useEffect(() => {
-    setSelectedDate(date ?? getTomorrow());
-  }, [date]);
+    setSelectedDate(draft.deadline ? parseDate(draft.deadline) : getTomorrow());
+  }, [draft.deadline]);
 
   const handleClear = () => {
     setDraft({ deadline: undefined });
@@ -43,7 +44,7 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
       </Text>
 
       <View style={{ flexDirection: "column", gap: 20, justifyContent: "center", maxWidth: 300, top: 40 }}>
-        <DateView date={date ? formatDate(date.toISOString(), "DD/MM/YYYY") : undefined} onPressDate={() => setIsModalVisible(true)} />
+        <DateView date={date ?? undefined} onPressDate={() => setIsModalVisible(true)} />
 
         {date && (
           <Pressable
@@ -77,7 +78,7 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
           />
           <Pressable
             onPress={() => {
-              setDraft({ deadline: selectedDate.toISOString() });
+              setDraft({ deadline: toDateKey(selectedDate) });
               setIsModalVisible(false);
             }}
             style={{

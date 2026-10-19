@@ -5,7 +5,8 @@ import useTheme from "@/constants/theme";
 import { createDaruma } from "@/domain/daruma_domain";
 import { Daruma } from "@/types/daruma";
 import { StepProps } from "@/types/step_props";
-import { DEFAULT_DATE_FORMAT, formatDate } from "@/utils/date_formatter";
+import { formatDate } from "@/utils/date_formatter";
+import { localDateFormat } from "@/i18n/date_format";
 import { View } from "react-native";
 import { useTranslation } from "react-i18next";
 import { useLanguageStore } from "@/store/language_store";
@@ -14,7 +15,7 @@ export function StepConfirm({ draft }: StepProps) {
 
   const colors = useTheme().colors;
   const showDaruma: Daruma = draft.goal?.trim().length > 0
-  ? createDaruma(draft)
+  ? createDaruma(draft, "preview")
   : {
       id: "preview",
       userId: "preview",
@@ -43,7 +44,7 @@ export function StepConfirm({ draft }: StepProps) {
         {showDaruma.deadline && (
             <Text style={{ color: colors.textSecondary, fontSize: 18, textAlign: "center", maxWidth: 280 }}>
                 {t("new.confirm.due_until")}
-                <Text style={{ color: colors.text, fontSize:20 }}> {formatDate(showDaruma.deadline, DEFAULT_DATE_FORMAT)}</Text>
+                <Text style={{ color: colors.text, fontSize:20 }}> {formatDate(showDaruma.deadline, localDateFormat(t))}</Text>
             </Text>
         )}
     </View>

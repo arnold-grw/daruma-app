@@ -2,8 +2,8 @@
 import Card from '@/components/card';
 import { Text } from '@/components/typography';
 import useTheme from '@/constants/theme';
-import { updateFailedDarumas, useActiveDarumas, useCompletedDarumas, useDarumaStore, useFailedDarumas } from '@/store/daruma_store';
-import { useLocalSearchParams } from 'expo-router';
+import { useCompletedDarumas, useDarumaStore, useFailedDarumas } from '@/store/daruma_store';
+import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useRef } from 'react';
 import { ScrollView, useWindowDimensions, View } from "react-native";
 import { default as ConfettiCannon, default as Explosion } from 'react-native-confetti-cannon';
@@ -16,8 +16,7 @@ type ConfettiCannonRef = {
 };
   
 export default function Archive() {
-  const { load } = useDarumaStore()
-  const activeDarumas = useActiveDarumas()
+  const load = useDarumaStore(state => state.load)
   const completedDarumas = useCompletedDarumas()
   const failedDarumas = useFailedDarumas()
   const { colors } = useTheme();
@@ -31,7 +30,6 @@ export default function Archive() {
 
   // Load darumas when the component mounts
   useEffect(() => {
-    updateFailedDarumas();
     load();
   }, []);
 
@@ -39,6 +37,8 @@ export default function Archive() {
   useEffect(() => {
     if (params.celebrate === 'true' && confettiRef.current) {
       confettiRef.current.start();
+      // clear the flag so the confetti only fires once per completion
+      router.setParams({ celebrate: undefined });
     }
   }, [params.celebrate]);
 

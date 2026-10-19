@@ -6,8 +6,12 @@ import * as Localization from "expo-localization";
 // Statische Imports, damit Metro sie zur Build-Zeit erkennen und bundlen kann
 import en from "./locales/en.json";
 import de from "./locales/de.json";
+import fr from "./locales/fr.json";
+import es from "./locales/es.json"; // Latin American Spanish
+import ja from "./locales/ja.json";
+import zh from "./locales/zh.json"; // Simplified Chinese (Mandarin)
 
-const LOCALES: Record<string, any> = { en, de };
+const LOCALES: Record<string, any> = { en, de, fr, es, ja, zh };
 
 i18n.use(initReactI18next).init({
   fallbackLng: "en",

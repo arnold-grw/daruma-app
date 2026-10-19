@@ -1,15 +1,23 @@
 import { Text } from "@/components/typography";
 import useTheme from "@/constants/theme";
-import { getMonthString } from "@/utils/date_formatter";
 import { Pressable, View } from "react-native";
+import { useTranslation } from "react-i18next";
+import { DatePart, localDateOrder } from "@/i18n/date_format";
 
 interface Props {
-    date?: string;
+    date?: Date;
     onPressDate: () => void;
 }
 
 export function DateView({ date, onPressDate }: Props) {
     const { colors } = useTheme();
+    const { t } = useTranslation();
+
+    const labels: Record<DatePart, string> = {
+        day: date ? String(date.getDate()).padStart(2, "0") : t("date.placeholder_day"),
+        month: date ? t(`date.months.${date.getMonth()}`) : t("date.placeholder_month"),
+        year: date ? String(date.getFullYear()) : t("date.placeholder_year"),
+    };
 
     return (
         <Pressable
@@ -32,15 +40,11 @@ export function DateView({ date, onPressDate }: Props) {
                 width: "100%",
                 paddingHorizontal: 10,
             }}>
-                <Text style={{ color: colors.text, fontSize: 18 }}>
-                    {date?.split("/")[0] ?? "DD"}
-                </Text>
-                <Text style={{ color: colors.text, fontSize: 18 }}>
-                    {getMonthString(parseInt(date?.split("/")[1] ?? "0") - 1) || "MM"}
-                </Text>
-                <Text style={{ color: colors.text, fontSize: 18 }}>
-                    {date?.split("/")[2] ?? "YYYY"}
-                </Text>
+                {localDateOrder(t).map((part) => (
+                    <Text key={part} style={{ color: colors.text, fontSize: 18 }}>
+                        {labels[part]}
+                    </Text>
+                ))}
             </View>
         </Pressable>
     );

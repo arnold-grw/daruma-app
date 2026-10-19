@@ -2,6 +2,7 @@ import { Text } from '@/components/typography';
 import useTheme from "@/constants/theme";
 import { safeBack } from "@/utils/navigation";
 import { Pressable, View } from "react-native";
+import { useTranslation } from "react-i18next";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface Props {
@@ -14,7 +15,8 @@ interface Props {
   canClick?: boolean
 }
 
-export default function BottomActionBar({ showConfirm = true, canConfirm = true, onConfirm, onCancel, confirmLabel = "Confirm", cancelLabel = "Cancel", canClick = true }: Props) {
+export default function BottomActionBar({ showConfirm = true, canConfirm = true, onConfirm, onCancel, confirmLabel, cancelLabel, canClick = true }: Props) {
+  const { t } = useTranslation();
 
   const { colors, shadows } = useTheme();
 
@@ -49,7 +51,7 @@ export default function BottomActionBar({ showConfirm = true, canConfirm = true,
           justifyContent: "center"
         }}
       >
-        <Text style={{ color: colors.text, fontSize: 18}}>{cancelLabel}</Text>
+        <Text style={{ color: colors.text, fontSize: 18}}>{cancelLabel ?? t("common.cancel")}</Text>
       </Pressable>
 
       {/* Confirm */}
@@ -66,7 +68,7 @@ export default function BottomActionBar({ showConfirm = true, canConfirm = true,
         }}
       >
         <Text style={{ color: colors.background, fontSize: 18 }}>
-          {confirmLabel}
+          {confirmLabel ?? t("common.confirm")}
         </Text>
       </Pressable>
       )}

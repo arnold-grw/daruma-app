@@ -1,0 +1,129 @@
+{
+  "common": {
+    "confirm": "決定",
+    "cancel": "キャンセル",
+    "return": "戻る",
+    "next": "次へ",
+    "back": "戻る",
+    "finish": "完成",
+    "complete": "目標達成",
+    "go_back": "戻る"
+  },
+  "profile": {
+    "welcome": "こんにちは、{{name}}さん",
+    "welcome_anonymous": "こんにちは",
+    "settings": {
+      "title": "設定",
+      "dark_mode": "ダークモード",
+      "language": "言語"
+    },
+    "account": {
+      "title": "アカウント"
+    },
+    "widget": {
+      "title": "ウィジェット"
+    }
+  },
+  "archive": {
+    "completed": "達成",
+    "overdue": "期限切れ"
+  },
+  "new": {
+    "color": {
+      "title": "まずは、目標に合う色を選びましょう"
+    },
+    "goal": {
+      "title": "目標を言葉にしましょう",
+      "placeholder": "目標を短い一文で",
+      "notes": "メモ（任意）"
+    },
+    "deadline": {
+      "title": "期限を決めますか？",
+      "subtitle": "期限を設けない場合はスキップできます。",
+      "remove": "期限を削除",
+      "choose": "決定"
+    },
+    "paint": {
+      "title": "願いを込めて、左目を描き入れましょう"
+    },
+    "confirm": {
+      "title": "準備はいいですか？",
+      "due_until": "期限："
+    }
+  },
+  "colors": {
+    "red": {
+      "label": "赤",
+      "meaning": "開運・成功"
+    },
+    "black": {
+      "label": "黒",
+      "meaning": "商売繁盛・魔除け"
+    },
+    "blue": {
+      "label": "青",
+      "meaning": "集中・学業成就"
+    },
+    "green": {
+      "label": "緑",
+      "meaning": "健康・心の安らぎ"
+    },
+    "yellow": {
+      "label": "黄",
+      "meaning": "金運・豊かさ"
+    },
+    "pink": {
+      "label": "ピンク",
+      "meaning": "恋愛・良縁"
+    }
+  },
+  "date": {
+    "format": "YYYY/MM/DD",
+    "format_time": "YYYY/MM/DD HH:mm",
+    "months": [
+      "1月",
+      "2月",
+      "3月",
+      "4月",
+      "5月",
+      "6月",
+      "7月",
+      "8月",
+      "9月",
+      "10月",
+      "11月",
+      "12月"
+    ],
+    "placeholder_day": "日",
+    "placeholder_month": "月",
+    "placeholder_year": "年"
+  },
+  "view": {
+    "not_found": "だるまが見つかりません",
+    "notes_placeholder": "メモ",
+    "deadline": "期限：{{date}}",
+    "last_day": "今日が最終日です",
+    "days_remaining_other": "残り{{count}}日",
+    "overdue_since": "{{date}}に期限切れ",
+    "extend_deadline": "期限を延長",
+    "new_deadline_title": "新しい期限を決める"
+  },
+  "info": {
+    "title": "このだるまについて",
+    "created": "作成日：{{date}}",
+    "completed": "達成日：{{date}}",
+    "deadline": "期限：{{date}}",
+    "updated": "最終更新：{{date}}",
+    "change_title": "目標を変更",
+    "delete": "だるまを削除",
+    "delete_confirm_title": "本当に削除しますか？",
+    "delete_confirm_text": "この操作は取り消せません。",
+    "delete_confirm": "削除する",
+    "change_title_title": "新しい目標は？",
+    "change_title_placeholder": "新しい目標を入力",
+    "save": "変更を保存"
+  },
+  "finish": {
+    "title": "願いが叶いましたね。右目を描き入れて、だるまを完成させましょう"
+  }
+}

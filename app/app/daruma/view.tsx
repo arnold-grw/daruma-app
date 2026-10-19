@@ -7,19 +7,22 @@ import { DarumaInfoContent } from "@/components/modals/info_context";
 import { Text, TextInput } from '@/components/typography';
 import useTheme from "@/constants/theme";
 import { useDarumaStore } from "@/store/daruma_store";
-import { DEFAULT_DATE_FORMAT, formatDate, getDaysBetweenDates } from "@/utils/date_formatter";
+import { formatDate, getDaysUntilDeadline } from "@/utils/date_formatter";
+import { localDateFormat } from "@/i18n/date_format";
 import { safeBack } from "@/utils/navigation";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { KeyboardAvoidingView, Pressable, ScrollView, View } from "react-native";
+import { useTranslation } from "react-i18next";
 
 export default function ViewDaruma() {
 
   const { darumaId } = useLocalSearchParams();
-  const { updateNotes, delete: deleteDaruma, extendDeadline } = useDarumaStore()
+  const { updateNotes, updateGoal, delete: deleteDaruma, extendDeadline } = useDarumaStore()
   const daruma = useDarumaStore(state => state.darumas.find(d => d.id === darumaId));
 
   const { colors } = useTheme();
+  const { t } = useTranslation();
   const [sheetOpen, setSheetOpen] = useState(false)
   const [localNotes, setLocalNotes] = useState(daruma?.notes ?? "")
 
@@ -54,7 +57,7 @@ export default function ViewDaruma() {
 
   const handleChangeGoal = async (newGoal: string) => {
     if (!daruma || !darumaId) return;
-    daruma.goal = newGoal;
+    await updateGoal(darumaId as string, newGoal);
     setSheetOpen(false);
   }
 
@@ -65,7 +68,7 @@ export default function ViewDaruma() {
 
   if (!daruma) return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: colors.background }}>
-      <Text>Daruma not found</Text>
+      <Text>{t("view.not_found")}</Text>
     </View>
   )
 
@@ -90,7 +93,7 @@ export default function ViewDaruma() {
             </WiggleDaruma>
 
             <TextInput
-              placeholder="notes"
+              placeholder={t("view.notes_placeholder")}
               placeholderTextColor={colors.textSecondary}
               value={localNotes}
               onChangeText={handleNotesChange}
@@ -109,13 +112,13 @@ export default function ViewDaruma() {
             {daruma.deadline != null && !daruma.isFailed && !daruma.isCompleted && (
               <View style={{ alignItems: 'center', gap: 4 }}>
                 <Text style={{ color: colors.textSecondary, fontSize: 16 }}>
-                  Deadline: {formatDate(daruma.deadline, DEFAULT_DATE_FORMAT)}
+                  {t("view.deadline", { date: formatDate(daruma.deadline, localDateFormat(t)) })}
                 </Text>
                 {(() => {
-                  const daysRemaining = getDaysBetweenDates(new Date(), new Date(daruma.deadline)) + 1;
+                  const daysRemaining = getDaysUntilDeadline(daruma.deadline);
                   return (
                     <Text style={{ color: colors.text, fontSize: 18 }}>
-                      {daysRemaining === 1 ? "1 day remaining" : `${daysRemaining} days remaining`}
+                      {daysRemaining === 0 ? t("view.last_day") : t("view.days_remaining", { count: daysRemaining })}
                     </Text>
                   );
                 })()}
@@ -139,10 +142,10 @@ export default function ViewDaruma() {
       </BottomModal>
 
       {!daruma.isCompleted && !daruma.isFailed && (
-        <BottomActionBar onConfirm={handleComplete} confirmLabel="Complete" cancelLabel="Return" />
+        <BottomActionBar onConfirm={handleComplete} confirmLabel={t("common.complete")} cancelLabel={t("common.return")} />
       )}
       {(daruma.isCompleted || daruma.isFailed) && (
-        <BottomActionBar showConfirm={false} cancelLabel="Return" onConfirm={() => {}} />
+        <BottomActionBar showConfirm={false} cancelLabel={t("common.return")} onConfirm={() => {}} />
       )}
     </View>
   );

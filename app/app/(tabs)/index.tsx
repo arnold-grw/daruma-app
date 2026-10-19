@@ -1,19 +1,17 @@
 
 import Card from '@/components/card';
 import useTheme from '@/constants/theme';
-import { updateFailedDarumas, useActiveDarumas, useCompletedDarumas, useDarumaStore } from '@/store/daruma_store';
+import { useActiveDarumas, useDarumaStore } from '@/store/daruma_store';
 import { useEffect } from 'react';
 import { ScrollView, View } from "react-native";
   
 export default function Index() {
-  const { load } = useDarumaStore()
+  const load = useDarumaStore(state => state.load)
   const activeDarumas = useActiveDarumas()
-  const completedDarumas = useCompletedDarumas()
   const { colors } = useTheme();
 
   // Load darumas when the component mounts
   useEffect(() => {
-    updateFailedDarumas();
     load();
   }, []);
 

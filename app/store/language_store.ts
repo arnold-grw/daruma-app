@@ -14,11 +14,14 @@ interface LanguageState {
 	setLanguage: (lang: LangPref, persistToUser?: boolean) => Promise<void>;
 }
 
+// "jp" was used for Japanese before, the ISO 639-1 code is "ja"
+const normalizeLang = (lang: string): LangPref => (lang === "jp" ? "ja" : lang) as LangPref;
+
 const readStoredLang = async (): Promise<LangPref | null> => {
 	try {
 		const stored = await AsyncStorage.getItem(STORAGE_KEY);
 		if (!stored) return null;
-		return (stored as LangPref) ?? null;
+		return normalizeLang(stored);
 	} catch {
 		return null;
 	}
@@ -39,7 +42,7 @@ export const useLanguageStore = create<LanguageState>((set, get) => ({
 		const { activeUser } = useUserStore.getState();
 
 		// 1) use user's preference if present
-		const fromUser = activeUser?.languagePreference as LangPref | undefined;
+		const fromUser = activeUser?.languagePreference ? normalizeLang(activeUser.languagePreference) : undefined;
 		if (fromUser) {
 			await i18nSetLanguage(fromUser);
 			set({ language: fromUser });

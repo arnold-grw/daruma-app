@@ -1,20 +1,37 @@
 import { HomeIcon, HourglassIcon, ProfileIcon } from "@/components/icons/tab_icons";
 import { Text } from '@/components/typography';
 import useTheme from "@/constants/theme";
-import { router, Tabs, usePathname } from "expo-router";
-import * as SplashScreen from 'expo-splash-screen';
-import { useState } from "react";
+import type { BottomTabBarButtonProps } from "@react-navigation/bottom-tabs";
+import { router, Tabs } from "expo-router";
+import { ComponentType } from "react";
 import { Pressable } from "react-native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-SplashScreen.preventAutoHideAsync();
+// Uses the navigator's own onPress, so switching tabs jumps to the tab instead of pushing a new screen
+function TabButton({ Icon, onPress, 'aria-selected': selected }: BottomTabBarButtonProps & { Icon: ComponentType<{ color: string }> }) {
+  const { colors } = useTheme();
+  const isSelected = !!selected;
+
+  return (
+    <Pressable
+      onPress={onPress}
+      accessibilityRole="tab"
+      accessibilityState={{ selected: isSelected }}
+      style={{
+        width: 70,
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <Icon color={isSelected ? colors.text : colors.textSecondary} />
+    </Pressable>
+  );
+}
 
 export default function TabsLayout() {
   const { colors, shadows } = useTheme();
-  const pathname = usePathname();
   const insets = useSafeAreaInsets();
-  const isActive = (path: string) => pathname === path;
-  const [activeTab, setActiveTab] = useState("index"); // Standardmäßig "index" aktiv
 
   return (
     <Tabs
@@ -33,77 +50,21 @@ export default function TabsLayout() {
           alignItems: 'center',
         },
         tabBarLabelStyle: { fontFamily: 'MyFont' },
-        //tabBarActiveTintColor: colors.primary,
-        //tabBarInactiveTintColor: colors.textSecondary,
       }}
     >
       <Tabs.Screen
         name="index"
-        options={{
-          title: '',
-          tabBarButton: () => (
-            <Pressable
-              onPress={() => {
-                setActiveTab("index");
-                router.push('/');
-              }}
-              style={{
-                width: 70,
-                height: 50,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <HomeIcon color={isActive('/') ? colors.text : colors.textSecondary} />
-            </Pressable>
-          ),
-        }}
+        options={{ title: '', tabBarButton: (props) => <TabButton {...props} Icon={HomeIcon} /> }}
       />
 
       <Tabs.Screen
         name="archive"
-        options={{
-          title: '',
-          tabBarButton: () => (
-            <Pressable
-              onPress={() => {
-                setActiveTab("archive");
-                router.push('/archive');
-              }}
-              style={{
-                width: 70,
-                height: 50,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <HourglassIcon color={isActive('/archive') ? colors.text : colors.textSecondary} />
-            </Pressable>
-          ),
-        }}
+        options={{ title: '', tabBarButton: (props) => <TabButton {...props} Icon={HourglassIcon} /> }}
       />
 
       <Tabs.Screen
         name="profile"
-        options={{
-          title: '',
-          tabBarButton: () => (
-            <Pressable
-              onPress={() => {
-                setActiveTab("profile");
-                router.push('/profile');
-              }}
-              style={{
-                width: 70,
-                height: 50,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <ProfileIcon color={isActive('/profile') ? colors.text : colors.textSecondary} />
-            </Pressable>
-          ),
-        }}
+        options={{ title: '', tabBarButton: (props) => <TabButton {...props} Icon={ProfileIcon} /> }}
       />
 
       <Tabs.Screen
@@ -117,8 +78,6 @@ export default function TabsLayout() {
                 width: 50,
                 height: 50,
                 borderRadius: 15,
-                //borderWidth: 4,
-                //borderColor: colors.textSecondary,
                 backgroundColor: colors.text,
                 justifyContent: 'center',
                 alignItems: 'center',

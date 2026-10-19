@@ -7,6 +7,7 @@ import { safeBack } from "@/utils/navigation";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
+import { useTranslation } from "react-i18next";
 
 // Import your step components
 import { ProgressIndicator } from "@/components/new_daruma/progress_indicator";
@@ -28,6 +29,7 @@ const STEPS = [
 
 export default function NewDaruma() {
   const { colors } = useTheme();
+  const { t } = useTranslation();
   const { draft, setDraft, commitDraft, resetDraft } = useDarumaStore();
   const [stepIndex, setStepIndex] = useState(0);
   const [isNavigating, setIsNavigating] = useState(false);
@@ -92,8 +94,8 @@ export default function NewDaruma() {
         onConfirm={handleNext}
         onCancel={handleBack}
         canConfirm={(canProceed || currentStep.canSkip)}
-        confirmLabel={isLast ? "Confirm" : "Next"}
-        cancelLabel={isFirst ? "Cancel" : "Back"}
+        confirmLabel={isLast ? t("common.confirm") : t("common.next")}
+        cancelLabel={isFirst ? t("common.cancel") : t("common.back")}
         canClick={!isNavigating}
       />
     </View>

@@ -1,0 +1,130 @@
+{
+  "common": {
+    "confirm": "Confirmer",
+    "cancel": "Annuler",
+    "return": "Retour",
+    "next": "Suivant",
+    "back": "Précédent",
+    "finish": "Terminer",
+    "complete": "Objectif atteint",
+    "go_back": "Retour"
+  },
+  "profile": {
+    "welcome": "Salut, {{name}}",
+    "welcome_anonymous": "Coucou toi",
+    "settings": {
+      "title": "Paramètres",
+      "dark_mode": "Mode sombre",
+      "language": "Langue"
+    },
+    "account": {
+      "title": "Compte"
+    },
+    "widget": {
+      "title": "Widget"
+    }
+  },
+  "archive": {
+    "completed": "atteints",
+    "overdue": "en retard"
+  },
+  "new": {
+    "color": {
+      "title": "Choisis d’abord une couleur qui correspond à ton objectif"
+    },
+    "goal": {
+      "title": "Mets ton objectif en mots",
+      "placeholder": "décris ton objectif en une phrase courte",
+      "notes": "notes (facultatif)"
+    },
+    "deadline": {
+      "title": "Fixer une échéance ?",
+      "subtitle": "ou passe cette étape si tu ne veux pas de limite.",
+      "remove": "supprimer l’échéance",
+      "choose": "choisir"
+    },
+    "paint": {
+      "title": "Peins l’œil gauche pour commencer ton chemin"
+    },
+    "confirm": {
+      "title": "On y va ?",
+      "due_until": "échéance : "
+    }
+  },
+  "colors": {
+    "red": {
+      "label": "rouge",
+      "meaning": "Chance et réussite"
+    },
+    "black": {
+      "label": "noir",
+      "meaning": "Discrétion et affaires"
+    },
+    "blue": {
+      "label": "bleu",
+      "meaning": "Concentration et productivité"
+    },
+    "green": {
+      "label": "vert",
+      "meaning": "Santé et bien-être"
+    },
+    "yellow": {
+      "label": "jaune",
+      "meaning": "Richesse et prospérité"
+    },
+    "pink": {
+      "label": "rose",
+      "meaning": "Amour et relations"
+    }
+  },
+  "date": {
+    "format": "DD.MM.YYYY",
+    "format_time": "DD.MM.YYYY HH:mm",
+    "months": [
+      "JAN",
+      "FÉV",
+      "MAR",
+      "AVR",
+      "MAI",
+      "JUIN",
+      "JUIL",
+      "AOÛ",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DÉC"
+    ],
+    "placeholder_day": "JJ",
+    "placeholder_month": "MM",
+    "placeholder_year": "AAAA"
+  },
+  "view": {
+    "not_found": "Daruma introuvable",
+    "notes_placeholder": "notes",
+    "deadline": "Échéance : {{date}}",
+    "last_day": "Dernier jour aujourd’hui",
+    "days_remaining_one": "Encore {{count}} jour",
+    "days_remaining_other": "Encore {{count}} jours",
+    "overdue_since": "En retard depuis le {{date}}",
+    "extend_deadline": "Prolonger l’échéance",
+    "new_deadline_title": "Fixer une nouvelle échéance"
+  },
+  "info": {
+    "title": "À propos de ton Daruma",
+    "created": "Créé le {{date}}",
+    "completed": "Atteint le {{date}}",
+    "deadline": "Échéance : {{date}}",
+    "updated": "Dernière modification : {{date}}",
+    "change_title": "Changer le titre",
+    "delete": "Supprimer le Daruma",
+    "delete_confirm_title": "Vraiment supprimer ?",
+    "delete_confirm_text": "Cette action est irréversible.",
+    "delete_confirm": "Oui, supprimer",
+    "change_title_title": "Quel sera le nouveau titre ?",
+    "change_title_placeholder": "Saisis le nouveau titre",
+    "save": "Enregistrer"
+  },
+  "finish": {
+    "title": "Peins le second œil pour accomplir ton objectif"
+  }
+}

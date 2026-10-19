@@ -1,0 +1,130 @@
+{
+  "common": {
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "return": "Volver",
+    "next": "Siguiente",
+    "back": "Atrás",
+    "finish": "Terminar",
+    "complete": "Meta cumplida",
+    "go_back": "Volver"
+  },
+  "profile": {
+    "welcome": "Hola, {{name}}",
+    "welcome_anonymous": "¡Hola, hola!",
+    "settings": {
+      "title": "Configuración",
+      "dark_mode": "Modo oscuro",
+      "language": "Idioma"
+    },
+    "account": {
+      "title": "Cuenta"
+    },
+    "widget": {
+      "title": "Widget"
+    }
+  },
+  "archive": {
+    "completed": "cumplidos",
+    "overdue": "vencidos"
+  },
+  "new": {
+    "color": {
+      "title": "Primero elige un color que vaya con tu meta"
+    },
+    "goal": {
+      "title": "Pon tu meta en palabras",
+      "placeholder": "describe tu meta en una frase corta",
+      "notes": "notas (opcional)"
+    },
+    "deadline": {
+      "title": "¿Quieres poner una fecha límite?",
+      "subtitle": "o sáltalo si prefieres no tener límite.",
+      "remove": "quitar fecha límite",
+      "choose": "elegir"
+    },
+    "paint": {
+      "title": "Pinta el ojo izquierdo para comenzar tu camino"
+    },
+    "confirm": {
+      "title": "¿Empezamos?",
+      "due_until": "fecha límite: "
+    }
+  },
+  "colors": {
+    "red": {
+      "label": "rojo",
+      "meaning": "Buena suerte y éxito"
+    },
+    "black": {
+      "label": "negro",
+      "meaning": "Secretos y negocios"
+    },
+    "blue": {
+      "label": "azul",
+      "meaning": "Enfoque y productividad"
+    },
+    "green": {
+      "label": "verde",
+      "meaning": "Salud y bienestar"
+    },
+    "yellow": {
+      "label": "amarillo",
+      "meaning": "Riqueza y prosperidad"
+    },
+    "pink": {
+      "label": "rosa",
+      "meaning": "Amor y relaciones"
+    }
+  },
+  "date": {
+    "format": "DD.MM.YYYY",
+    "format_time": "DD.MM.YYYY HH:mm",
+    "months": [
+      "ENE",
+      "FEB",
+      "MAR",
+      "ABR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AGO",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DIC"
+    ],
+    "placeholder_day": "DD",
+    "placeholder_month": "MM",
+    "placeholder_year": "AAAA"
+  },
+  "view": {
+    "not_found": "No se encontró el daruma",
+    "notes_placeholder": "notas",
+    "deadline": "Fecha límite: {{date}}",
+    "last_day": "Hoy es el último día",
+    "days_remaining_one": "Queda {{count}} día",
+    "days_remaining_other": "Quedan {{count}} días",
+    "overdue_since": "Vencido desde: {{date}}",
+    "extend_deadline": "Extender fecha límite",
+    "new_deadline_title": "Elige una nueva fecha límite"
+  },
+  "info": {
+    "title": "Sobre tu daruma",
+    "created": "Creado: {{date}}",
+    "completed": "Cumplido: {{date}}",
+    "deadline": "Fecha límite: {{date}}",
+    "updated": "Última actualización: {{date}}",
+    "change_title": "Cambiar título",
+    "delete": "Eliminar daruma",
+    "delete_confirm_title": "¿De verdad quieres eliminarlo?",
+    "delete_confirm_text": "Esta acción no se puede deshacer.",
+    "delete_confirm": "Sí, eliminar",
+    "change_title_title": "¿Cómo se llamará?",
+    "change_title_placeholder": "Escribe el nuevo título",
+    "save": "Guardar cambios"
+  },
+  "finish": {
+    "title": "Pinta el segundo ojo para cumplir tu meta"
+  }
+}

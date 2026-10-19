@@ -2,9 +2,14 @@ import { create } from "zustand";
 import { UserRepository } from "../repositories/user_repository";
 import { User } from "../types/user";
 import { createUser, isUserEditable } from "@/domain/user_domain";
-import { TEST_USER } from "@/constants/test_data";
 
 const repo = new UserRepository();
+
+// ids of the test users "Max" and "Anna" that were written to storage on first launch
+const LEGACY_SEED_USER_IDS = [
+  "00000000-0000-0000-0000-000000000000",
+  "11111111-1111-1111-1111-111111111111",
+];
 
 interface UserState {
   users: User[];
@@ -23,34 +28,30 @@ export const useUserStore = create<UserState>((set, get) => ({
   activeUser: null,
 
   load: async () => {
-    const users = await repo.getAll();
+    const stored = await repo.getAll();
 
+    // earlier versions seeded test users into storage, drop them
+    let users = stored.filter((user) => !LEGACY_SEED_USER_IDS.includes(user.id));
+    let changed = users.length !== stored.length;
+
+    // first launch: create the local user (the name gets set in the onboarding later)
     if (!users.length) {
-      const seededUser = createUser({ ...TEST_USER, id: TEST_USER.id });
-      const readOnlyUser = createUser({
-        ...TEST_USER,
-        id: "11111111-1111-1111-1111-111111111111",
-        name: "Anna",
-        email: "anna@example.com",
-        languagePreference: "de",
-      });
-      const seededUsers = [seededUser, readOnlyUser];
-
-      await repo.saveAll(seededUsers);
-      await repo.setActiveUserId(seededUser.id);
-
-      set({ users: seededUsers, activeUserId: seededUser.id, activeUser: seededUser });
-      return;
+      users = [createUser({ name: "" })];
+      changed = true;
     }
 
-    const activeUserId = (await repo.getActiveUserId()) ?? users[0]?.id ?? null;
-    const activeUser = users.find((user) => user.id === activeUserId) ?? users[0] ?? null;
+    if (changed) {
+      await repo.saveAll(users);
+    }
 
-    if (activeUser && !activeUserId) {
+    const storedActiveUserId = await repo.getActiveUserId();
+    const activeUser = users.find((user) => user.id === storedActiveUserId) ?? users[0];
+
+    if (activeUser.id !== storedActiveUserId) {
       await repo.setActiveUserId(activeUser.id);
     }
 
-    set({ users, activeUserId: activeUser?.id ?? null, activeUser });
+    set({ users, activeUserId: activeUser.id, activeUser });
   },
 
   setActiveUser: async (userId: string) => {

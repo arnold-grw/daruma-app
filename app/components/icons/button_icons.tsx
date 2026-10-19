@@ -23,3 +23,17 @@ export function CloseIcon({ color }: { color: string }) {
     </Svg>
   );
 }
+
+export function ChevronDownIcon({ color }: { color: string }) {
+  return (
+    <Svg width={ICON_SIZE} height={ICON_SIZE} viewBox="0 0 24 24" fill="none">
+      <Path
+        d="M 5 9 l 7 7 l 7 -7"
+        stroke={color}
+        strokeWidth={STROKE_WIDTH}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+}

@@ -4,78 +4,127 @@
     "cancel": "Cancel",
     "return": "Return",
     "next": "Next",
-    "back": "Back"
+    "back": "Back",
+    "finish": "Finish",
+    "complete": "Complete",
+    "go_back": "Go back"
   },
-  
   "profile": {
     "welcome": "Hi, {{name}}",
+    "welcome_anonymous": "Hello there!",
     "settings": {
-        "title": "Settings",
-        "dark_mode": "Dark mode",
-        "language": "Language"
+      "title": "Settings",
+      "dark_mode": "Dark mode",
+      "language": "Language"
     },
     "account": {
-        "title": "Account"
+      "title": "Account"
     },
     "widget": {
-        "title": "Widget"
+      "title": "Widget"
     }
   },
-
   "archive": {
     "completed": "completed",
     "overdue": "overdue"
   },
-
   "new": {
     "color": {
-        "title":"First choose a color that resonates with your goal"
+      "title": "First choose a color that resonates with your goal"
     },
     "goal": {
-        "title":"Put your goal into words",
-        "placeholder":"describe your goal in a short sentence",
-        "notes":"notes (optional)"
+      "title": "Put your goal into words",
+      "placeholder": "describe your goal in a short sentence",
+      "notes": "notes (optional)"
     },
     "deadline": {
-        "title":"Set a deadline?",
-        "subtitle":"or skip if you prefer no limit.",
-        "remove":"remove deadline",
-        "choose":"choose"
+      "title": "Set a deadline?",
+      "subtitle": "or skip if you prefer no limit.",
+      "remove": "remove deadline",
+      "choose": "choose"
     },
     "paint": {
-        "title":"Paint the left eye to begin your journey"
+      "title": "Paint the left eye to begin your journey"
     },
     "confirm": {
-        "title":"Ready to start?",
-        "due_until":"due until: "
+      "title": "Ready to start?",
+      "due_until": "due until: "
     }
   },
-
   "colors": {
-    "red":{
-        "label":"red",
-        "meaning":"Good luck & success"
+    "red": {
+      "label": "red",
+      "meaning": "Good luck & success"
     },
-    "black":{
-        "label":"black",
-        "meaning":"Secret & business"
+    "black": {
+      "label": "black",
+      "meaning": "Secret & business"
     },
-    "blue":{
-        "label":"blue",
-        "meaning":"Focus & productivity"
+    "blue": {
+      "label": "blue",
+      "meaning": "Focus & productivity"
     },
-    "green":{
-        "label":"green",
-        "meaning":"Health & wellbeing"
+    "green": {
+      "label": "green",
+      "meaning": "Health & wellbeing"
     },
-    "yellow":{
-        "label":"yellow",
-        "meaning":"Wealth & prosperity"
+    "yellow": {
+      "label": "yellow",
+      "meaning": "Wealth & prosperity"
     },
-    "pink":{
-        "label":"pink",
-        "meaning":"Love & relationships"
+    "pink": {
+      "label": "pink",
+      "meaning": "Love & relationships"
     }
+  },
+  "date": {
+    "format": "DD.MM.YYYY",
+    "format_time": "DD.MM.YYYY HH:mm",
+    "months": [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC"
+    ],
+    "placeholder_day": "DD",
+    "placeholder_month": "MM",
+    "placeholder_year": "YYYY"
+  },
+  "view": {
+    "not_found": "Daruma not found",
+    "notes_placeholder": "notes",
+    "deadline": "Deadline: {{date}}",
+    "last_day": "Last day today",
+    "days_remaining_one": "{{count}} day remaining",
+    "days_remaining_other": "{{count}} days remaining",
+    "overdue_since": "Overdue since: {{date}}",
+    "extend_deadline": "Extend deadline",
+    "new_deadline_title": "Set a new deadline"
+  },
+  "info": {
+    "title": "About your Daruma",
+    "created": "Created: {{date}}",
+    "completed": "Completed: {{date}}",
+    "deadline": "Deadline: {{date}}",
+    "updated": "Last updated: {{date}}",
+    "change_title": "Change title",
+    "delete": "Delete Daruma",
+    "delete_confirm_title": "Are you sure?",
+    "delete_confirm_text": "This cannot be undone.",
+    "delete_confirm": "Yes, delete",
+    "change_title_title": "What shall it be?",
+    "change_title_placeholder": "Enter new title",
+    "save": "Save changes"
+  },
+  "finish": {
+    "title": "Paint the second eye to complete your goal"
   }
-
 }

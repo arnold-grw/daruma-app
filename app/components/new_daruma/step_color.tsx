@@ -27,11 +27,11 @@ export function StepColor({ draft, setDraft, onValidChange}: StepProps) {
   };
 
   const colorLabel = darkmode && colorConfig.id == 'black' ? (
-    <Text style={{ color: colors.text, fontSize: 18, fontWeight: "600" }}>
+    <Text style={{ color: colors.text, fontSize: 18 }}>
       {t(colorConfig.labelKey)}
     </Text>
   ) : (
-    <Text style={{ color: colorConfig.hex, fontSize: 18, fontWeight: "600" }}>
+    <Text style={{ color: colorConfig.hex, fontSize: 18 }}>
       {t(colorConfig.labelKey)}
     </Text>
   );
