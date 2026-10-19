@@ -7,10 +7,17 @@ import { Drawing } from "@/types/drawing";
 import { StepProps } from "@/types/step_props";
 import { useEffect, useRef } from "react";
 import { View } from "react-native";
+import { useTranslation } from "react-i18next";
+import { useLanguageStore } from "@/store/language_store";
+
 
 export function StepPaint({ draft, setDraft, onValidChange }: StepProps) {
   const { colors, shadows } = useTheme();
   const drawingSpaceRef = useRef<any>(null);
+
+  const language = useLanguageStore((s) => s.language);
+  const setLanguage = useLanguageStore((s) => s.setLanguage);
+  const { t } = useTranslation();
 
   useEffect(() => {
     // If there's already a draft drawing, mark valid, otherwise require drawing
@@ -60,7 +67,7 @@ export function StepPaint({ draft, setDraft, onValidChange }: StepProps) {
         top: -100,
         shadowColor: shadows.color, shadowOffset: { width: shadows.x_offset, height: shadows.y_offset }, shadowOpacity: shadows.opacity, shadowRadius: shadows.radius, elevation: shadows.elevation
       }}>
-        Paint the left eye to begin your journey
+        {t("new.paint.title")}
       </Text>
 
       <View style={{ zIndex: -1 }}>

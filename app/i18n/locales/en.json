@@ -6,6 +6,7 @@
     "next": "Next",
     "back": "Back"
   },
+  
   "profile": {
     "welcome": "Hi, {{name}}",
     "settings": {
@@ -20,8 +21,61 @@
         "title": "Widget"
     }
   },
+
   "archive": {
     "completed": "completed",
     "overdue": "overdue"
+  },
+
+  "new": {
+    "color": {
+        "title":"First choose a color that resonates with your goal"
+    },
+    "goal": {
+        "title":"Put your goal into words",
+        "placeholder":"describe your goal in a short sentence",
+        "notes":"notes (optional)"
+    },
+    "deadline": {
+        "title":"Set a deadline?",
+        "subtitle":"or skip if you prefer no limit.",
+        "remove":"remove deadline",
+        "choose":"choose"
+    },
+    "paint": {
+        "title":"Paint the left eye to begin your journey"
+    },
+    "confirm": {
+        "title":"Ready to start?",
+        "due_until":"due until: "
+    }
+  },
+
+  "colors": {
+    "red":{
+        "label":"red",
+        "meaning":"Good luck & success"
+    },
+    "black":{
+        "label":"black",
+        "meaning":"Secret & business"
+    },
+    "blue":{
+        "label":"blue",
+        "meaning":"Focus & productivity"
+    },
+    "green":{
+        "label":"green",
+        "meaning":"Health & wellbeing"
+    },
+    "yellow":{
+        "label":"yellow",
+        "meaning":"Wealth & prosperity"
+    },
+    "pink":{
+        "label":"pink",
+        "meaning":"Love & relationships"
+    }
   }
+
 }

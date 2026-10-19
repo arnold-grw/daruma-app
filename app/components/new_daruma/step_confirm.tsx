@@ -7,6 +7,8 @@ import { Daruma } from "@/types/daruma";
 import { StepProps } from "@/types/step_props";
 import { DEFAULT_DATE_FORMAT, formatDate } from "@/utils/date_formatter";
 import { View } from "react-native";
+import { useTranslation } from "react-i18next";
+import { useLanguageStore } from "@/store/language_store";
 
 export function StepConfirm({ draft }: StepProps) {
 
@@ -27,17 +29,20 @@ export function StepConfirm({ draft }: StepProps) {
       leftEyeDrawing: draft.leftEyeDrawing
     };
 
+  const language = useLanguageStore((s) => s.language);
+  const setLanguage = useLanguageStore((s) => s.setLanguage);
+  const { t } = useTranslation();
+
   return (
     <View style={{justifyContent: "center", alignItems: "center", gap: 20, backgroundColor: colors.background, flex: 1}}>
-        <Text style={{ fontSize: 24, textAlign: "center", paddingBottom: 20}}>ready to start your journey?</Text>
+        <Text style={{ fontSize: 24, textAlign: "center", paddingBottom: 20}}>{t("new.confirm.title")}</Text>
         <DarumaDisplay daruma={showDaruma} />
         <Text style={{ color: colors.textSecondary, fontSize: 18, textAlign: "center", maxWidth: 280, paddingTop: 40 }}>
-            your goal:
             <Text style={{ color: colors.text, fontSize:20 }}> {showDaruma.goal}</Text>
         </Text>
         {showDaruma.deadline && (
             <Text style={{ color: colors.textSecondary, fontSize: 18, textAlign: "center", maxWidth: 280 }}>
-                due until:
+                {t("new.confirm.due_until")}
                 <Text style={{ color: colors.text, fontSize:20 }}> {formatDate(showDaruma.deadline, DEFAULT_DATE_FORMAT)}</Text>
             </Text>
         )}

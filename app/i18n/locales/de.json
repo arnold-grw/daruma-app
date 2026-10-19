@@ -23,5 +23,56 @@
   "archive": {
     "completed": "abgeschlossen",
     "overdue": "überfällig"
-  }
+  },
+
+  "new": {
+    "color": {
+        "title": "Wähle zuerst eine Farbe, die zu deinem Ziel passt"
+    },
+    "goal": {
+        "title": "Fasse dein Ziel in Worte",
+        "placeholder": "Beschreibe kurz dein Ziel",
+        "notes": "Notizen (optional)"
+    },
+    "deadline": {
+        "title": "Möchtest du ein Frist setzen?",
+        "subtitle": "Oder überspringe, wenn du keine Begrenzung möchtest.",
+        "remove":"Frist entfernen",
+        "choose":"bestätigen"
+    },
+    "paint": {
+        "title": "Male das linke Auge aus, um deine Reise zu beginnen"
+    },
+    "confirm": {
+        "title": "Bereit, loszulegen?",
+        "due_until": "Frist bis: "
+    }
+},
+
+  "colors": {
+    "red": {
+        "label": "Rot",
+        "meaning": "Glück & Erfolg"
+    },
+    "black": {
+        "label": "Schwarz",
+        "meaning": "Geheimnis & Geschäft"
+    },
+    "blue": {
+        "label": "Blau",
+        "meaning": "Fokus & Produktivität"
+    },
+    "green": {
+        "label": "Grün",
+        "meaning": "Gesundheit & Wohlbefinden"
+    },
+    "yellow": {
+        "label": "Gelb",
+        "meaning": "Reichtum & Wohlstand"
+    },
+    "pink": {
+        "label": "Rosa",
+        "meaning": "Liebe & Beziehungen"
+    }
+}
 }

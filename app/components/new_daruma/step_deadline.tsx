@@ -8,12 +8,19 @@ import { StepProps } from "@/types/step_props";
 import { formatDate, getTomorrow } from "@/utils/date_formatter";
 import { useEffect, useState } from "react";
 import { Pressable, View } from "react-native";
+import { useTranslation } from "react-i18next";
+import { useLanguageStore } from "@/store/language_store";
+
 
 export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
   const { colors } = useTheme();
   const date = draft.deadline ? new Date(draft.deadline) : null;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>(date ?? getTomorrow());
+
+  const language = useLanguageStore((s) => s.language);
+  const setLanguage = useLanguageStore((s) => s.setLanguage);
+  const { t } = useTranslation();
 
   useEffect(() => {
     onValidChange(true); // immer skippable, egal ob Datum gesetzt
@@ -30,9 +37,9 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
 
   return (
     <View style={{ flex: 1, alignItems: "center", paddingTop: 80, gap: 30 }}>
-      <Text style={{ fontSize: 24, textAlign: "center" }}>Set a deadline?</Text>
+      <Text style={{ fontSize: 24, textAlign: "center" }}>{t("new.deadline.title")}</Text>
       <Text style={{ color: colors.textSecondary, fontSize: 16, textAlign: "center", maxWidth: 280 }}>
-        or skip if you prefer no time limit.
+        {t("new.deadline.subtitle")}
       </Text>
 
       <View style={{ flexDirection: "column", gap: 20, justifyContent: "center", maxWidth: 300, top: 40 }}>
@@ -50,7 +57,7 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
               alignItems: "center",
             }}
           >
-            <Text style={{ color: colors.background, fontSize: 18 }}>remove deadline</Text>
+            <Text style={{ color: colors.background, fontSize: 18 }}>{t("new.deadline.remove")}</Text>
           </Pressable>
         )}
       </View>
@@ -83,7 +90,7 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
               alignItems: "center",
             }}
           >
-            <Text style={{ color: colors.background, fontSize: 16 }}>Choose</Text>
+            <Text style={{ color: colors.background, fontSize: 16 }}>{t("new.deadline.choose")}</Text>
           </Pressable>
           </View>
       </CenterModal>
