@@ -4,8 +4,8 @@ import { Picker as RNPicker, type PickerProps } from "@react-native-picker/picke
 import React from "react";
 import { Text as RNText, TextInput as RNTextInput, StyleSheet, type StyleProp, type TextInputProps, type TextProps, type TextStyle } from 'react-native';
 
-// Quicksand Bold, registered in app/_layout.tsx. All texts use this one cut.
-const FONT = 'MyFont';
+// M PLUS Rounded 1c Bold (Latin, Japanese, Cyrillic), registered in app/_layout.tsx. All texts use this one cut.
+export const FONT = 'MPLUSRounded1c_700Bold';
 
 // fontWeight has no effect with a single custom font file, and on Android it can
 // make the text fall back to the system font, so it is removed from the style.

@@ -90,8 +90,8 @@ export function WheelPicker<T>({
   return (
     <View style={{ height: containerHeight, width }}>
       <View
-        pointerEvents="none"
         style={{
+          pointerEvents: "none",
           position: "absolute",
           top: paddingCount * itemHeight,
           left: 0,
@@ -123,7 +123,6 @@ export function WheelPicker<T>({
             >
               <Text
                 style={{
-                  fontFamily: "MyFont",
                   fontSize: isSelected ? 22 : 18,
                   color: isSelected ? colors.text : colors.textSecondary,
                   opacity: isSelected ? 1 : 0.5,

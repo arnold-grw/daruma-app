@@ -1,5 +1,6 @@
 
 import Card from '@/components/card';
+import EmptyState from '@/components/empty_state';
 import { Text } from '@/components/typography';
 import useTheme from '@/constants/theme';
 import { useCompletedDarumas, useDarumaStore, useFailedDarumas } from '@/store/daruma_store';
@@ -45,6 +46,9 @@ export default function Archive() {
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }} >
         {/* <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text }}>Shrine</Text> */}
+        {failedDarumas.length === 0 && completedDarumas.length === 0 ? (
+          <EmptyState title={t("archive.empty.title")} text={t("archive.empty.text")} />
+        ) : (
         <ScrollView style={{paddingHorizontal: 20, flex: 1, paddingTop: 40 }} contentContainerStyle={{ alignItems: "center" }}>
 
         {/* overdue darumas */}
@@ -68,6 +72,7 @@ export default function Archive() {
         ))}
 
         </ScrollView>
+        )}
         <View style={{}}>
           <ConfettiCannon
             count={100}

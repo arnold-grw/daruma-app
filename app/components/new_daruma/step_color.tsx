@@ -27,11 +27,11 @@ export function StepColor({ draft, setDraft, onValidChange}: StepProps) {
   };
 
   const colorLabel = darkmode && colorConfig.id == 'black' ? (
-    <Text style={{ color: colors.text, fontSize: 18 }}>
+    <Text style={{ color: colors.text, fontSize: 24 }}>
       {t(colorConfig.labelKey)}
     </Text>
   ) : (
-    <Text style={{ color: colorConfig.hex, fontSize: 18 }}>
+    <Text style={{ color: colorConfig.hex, fontSize: 24 }}>
       {t(colorConfig.labelKey)}
     </Text>
   );
@@ -45,7 +45,7 @@ export function StepColor({ draft, setDraft, onValidChange}: StepProps) {
       />
       <View style={{ alignItems: "center", gap: 4 }}>
         {colorLabel}
-        <Text style={{ color: colors.textSecondary }}>
+        <Text style={{ color: colors.textSecondary, fontSize: 18 }}>
           {t(colorConfig.meaningKey)}
         </Text>
       </View>

@@ -1,4 +1,4 @@
-import useTheme from "@/constants/theme";
+import useTheme, { shadowStyle } from "@/constants/theme";
 import { Modal, Pressable, View } from "react-native";
 import { CloseIcon } from "../icons/button_icons";
 
@@ -34,8 +34,8 @@ export const CenterModal = ({ visible, onClose, children }: CenterModalProps) =>
       />
       {/* content */}
       <View
-        pointerEvents="box-none"
         style={{
+          pointerEvents: 'box-none',
           flex: 1,
           justifyContent: 'center',
         }}
@@ -47,7 +47,7 @@ export const CenterModal = ({ visible, onClose, children }: CenterModalProps) =>
             borderRadius: 24,
             padding: 24,
             gap: 16,
-            shadowColor: shadows.color, shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.5, shadowRadius: 40, elevation: shadows.elevation
+            ...shadowStyle(shadows, { x_offset: 0, y_offset: 0, opacity: 0.5, radius: 40 })
           }}
         >
           <Pressable onPress={onClose} style={{ position: 'absolute', top: 20, right: 20, zIndex: 1 }}>

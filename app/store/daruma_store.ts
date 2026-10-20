@@ -1,5 +1,5 @@
 
-import { completeDaruma, createDaruma, extendDarumaDeadline, markOverdueDarumas, updateDarumaGoal, updateDarumaNotes } from "@/domain/daruma_domain";
+import { completeDaruma, createDaruma, extendDarumaDeadline, markOverdueDarumas, migrateDarumaColors, updateDarumaGoal, updateDarumaNotes } from "@/domain/daruma_domain";
 import { useUserStore } from "@/store/user_store";
 import { DrawingData } from "@/types/drawing";
 import 'react-native-get-random-values';
@@ -49,9 +49,10 @@ export const useDarumaStore = create<DarumaState>((set, get) => ({
   load: async () => {
     //repo.clearAll(); //clear storage for testing
     const stored = await repo.getAll();
+    const migrated = migrateDarumaColors(stored);
     // mark overdue darumas before they reach the state, so they show up in the archive right away
-    const { darumas, changed } = markOverdueDarumas(stored);
-    if (changed) {
+    const { darumas, changed } = markOverdueDarumas(migrated.darumas);
+    if (changed || migrated.changed) {
       await repo.saveAll(darumas);
     }
     set({ darumas });

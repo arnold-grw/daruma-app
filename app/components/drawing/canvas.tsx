@@ -152,8 +152,7 @@ export const Canvas = forwardRef(({ size = 200, settings, onDrawingChange, initi
             ]
         }}/>
 
-        <View style={{ position: "absolute", width: size, height: size }}
-        pointerEvents="none">
+        <View style={{ position: "absolute", width: size, height: size, pointerEvents: "none" }}>
         <DrawingRenderer
             drawingData={liveDrawing}
             width={size}

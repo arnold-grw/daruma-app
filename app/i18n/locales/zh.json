@@ -24,9 +24,19 @@
       "title": "小组件"
     }
   },
+  "home": {
+    "empty": {
+      "title": "这里还空空的...",
+      "text": "点一下加号，为你的第一个达摩点上左眼。"
+    }
+  },
   "archive": {
     "completed": "已达成",
-    "overdue": "已逾期"
+    "overdue": "已逾期",
+    "empty": {
+      "title": "这里还很安静...",
+      "text": "达摩点上双眼后，就会在这里安家。"
+    }
   },
   "new": {
     "color": {
@@ -68,8 +78,8 @@
       "label": "绿色",
       "meaning": "健康・安宁"
     },
-    "yellow": {
-      "label": "黄色",
+    "gold": {
+      "label": "金色",
       "meaning": "财运・富足"
     },
     "pink": {
@@ -103,6 +113,7 @@
     "notes_placeholder": "备注",
     "deadline": "截止日期：{{date}}",
     "last_day": "今天是最后一天",
+    "days_remaining_one": "还剩{{count}}天",
     "days_remaining_other": "还剩{{count}}天",
     "overdue_since": "已于{{date}}逾期",
     "extend_deadline": "延长期限",

@@ -2,6 +2,7 @@ import BottomActionBar from "@/components/action_bar";
 import { DarumaDisplay } from "@/components/daruma/daruma_display";
 import { WiggleDaruma } from "@/components/daruma/daruma_wiggle";
 import ExtendDeadline from "@/components/extend_deadline";
+import KeyboardShift from "@/components/keyboard_shift";
 import { BottomModal } from "@/components/modals/bottom_modal";
 import { DarumaInfoContent } from "@/components/modals/info_context";
 import { Text, TextInput } from '@/components/typography';
@@ -12,7 +13,7 @@ import { localDateFormat } from "@/i18n/date_format";
 import { safeBack } from "@/utils/navigation";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { KeyboardAvoidingView, Pressable, ScrollView, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
 import { useTranslation } from "react-i18next";
 
 export default function ViewDaruma() {
@@ -74,7 +75,8 @@ export default function ViewDaruma() {
 
   return (
     <View style={{ justifyContent: "space-between", alignItems: "center", backgroundColor: colors.background, flex: 1 }}>
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="position" keyboardVerticalOffset={-140}>
+      {/* Everything except the action bar moves up with the keyboard; the sheet handles its own input */}
+      <KeyboardShift style={{ flex: 1 }} enabled={!sheetOpen}>
         <ScrollView style={{overflow: 'visible'}}>
           <View style={{ alignItems: "center", gap: 30 }}>
             <Pressable
@@ -130,7 +132,7 @@ export default function ViewDaruma() {
 
           </View>
         </ScrollView>
-      </KeyboardAvoidingView>
+      </KeyboardShift>
 
       <BottomModal visible={sheetOpen} onClose={() => setSheetOpen(false)}>
         <DarumaInfoContent

@@ -18,5 +18,5 @@ export interface Daruma {
   rightEyeDrawing?: DrawingData;
 }
 
-export type DarumaColor = "red" | "blue" | "green" | "yellow" | "pink" | "black";
+export type DarumaColor = "red" | "blue" | "green" | "gold" | "pink" | "black";
 

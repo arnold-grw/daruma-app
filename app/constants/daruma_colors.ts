@@ -45,11 +45,11 @@ export const DARUMA_COLORS: DarumaColorConfig[] = [
     meaning: 'Health & wellbeing',
   },
   {
-    id: 'yellow',
-    hex: '#e9c454',
-    labelKey: 'colors.yellow.label',
-    meaningKey: 'colors.yellow.meaning',
-    label: 'Yellow',
+    id: 'gold',
+    hex: '#d3af42',
+    labelKey: 'colors.gold.label',
+    meaningKey: 'colors.gold.meaning',
+    label: 'Gold',
     meaning: 'Wealth & prosperity',
   },
   {

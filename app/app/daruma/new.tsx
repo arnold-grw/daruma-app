@@ -1,6 +1,7 @@
 
 // app/daruma/new.tsx
 import BottomActionBar from "@/components/action_bar";
+import KeyboardShift from "@/components/keyboard_shift";
 import useTheme from "@/constants/theme";
 import { useDarumaStore } from "@/store/daruma_store";
 import { safeBack } from "@/utils/navigation";
@@ -81,14 +82,17 @@ export default function NewDaruma() {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
-      <ProgressIndicator stepIndex={stepIndex} totalSteps={STEPS.length} />
+      {/* Everything except the action bar moves up with the keyboard */}
+      <KeyboardShift style={{ flex: 1 }}>
+        <ProgressIndicator stepIndex={stepIndex} totalSteps={STEPS.length} />
 
-      <StepComponent
-        key={currentStep.key}
-        draft={draft}
-        setDraft={setDraft}
-        onValidChange={setCanProceed}
-      />
+        <StepComponent
+          key={currentStep.key}
+          draft={draft}
+          setDraft={setDraft}
+          onValidChange={setCanProceed}
+        />
+      </KeyboardShift>
 
       <BottomActionBar
         onConfirm={handleNext}

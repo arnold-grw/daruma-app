@@ -1,4 +1,4 @@
-import useTheme from "@/constants/theme";
+import useTheme, { shadowStyle } from "@/constants/theme";
 import { DrawingSettings } from "@/types/drawing";
 import { Pressable, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
@@ -79,7 +79,7 @@ export function Toolbar({
       alignItems: "center",
       paddingVertical: PADDING,
       justifyContent: "space-between",
-      shadowColor: shadows.color, shadowOffset: { width: shadows.x_offset, height: shadows.y_offset }, shadowOpacity: shadows.opacity, shadowRadius: shadows.radius, elevation: shadows.elevation
+      ...shadowStyle(shadows)
     }}>
       {/* Brush icon */}
       <View style={{ height: ICON_AREA, justifyContent: "center" }}>
@@ -121,10 +121,7 @@ export function Toolbar({
                 height: thumbSize,
                 borderRadius: thumbSize / 2,
                 backgroundColor: colors.primary,
-                shadowColor: "#000",
-                shadowOpacity: 0.2,
-                shadowRadius: 4,
-                elevation: 3,
+                ...shadowStyle({ color: "#000", opacity: 0.2, x_offset: 0, y_offset: 0, radius: 4, elevation: 3 }),
             }, thumbStyle]} />
             </View>
         </View>

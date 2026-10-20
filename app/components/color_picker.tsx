@@ -2,7 +2,7 @@ import { DARUMA_COLORS } from "@/constants/daruma_colors";
 import { DarumaColor } from "@/types/daruma";
 import React from "react";
 import { Dimensions, View } from "react-native";
-import Carousel from "react-native-reanimated-carousel";
+import { Carousel } from "react-native-reanimated-carousel";
 import { DarumaDetails } from "./daruma/daruma_details";
 
 interface Props {
@@ -21,24 +21,26 @@ export default function ColorPicker({ selected, onSelect }: Props) {
 
   return (
     <Carousel
-      width={carouselWidth}
-      height={cardWidth}
+      style={{ width: carouselWidth, height: cardWidth }}
       data={DARUMA_COLORS}
+      loop
       defaultIndex={startIndex}
       onSnapToItem={(index) => onSelect(DARUMA_COLORS[index].id)}
       renderItem={({ item }) => (
         <View
           style={{
             alignSelf: "center", marginTop: -20,
+            // the images must not catch the pointer: in the browser, dragging an image starts a native image drag that cancels the swipe
+            pointerEvents: "none",
           }}
           >
             <DarumaDetails color={item.id} width={cardWidth} height={cardHeight} />
         </View>
       )}
-      mode="parallax"
-      modeConfig={{
-        parallaxScrollingScale: 0.8,
-		    parallaxScrollingOffset: cardWidth*0.25,
+      layout={{
+        type: "parallax",
+        scale: 0.8,
+        offset: cardWidth * 0.25,
       }}
     />
   )

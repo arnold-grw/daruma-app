@@ -2,7 +2,7 @@ import BottomActionBar from '@/components/action_bar';
 import { DarumaDetails } from '@/components/daruma/daruma_details';
 import { DrawingSpace } from '@/components/drawing/drawing_space';
 import { Text } from '@/components/typography';
-import useTheme from "@/constants/theme";
+import useTheme, { shadowStyle } from "@/constants/theme";
 import { useDarumaStore } from "@/store/daruma_store";
 import { router, useLocalSearchParams } from 'expo-router';
 import { useRef } from 'react';
@@ -40,7 +40,7 @@ export default function PaintFinish() {
     return (
         <View style={{ flex: 1, justifyContent: "space-between", alignItems: "center", overflow: 'hidden', backgroundColor: colors.background }}>
             <Text style={{ fontSize: 24, marginTop: 50, textAlign: "center", paddingHorizontal: 20, backgroundColor: colors.background, maxWidth:300, padding: 20, borderRadius: 10,
-                shadowColor: shadows.color, shadowOffset: { width: shadows.x_offset, height: shadows.y_offset }, shadowOpacity: 0.25, shadowRadius: shadows.radius, elevation: shadows.elevation
+                ...shadowStyle(shadows, { opacity: 0.25 })
              }}>{t("finish.title")}</Text>
 
             <View style={{ zIndex: -1 }}>

@@ -24,6 +24,10 @@ export async function setLanguage(lang: string) {
   const data = LOCALES[lang] ?? LOCALES["en"];
   const resolvedLang = LOCALES[lang] ? lang : "en";
 
+  // English is the fallback language, so it has to be loaded too: otherwise a missing key shows up as the key itself
+  if (!i18n.hasResourceBundle("en", "translation")) {
+    i18n.addResourceBundle("en", "translation", LOCALES["en"], true, true);
+  }
   if (!i18n.hasResourceBundle(resolvedLang, "translation")) {
     i18n.addResourceBundle(resolvedLang, "translation", data, true, true);
   }

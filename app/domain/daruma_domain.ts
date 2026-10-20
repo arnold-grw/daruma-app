@@ -1,4 +1,4 @@
-import { Daruma } from "@/types/daruma";
+import { Daruma, DarumaColor } from "@/types/daruma";
 import { DrawingData } from "@/types/drawing";
 import { isDeadlinePassed } from "@/utils/date_formatter";
 import { v4 as uuidv4 } from "uuid";
@@ -83,6 +83,28 @@ export function markOverdueDarumas(darumas: Daruma[], now: Date = new Date()): {
             return { ...daruma, isFailed: true, updatedAt: now.toISOString() };
         }
         return daruma;
+    });
+
+    return { darumas: updated, changed };
+}
+
+// Color ids that were renamed; stored darumas are migrated on load
+const RENAMED_COLORS: Record<string, DarumaColor> = {
+    yellow: "gold",
+};
+
+/**
+ * Replaces renamed color ids (e.g. "yellow" -> "gold") in stored darumas.
+ * `changed` tells the caller whether anything needs to be saved.
+ */
+export function migrateDarumaColors(darumas: Daruma[]): { darumas: Daruma[]; changed: boolean } {
+    let changed = false;
+
+    const updated = darumas.map(daruma => {
+        const renamed = RENAMED_COLORS[daruma.color];
+        if (!renamed) return daruma;
+        changed = true;
+        return { ...daruma, color: renamed };
     });
 
     return { darumas: updated, changed };

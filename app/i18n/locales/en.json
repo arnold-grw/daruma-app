@@ -24,9 +24,19 @@
       "title": "Widget"
     }
   },
+  "home": {
+    "empty": {
+      "title": "Nothing here yet...",
+      "text": "Tap the plus and paint the first eye on your very first Daruma."
+    }
+  },
   "archive": {
     "completed": "completed",
-    "overdue": "overdue"
+    "overdue": "overdue",
+    "empty": {
+      "title": "All quiet for now...",
+      "text": "Once a Daruma gets its second eye, it finds its place here."
+    }
   },
   "new": {
     "color": {
@@ -68,8 +78,8 @@
       "label": "green",
       "meaning": "Health & wellbeing"
     },
-    "yellow": {
-      "label": "yellow",
+    "gold": {
+      "label": "gold",
       "meaning": "Wealth & prosperity"
     },
     "pink": {

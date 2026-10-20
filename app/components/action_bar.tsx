@@ -1,5 +1,5 @@
 import { Text } from '@/components/typography';
-import useTheme from "@/constants/theme";
+import useTheme, { shadowStyle } from "@/constants/theme";
 import { safeBack } from "@/utils/navigation";
 import { Pressable, View } from "react-native";
 import { useTranslation } from "react-i18next";
@@ -36,7 +36,7 @@ export default function BottomActionBar({ showConfirm = true, canConfirm = true,
         paddingVertical: 20,
         paddingBottom: insets.bottom,
         backgroundColor: colors.card,
-        shadowColor: shadows.color, shadowOffset: { width: shadows.x_offset, height: shadows.y_offset }, shadowOpacity: shadows.opacity, shadowRadius: shadows.radius, elevation: shadows.elevation
+        ...shadowStyle(shadows)
       }}
     >
       {/* Cancel */}

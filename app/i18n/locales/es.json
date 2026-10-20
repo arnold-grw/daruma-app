@@ -24,9 +24,19 @@
       "title": "Widget"
     }
   },
+  "home": {
+    "empty": {
+      "title": "Todavía no hay nada...",
+      "text": "Toca el más y píntale el primer ojo a tu primer Daruma."
+    }
+  },
   "archive": {
     "completed": "cumplidos",
-    "overdue": "vencidos"
+    "overdue": "vencidos",
+    "empty": {
+      "title": "Por ahora, todo tranquilo...",
+      "text": "Cuando un Daruma tenga su segundo ojo, aquí encontrará su lugar."
+    }
   },
   "new": {
     "color": {
@@ -68,8 +78,8 @@
       "label": "verde",
       "meaning": "Salud y bienestar"
     },
-    "yellow": {
-      "label": "amarillo",
+    "gold": {
+      "label": "dorado",
       "meaning": "Riqueza y prosperidad"
     },
     "pink": {

@@ -24,9 +24,19 @@
       "title": "ウィジェット"
     }
   },
+  "home": {
+    "empty": {
+      "title": "まだ何もありません...",
+      "text": "＋をタップして、最初のだるまに片目を描き入れましょう。"
+    }
+  },
   "archive": {
     "completed": "達成",
-    "overdue": "期限切れ"
+    "overdue": "期限切れ",
+    "empty": {
+      "title": "ここはまだ静かです...",
+      "text": "両目が入っただるまは、ここに飾られます。"
+    }
   },
   "new": {
     "color": {
@@ -68,8 +78,8 @@
       "label": "緑",
       "meaning": "健康・心の安らぎ"
     },
-    "yellow": {
-      "label": "黄",
+    "gold": {
+      "label": "金",
       "meaning": "金運・豊かさ"
     },
     "pink": {
@@ -103,6 +113,7 @@
     "notes_placeholder": "メモ",
     "deadline": "期限：{{date}}",
     "last_day": "今日が最終日です",
+    "days_remaining_one": "残り{{count}}日",
     "days_remaining_other": "残り{{count}}日",
     "overdue_since": "{{date}}に期限切れ",
     "extend_deadline": "期限を延長",

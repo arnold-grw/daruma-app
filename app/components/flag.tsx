@@ -14,12 +14,12 @@ export const FLAG_BORDER_WIDTH = 2;
 
 // Languages without an entry here show the fallback box with the language code
 const FLAGS: Partial<Record<LangPref, ImageSource>> = {
-  en: require("@/assets/flags/usa.svg"),
+  en: require("@/assets/flags/usa.svg"), // alternative: uk.svg
   de: require("@/assets/flags/germany.svg"),
   fr: require("@/assets/flags/france.svg"),
   es: require("@/assets/flags/spain.svg"),
   ja: require("@/assets/flags/japan.svg"),
-  zh: require("@/assets/flags/chinese.svg"), // language icon (中), not a national flag
+  zh: require("@/assets/flags/chinese.svg"), // alternative: chinese.svg (language icon 中)
 };
 
 interface FlagProps {
@@ -51,7 +51,7 @@ export default function Flag({ lang, width = FLAG_WIDTH, boxColor = "#f4ede4", t
         <Text style={{ color: textColor, fontSize: Math.round(width * 0.36) }}>{lang.toUpperCase()}</Text>
       )}
       {borderColor != null && (
-        <View pointerEvents="none" style={[styles.border, { borderColor }]} />
+        <View style={[styles.border, { borderColor }]} />
       )}
     </View>
   );
@@ -65,7 +65,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   border: {
-    ...StyleSheet.absoluteFillObject,
+    position: "absolute",
+    pointerEvents: "none",
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
     borderRadius: FLAG_RADIUS,
     borderWidth: FLAG_BORDER_WIDTH,
   },

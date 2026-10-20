@@ -1,14 +1,19 @@
 import { HomeIcon, HourglassIcon, ProfileIcon } from "@/components/icons/tab_icons";
-import { Text } from '@/components/typography';
-import useTheme from "@/constants/theme";
-import type { BottomTabBarButtonProps } from "@react-navigation/bottom-tabs";
+import { FONT, Text } from '@/components/typography';
+import useTheme, { shadowStyle } from "@/constants/theme";
 import { router, Tabs } from "expo-router";
 import { ComponentType } from "react";
-import { Pressable } from "react-native";
+import { Pressable, PressableProps } from "react-native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 // Uses the navigator's own onPress, so switching tabs jumps to the tab instead of pushing a new screen
-function TabButton({ Icon, onPress, 'aria-selected': selected }: BottomTabBarButtonProps & { Icon: ComponentType<{ color: string }> }) {
+interface TabButtonProps {
+  Icon: ComponentType<{ color: string }>;
+  onPress?: PressableProps["onPress"];
+  'aria-selected'?: boolean;
+}
+
+function TabButton({ Icon, onPress, 'aria-selected': selected }: TabButtonProps) {
   const { colors } = useTheme();
   const isSelected = !!selected;
 
@@ -42,14 +47,16 @@ export default function TabsLayout() {
           height: 85 + insets.bottom,
           paddingBottom: insets.bottom,
           paddingTop: 8,
-          shadowColor: shadows.color, shadowOffset: { width: shadows.x_offset, height: shadows.y_offset }, shadowOpacity: shadows.opacity, shadowRadius: shadows.radius, elevation: shadows.elevation
+          // React Navigation draws a hairline border on top of the tab bar by default, the shadow is enough
+          borderTopWidth: 0,
+          ...shadowStyle(shadows)
         },
         tabBarItemStyle: {
           height: 85,
           justifyContent: 'center',
           alignItems: 'center',
         },
-        tabBarLabelStyle: { fontFamily: 'MyFont' },
+        tabBarLabelStyle: { fontFamily: FONT },
       }}
     >
       <Tabs.Screen

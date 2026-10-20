@@ -2,7 +2,7 @@
 import { DarumaDetails } from "@/components/daruma/daruma_details";
 import { DrawingSpace } from "@/components/drawing/drawing_space";
 import { Text } from "@/components/typography";
-import useTheme from "@/constants/theme";
+import useTheme, { shadowStyle } from "@/constants/theme";
 import { Drawing } from "@/types/drawing";
 import { StepProps } from "@/types/step_props";
 import { useEffect, useRef } from "react";
@@ -65,7 +65,7 @@ export function StepPaint({ draft, setDraft, onValidChange }: StepProps) {
         padding: 20,
         borderRadius: 10,
         top: -100,
-        shadowColor: shadows.color, shadowOffset: { width: shadows.x_offset, height: shadows.y_offset }, shadowOpacity: shadows.opacity, shadowRadius: shadows.radius, elevation: shadows.elevation
+        ...shadowStyle(shadows)
       }}>
         {t("new.paint.title")}
       </Text>

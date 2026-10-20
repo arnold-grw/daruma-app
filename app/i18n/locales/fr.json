@@ -24,9 +24,19 @@
       "title": "Widget"
     }
   },
+  "home": {
+    "empty": {
+      "title": "Rien pour l’instant...",
+      "text": "Appuie sur le plus et peins le premier œil de ton premier Daruma."
+    }
+  },
   "archive": {
     "completed": "atteints",
-    "overdue": "en retard"
+    "overdue": "en retard",
+    "empty": {
+      "title": "Tout est calme pour l’instant...",
+      "text": "Dès qu’un Daruma a son deuxième œil, il trouve sa place ici."
+    }
   },
   "new": {
     "color": {
@@ -68,8 +78,8 @@
       "label": "vert",
       "meaning": "Santé et bien-être"
     },
-    "yellow": {
-      "label": "jaune",
+    "gold": {
+      "label": "or",
       "meaning": "Richesse et prospérité"
     },
     "pink": {

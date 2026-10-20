@@ -11,7 +11,7 @@
   },
   "profile": {
     "welcome": "Moin, {{name}}",
-    "welcome_anonymous": "Moin Meister!",
+    "welcome_anonymous": "Moin, moin",
     "settings": {
       "title": "Einstellungen",
       "dark_mode": "Dunkles Design",
@@ -24,9 +24,19 @@
       "title": "Widget"
     }
   },
+  "home": {
+    "empty": {
+      "title": "Noch ist hier nichts...",
+      "text": "Tippe auf das Plus und mal deinem ersten Daruma ein Auge."
+    }
+  },
   "archive": {
     "completed": "abgeschlossen",
-    "overdue": "überfällig"
+    "overdue": "überfällig",
+    "empty": {
+      "title": "Hier ist es noch ruhig...",
+      "text": "Sobald ein Daruma sein zweites Auge hat, findet es hier seinen Platz."
+    }
   },
   "new": {
     "color": {
@@ -68,8 +78,8 @@
       "label": "Grün",
       "meaning": "Gesundheit & Wohlbefinden"
     },
-    "yellow": {
-      "label": "Gelb",
+    "gold": {
+      "label": "Gold",
       "meaning": "Reichtum & Wohlstand"
     },
     "pink": {

@@ -3,7 +3,7 @@ import { Text, TextInput } from "@/components/typography";
 import useTheme from "@/constants/theme";
 import { StepProps } from "@/types/step_props";
 import { useEffect } from "react";
-import { KeyboardAvoidingView, ScrollView, View } from "react-native";
+import { View } from "react-native";
 import { useTranslation } from "react-i18next";
 import { useLanguageStore } from "@/store/language_store";
 
@@ -19,46 +19,40 @@ export function StepGoal({ draft, setDraft, onValidChange }: StepProps) {
   const { t } = useTranslation();
 
   return (
-    <View style={{justifyContent: "center", alignItems: "center", backgroundColor: colors.background, flex: 1, paddingTop: 80}}>
-        <KeyboardAvoidingView
-            style={{ flex: 1, backgroundColor: colors.background }}
-            behavior="position"
-            keyboardVerticalOffset={-40}
-            >
-            <ScrollView contentContainerStyle={{ alignItems: "center", paddingHorizontal: 20, gap: 16 }}>
-                <Text style={{ fontSize: 24, textAlign: "center", paddingBottom: 20}}>{t("new.goal.title")}</Text>
-                <TextInput
-                    placeholder={t("new.goal.placeholder")}
-                    placeholderTextColor={colors.textSecondary}
-                    value={draft.goal}
-                    onChangeText={(goal) => setDraft({ goal })}
-                    maxLength={40}
-                    style={{
-                    borderWidth: 2,
-                    borderColor: colors.textSecondary,
-                    padding: 10,
-                    width: 300,
-                    borderRadius: 8,
-                    }}
-                />
-                <TextInput
-                    placeholder={t("new.goal.notes")}
-                    placeholderTextColor={colors.textSecondary}
-                    value={draft.notes}
-                    onChangeText={(notes) => setDraft({ notes})}
-                    multiline={true}
-                    style={{
-                    borderWidth: 2,
-                    borderColor: colors.textSecondary,
-                    padding: 10,
-                    width: 300,
-                    borderRadius: 8,
-                    height: 120,
-                    textAlignVertical: 'top',
-                    }}
-                />
-            </ScrollView>
-        </KeyboardAvoidingView>
+    <View style={{justifyContent: "flex-start", alignItems: "center", backgroundColor: colors.background, flex: 1, paddingTop: 80}}>
+        <View style={{ alignItems: "center", paddingHorizontal: 20, gap: 16 }}>
+            <Text style={{ fontSize: 24, textAlign: "center", paddingBottom: 20}}>{t("new.goal.title")}</Text>
+            <TextInput
+                placeholder={t("new.goal.placeholder")}
+                placeholderTextColor={colors.textSecondary}
+                value={draft.goal}
+                onChangeText={(goal) => setDraft({ goal })}
+                maxLength={40}
+                style={{
+                borderWidth: 2,
+                borderColor: colors.textSecondary,
+                padding: 10,
+                width: 300,
+                borderRadius: 8,
+                }}
+            />
+            <TextInput
+                placeholder={t("new.goal.notes")}
+                placeholderTextColor={colors.textSecondary}
+                value={draft.notes}
+                onChangeText={(notes) => setDraft({ notes})}
+                multiline={true}
+                style={{
+                borderWidth: 2,
+                borderColor: colors.textSecondary,
+                padding: 10,
+                width: 300,
+                borderRadius: 8,
+                height: 120,
+                textAlignVertical: 'top',
+                }}
+            />
+        </View>
     </View>
   );
 }

@@ -1,5 +1,5 @@
 import { Text } from '@/components/typography';
-import useTheme from "@/constants/theme";
+import useTheme, { shadowStyle } from "@/constants/theme";
 import { Daruma } from "@/types/daruma";
 import { router } from "expo-router";
 import { Pressable, View } from "react-native";
@@ -25,7 +25,7 @@ export default function Card({ daruma, grayscale = false }: CardProps) {
       key={daruma.id}
       onPress={handlePress}
       style={{ marginBottom: 30, backgroundColor: colors.card, padding: 20, borderRadius: 40, alignItems: "center",
-        shadowColor: shadows.color, shadowOffset: { width: shadows.x_offset, height: shadows.y_offset }, shadowOpacity: shadows.opacity, shadowRadius: shadows.radius, elevation: shadows.elevation }}
+        ...shadowStyle(shadows) }}
     >
       {grayscale ? (
         <View style={{ filter: 'grayscale(1)' }}>
