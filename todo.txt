@@ -7,8 +7,6 @@
 
 # widget interface & setup guide / settings
 
-# improve the README - add screenshots
-
 
 ## MINOR
 # unlockable Daruma colors - (pink, then black then gold (after completing x darumas))
@@ -26,8 +24,6 @@
 
 # add russian/ukrainian?, portuguese, korean -- all optional, only when native speaker available
 
-# upgraded animations (for completing daruma, adding new daruma, maybe eyes wiggling in fear, when deadline is due or when changing order, sideway movement indication for color picker)
-
 # time specific greetings in profile?? fe: "Morning, early bird" - from 4:00 to 8:00
 
 # sound effects??
@@ -35,8 +31,6 @@
 
 ## CODE CLEANUP
 
-# orderstruktur prüfen
+# check ordner structure and file names
 
-# kommentare einheitlich auf englisch
-
-# dateinamen prüfen
+# comments in english only

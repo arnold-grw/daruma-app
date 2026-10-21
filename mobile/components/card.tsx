@@ -8,6 +8,8 @@ import { Pressable, useWindowDimensions, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withDelay, withTiming } from "react-native-reanimated";
 import { DarumaDisplay } from "./daruma/daruma_display";
 import { WiggleDaruma } from "./daruma/daruma_wiggle";
+import { getDaysUntilDeadline } from "@/utils/date_formatter";
+import { useTranslation } from "react-i18next";
 
 // how strong the daruma wiggles while the new card slides in
 const NEW_CARD_WIGGLE_IMPULSE = -250;
@@ -24,6 +26,7 @@ export default function Card({ daruma, grayscale = false, animateIn = false }: C
   const { width: screenWidth } = useWindowDimensions();
   const slideX = useSharedValue(0);
   const wiggleRef = useRef<{ applyImpulse: (impulse: number) => void }>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!animateIn) return;
@@ -62,6 +65,20 @@ export default function Card({ daruma, grayscale = false, animateIn = false }: C
           </WiggleDaruma>
         )}
         <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text, marginTop: 10, maxWidth: 315 }}>{daruma.goal}</Text>
+
+        {daruma.deadline != null && !daruma.isFailed && !daruma.isCompleted && (
+          <View style={{ alignItems: 'center', gap: 4 }}>
+            {(() => {
+              const daysRemaining = getDaysUntilDeadline(daruma.deadline);
+              return (
+                <Text style={{ color: colors.textSecondary, fontSize: 18 }}>
+                  {daysRemaining === 0 ? t("view.last_day") : t("view.days_remaining", { count: daysRemaining })}
+                </Text>
+              );
+            })()}
+          </View>
+        )}
+
       </Pressable>
     </Animated.View>
   );
