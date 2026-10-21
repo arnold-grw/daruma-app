@@ -3,8 +3,8 @@ import Card from '@/components/card';
 import EmptyState from '@/components/empty_state';
 import { Text } from '@/components/typography';
 import useTheme from '@/constants/theme';
-import { useCompletedDarumas, useDarumaStore, useFailedDarumas } from '@/store/daruma_store';
-import { router, useLocalSearchParams } from 'expo-router';
+import { useCompletedDarumas, useDarumaStore } from '@/store/daruma_store';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect, useRef } from 'react';
 import { ScrollView, useWindowDimensions, View } from "react-native";
 import { default as ConfettiCannon, default as Explosion } from 'react-native-confetti-cannon';
@@ -19,9 +19,10 @@ type ConfettiCannonRef = {
 export default function Archive() {
   const load = useDarumaStore(state => state.load)
   const completedDarumas = useCompletedDarumas()
-  const failedDarumas = useFailedDarumas()
   const { colors } = useTheme();
-  const params = useLocalSearchParams();
+  // set by the finish screen: the card of this daruma slides in and the confetti fires
+  const { completedDarumaId } = useLocalSearchParams<{ completedDarumaId?: string }>();
+  const navigation = useNavigation<{ setParams: (params: { completedDarumaId?: string }) => void }>();
   const { width } = useWindowDimensions();
   const confettiRef = useRef<Explosion>(null);
 
@@ -34,32 +35,23 @@ export default function Archive() {
     load();
   }, []);
 
-  // Trigger confetti if the celebrate flag is set
+  // Trigger confetti when a daruma was just completed
   useEffect(() => {
-    if (params.celebrate === 'true' && confettiRef.current) {
-      confettiRef.current.start();
-      // clear the flag so the confetti only fires once per completion
-      router.setParams({ celebrate: undefined });
+    if (completedDarumaId) {
+      confettiRef.current?.start();
+      // clear the id so the confetti and the card animation only play once per completion
+      // (navigation.setParams changes this screen's params; router.setParams would change the focused screen)
+      navigation.setParams({ completedDarumaId: undefined });
     }
-  }, [params.celebrate]);
+  }, [completedDarumaId, navigation]);
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }} >
-        {/* <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text }}>Shrine</Text> */}
-        {failedDarumas.length === 0 && completedDarumas.length === 0 ? (
+
+        {completedDarumas.length === 0 ? (
           <EmptyState title={t("archive.empty.title")} text={t("archive.empty.text")} />
         ) : (
         <ScrollView style={{paddingHorizontal: 20, flex: 1, paddingTop: 40 }} contentContainerStyle={{ alignItems: "center" }}>
-
-        {/* overdue darumas */}
-        {failedDarumas.length > 0 && (
-          <Text style={{ color: colors.textSecondary, fontSize: 24, marginVertical: 16 }}>
-            — {t("archive.overdue")} —
-          </Text>
-        )}
-        {failedDarumas.map(daruma => (
-          <Card key={daruma.id} daruma={daruma} grayscale={true} />
-        ))}
 
         {/* completed darumas */}
         {completedDarumas.length > 0 && (
@@ -68,7 +60,7 @@ export default function Archive() {
           </Text>
         )}
         {completedDarumas.map(daruma => (
-          <Card key={daruma.id} daruma={daruma} />
+          <Card key={daruma.id} daruma={daruma} animateIn={daruma.id === completedDarumaId} />
         ))}
 
         </ScrollView>

@@ -1,5 +1,6 @@
 import { ScrollView, View } from "react-native";
-import { Text } from "@/components/typography";
+import { SwapText } from "@/components/swap_text";
+import { useSwitchScheme } from "@/components/theme_transition";
 import ToggleButton from "@/components/toggle_button";
 import DropdownSelect from "@/components/dropdown_select";
 import Flag, { FLAG_MAX_WIDTH, FLAG_MIN_WIDTH } from "@/components/flag";
@@ -13,7 +14,9 @@ import { LangPref } from "@/types/user";
 const LANGUAGES: LangPref[] = ["en", "ja", "de", "fr", "es"];
 
 export default function Profile() {
-  const { colors, scheme, setScheme } = useTheme();
+  const { colors, scheme } = useTheme();
+  // dark/light switch with a cross-fade of the whole screen
+  const switchScheme = useSwitchScheme();
   const activeUser = useUserStore((state) => state.activeUser);
   const language = useLanguageStore((s) => s.language);
   const setLanguage = useLanguageStore((s) => s.setLanguage);
@@ -22,16 +25,17 @@ export default function Profile() {
   return (
     <View style={{ backgroundColor: colors.background, flex: 1 }}>
       <ScrollView style={{ paddingHorizontal: 20, flex: 1, paddingTop: 80 }} contentContainerStyle={{ alignItems: "center" }}>
-        <Text style={{ color: colors.text, fontSize: 40 }}>{activeUser?.name
+        {/* SwapText: after a language change the texts change line by line (index = order from top) */}
+        <SwapText index={0} style={{ color: colors.text, fontSize: 40 }}>{activeUser?.name
           ? t("profile.welcome", { name: activeUser.name })
-          : t("profile.welcome_anonymous")}</Text>
+          : t("profile.welcome_anonymous")}</SwapText>
 
         <View style={{ width: "100%", marginTop: 12 }}>
-          <Text style={{ color: colors.text, fontSize: 24, marginBottom: 12, marginTop: 50 }}>{t("profile.settings.title")}</Text>
+          <SwapText index={1} style={{ color: colors.text, fontSize: 24, marginBottom: 12, marginTop: 50 }}>{t("profile.settings.title")}</SwapText>
           <ToggleButton
-            label={t("profile.settings.dark_mode")}
+            label={<SwapText index={2} style={{ color: colors.text, fontSize: 16 }}>{t("profile.settings.dark_mode")}</SwapText>}
             value={scheme === "dark"}
-            onValueChange={(value) => setScheme(value ? "dark" : "light")}
+            onValueChange={(value) => switchScheme(value ? "dark" : "light")}
             activeColor={colors.primary}
             inactiveColor={colors.textSecondary}
             textColor={colors.text}
@@ -39,7 +43,7 @@ export default function Profile() {
           />
           <View style={{ height: 8 }} />
           <DropdownSelect
-            label={t("profile.settings.language")}
+            label={<SwapText index={3} style={{ color: colors.text, fontSize: 16 }}>{t("profile.settings.language")}</SwapText>}
             options={LANGUAGES}
             value={language}
             onValueChange={(lang) => void setLanguage(lang)}
@@ -53,11 +57,11 @@ export default function Profile() {
             textColor={colors.text}
             tabColor={colors.card}
           />
-          <Text style={{ color: colors.text, fontSize: 24, marginBottom: 12, marginTop: 50 }}>{t("profile.account.title")}</Text>
-          <Text style={{ color: colors.text, fontSize: 24, marginBottom: 12, marginTop: 50 }}>{t("profile.widget.title")}</Text>
+          <SwapText index={4} style={{ color: colors.text, fontSize: 24, marginBottom: 12, marginTop: 50 }}>{t("profile.account.title")}</SwapText>
+          <SwapText index={5} style={{ color: colors.text, fontSize: 24, marginBottom: 12, marginTop: 50 }}>{t("profile.widget.title")}</SwapText>
 
         </View>
       </ScrollView>
     </View>
   );
-}
+}

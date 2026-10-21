@@ -1,19 +1,21 @@
 
 import { DateView } from "@/components/date_view";
 import { CenterModal } from "@/components/modals/center_modal";
+import { BottomModal } from "@/components/modals/bottom_modal";
 import { DatePicker } from "@/components/modals/date_picker";
 import { Text } from "@/components/typography";
 import useTheme from "@/constants/theme";
 import { StepProps } from "@/types/step_props";
 import { getTomorrow, parseDate, toDateKey } from "@/utils/date_formatter";
 import { useEffect, useState } from "react";
-import { Pressable, View } from "react-native";
+import { Pressable, View, Dimensions } from "react-native";
 import { useTranslation } from "react-i18next";
 import { useLanguageStore } from "@/store/language_store";
 
 
 export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
   const { colors } = useTheme();
+  const screenHeight = Dimensions.get("window").height;
   const date = draft.deadline ? parseDate(draft.deadline) : null;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>(date ?? getTomorrow());
@@ -38,7 +40,7 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
 
   return (
     <View style={{ flex: 1, alignItems: "center", paddingTop: 80, gap: 30 }}>
-      <Text style={{ fontSize: 24, textAlign: "center" }}>{t("new.deadline.title")}</Text>
+      <Text style={{ fontSize: 24, textAlign: "center", maxWidth:300 }}>{t("new.deadline.title")}</Text>
       <Text style={{ color: colors.textSecondary, fontSize: 16, textAlign: "center", maxWidth: 280 }}>
         {t("new.deadline.subtitle")}
       </Text>
@@ -63,11 +65,11 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
         )}
       </View>
 
-      <CenterModal visible={isModalVisible} onClose={() => {
+      <BottomModal visible={isModalVisible} onClose={() => {
         setSelectedDate(date ?? getTomorrow());
         setIsModalVisible(false);
       }}>
-        <View style={{ flexDirection: "column", gap: 20, padding: 50, justifyContent: "center", alignItems: "center" }}>
+        <View style={{ flexDirection: "column", gap: 20, padding: 50, justifyContent: "center", alignItems: "center", marginBottom: (screenHeight/2) - 180 }}>
           {/*<Text style={{ fontSize: 20, textAlign: "center", maxWidth: 280, padding: 20 }}>Until when do you want to reach your goal?</Text>*/}
           <DatePicker
             value={selectedDate}
@@ -94,7 +96,7 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
             <Text style={{ color: colors.background, fontSize: 16 }}>{t("new.deadline.choose")}</Text>
           </Pressable>
           </View>
-      </CenterModal>
+      </BottomModal>
     </View>
   );
 }

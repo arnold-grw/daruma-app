@@ -27,10 +27,10 @@ export default function PaintFinish() {
             if (drawingData) {
                 //set the darumas rightEyeDrawing
                 await complete(darumaId as string, drawingData);
-                //push archive with celebrate param to trigger confetti animation
+                //push archive with the id: archive fires the confetti and slides the card in
                 router.push({
                     pathname: '/archive',
-                    params: { celebrate: 'true' }
+                    params: { completedDarumaId: darumaId as string }
                 });
             }
         }
@@ -59,4 +59,4 @@ export default function PaintFinish() {
                 ></BottomActionBar>
         </View>
   );
-}
+}

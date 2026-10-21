@@ -40,6 +40,8 @@ export default function TabsLayout() {
 
   return (
     <Tabs
+      // keep every visited tab attached; detaching them during the fade can leave a blank screen on iOS
+      detachInactiveScreens={false}
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
@@ -57,6 +59,9 @@ export default function TabsLayout() {
           alignItems: 'center',
         },
         tabBarLabelStyle: { fontFamily: FONT },
+        animation: 'fade',
+        // background of each tab page, so a page is never see-through while it fades
+        sceneStyle: { backgroundColor: colors.background },
       }}
     >
       <Tabs.Screen

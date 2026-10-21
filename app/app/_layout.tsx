@@ -1,8 +1,10 @@
+import { ThemeTransitionProvider } from '@/components/theme_transition';
 import { FONT } from '@/components/typography';
 import { useUserStore } from '@/store/user_store';
 import { MPLUSRounded1c_700Bold } from '@expo-google-fonts/m-plus-rounded-1c/700Bold';
 import { useFonts } from 'expo-font';
-import { Stack } from "expo-router";
+import useAppTheme from '@/constants/theme';
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from "expo-router";
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -18,6 +20,21 @@ export default function RootLayout() {
     [FONT]: MPLUSRounded1c_700Bold,
   });
   const [usersLoaded, setUsersLoaded] = useState(false);
+  const { colors, darkmode } = useAppTheme();
+  // The navigators draw their own background behind the screens (light gray by default).
+  // It shows through during screen and tab animations, so it gets the app colors.
+  const baseTheme = darkmode ? DarkTheme : DefaultTheme;
+  const navigationTheme = {
+    ...baseTheme,
+    colors: {
+      ...baseTheme.colors,
+      background: colors.background,
+      card: colors.card,
+      text: colors.text,
+      border: colors.border,
+      primary: colors.primary,
+    },
+  };
 
   // Load the local user once at startup, so every screen (and new darumas) can rely on an active user
   useEffect(() => {
@@ -42,7 +59,12 @@ export default function RootLayout() {
     <SafeAreaProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <KeyboardProvider>
-          <Stack screenOptions={{ headerShown: false }} />
+          {/* cross-fades the whole screen when dark/light mode changes */}
+          <ThemeTransitionProvider>
+            <ThemeProvider value={navigationTheme}>
+              <Stack screenOptions={{ headerShown: false }} />
+            </ThemeProvider>
+          </ThemeTransitionProvider>
         </KeyboardProvider>
       </GestureHandlerRootView>
     </SafeAreaProvider>

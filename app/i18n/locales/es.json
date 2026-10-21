@@ -25,6 +25,7 @@
     }
   },
   "home": {
+    "your_darumas": "tus Darumas",
     "empty": {
       "title": "Todavía no hay nada...",
       "text": "Toca el más y píntale el primer ojo a tu primer Daruma."

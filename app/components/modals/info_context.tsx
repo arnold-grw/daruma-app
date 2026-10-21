@@ -72,7 +72,7 @@ const renderDefaultView = (
       onPress={() => setConfirmGoalChange(true)}
       style={{ marginTop: 8, padding: 14, borderRadius: 12, borderWidth: 2, borderColor: colors.text }}
     >
-      <Text style={{ color: colors.text, textAlign: 'center' }}>
+      <Text style={{ color: colors.text, textAlign: 'center', fontSize: 18 }}>
         {t("info.change_title")}
       </Text>
     </Pressable>
@@ -80,7 +80,7 @@ const renderDefaultView = (
       onPress={() => setConfirmDelete(true)}
       style={{ marginTop: 8, padding: 14, borderRadius: 12, borderWidth: 2, borderColor: colors.danger }}
     >
-      <Text style={{ color: colors.danger, textAlign: 'center' }}>
+      <Text style={{ color: colors.danger, textAlign: 'center', fontSize: 18 }}>
         {t("info.delete")}
       </Text>
     </Pressable>
@@ -111,12 +111,12 @@ const renderConfirmDeleteView = (
       onPress={onConfirmDelete}
       style={{ marginTop: 8, padding: 14, borderRadius: 12, backgroundColor: colors.danger }}
     >
-      <Text style={{ color: colors.background, textAlign: 'center' }}>
+      <Text style={{ color: colors.background, textAlign: 'center', fontSize: 18 }}>
         {t("info.delete_confirm")}
       </Text>
     </Pressable>
     <Pressable onPress={() => setConfirmDelete(false)}>
-      <Text style={{ textAlign: 'center', color: colors.textSecondary }}>{t("common.go_back")}</Text>
+      <Text style={{ textAlign: 'center', color: colors.textSecondary, fontSize: 18, marginTop: 10 }}>{t("common.go_back")}</Text>
     </Pressable>
   </>
 );
@@ -147,6 +147,7 @@ const renderConfirmGoalChangeView = (
         borderRadius: 12,
         color: colors.text,
         marginTop: 8,
+        fontSize: 16
       }}
     />
     <Pressable
@@ -160,12 +161,12 @@ const renderConfirmGoalChangeView = (
       }}
       style={{ marginTop: 8, padding: 14, borderRadius: 12, backgroundColor: colors.primary }}
     >
-      <Text style={{ color: colors.background, textAlign: 'center' }}>
+      <Text style={{ color: colors.background, textAlign: 'center', fontSize: 18 }}>
         {t("info.save")}
       </Text>
     </Pressable>
     <Pressable onPress={() => setConfirmGoalChange(false)}>
-      <Text style={{ textAlign: 'center', color: colors.textSecondary }}>{t("common.go_back")}</Text>
+      <Text style={{ textAlign: 'center', color: colors.textSecondary, fontSize: 18, marginTop: 10 }}>{t("common.go_back")}</Text>
     </Pressable>
   </>
 );

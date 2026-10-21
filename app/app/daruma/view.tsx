@@ -91,7 +91,7 @@ export default function ViewDaruma() {
             </Text>
 
             <WiggleDaruma ref={wiggleRef}>
-              <DarumaDisplay daruma={daruma} width={315 * 1.1} height={324 * 1.1} />
+              <DarumaDisplay daruma={daruma} width={315} height={324} />
             </WiggleDaruma>
 
             <TextInput

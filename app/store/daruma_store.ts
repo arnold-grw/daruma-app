@@ -32,7 +32,8 @@ interface DarumaState {
   delete: (darumaId: string) => Promise<void>;
 
   setDraft: (values: Partial<DarumaDraft>) => void;
-  commitDraft: () => Promise<void>;
+  // saves the draft as a new daruma and returns its id
+  commitDraft: () => Promise<string>;
   resetDraft: () => void;
 }
 
@@ -85,6 +86,7 @@ export const useDarumaStore = create<DarumaState>((set, get) => ({
     await repo.add(newDaruma)
     const darumas = await repo.getAll()
     set({ darumas, draft: DEFAULT_DRAFT })   //clean up draft after commit
+    return newDaruma.id
 
   },
 
@@ -175,7 +177,7 @@ export const useCompletedDarumas = () =>
       .sort((a, b) => new Date(b.completedAt!).getTime() - new Date(a.completedAt!).getTime())
   ))
 
-export const useFailedDarumas = () =>
+export const useOverdueDarumas = () =>
   useDarumaStore(useShallow(state =>
     state.darumas
       .filter(d => d.isFailed)

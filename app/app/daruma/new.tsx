@@ -9,6 +9,8 @@ import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { useTranslation } from "react-i18next";
+import Animated, { FadeInLeft, FadeInRight, FadeOutLeft, FadeOutRight, LayoutAnimationConfig } from "react-native-reanimated";
+import { ANIMATION_DURATION } from "@/constants/animations";
 
 // Import your step components
 import { ProgressIndicator } from "@/components/new_daruma/progress_indicator";
@@ -28,12 +30,26 @@ const STEPS = [
 ];
 // ───────────────────────────────────────────────────────────────
 
+// Step change: the old step fades out while moving a bit to one side, the new one fades in from the other side.
+// Forward: content moves to the left, back: to the right.
+const STEP_ANIMATIONS = {
+  forward: {
+    entering: FadeInRight.duration(ANIMATION_DURATION.stepChange),
+    exiting: FadeOutLeft.duration(ANIMATION_DURATION.stepChange),
+  },
+  back: {
+    entering: FadeInLeft.duration(ANIMATION_DURATION.stepChange),
+    exiting: FadeOutRight.duration(ANIMATION_DURATION.stepChange),
+  },
+};
+
 export default function NewDaruma() {
   const { colors } = useTheme();
   const { t } = useTranslation();
   const { draft, setDraft, commitDraft, resetDraft } = useDarumaStore();
   const [stepIndex, setStepIndex] = useState(0);
   const [isNavigating, setIsNavigating] = useState(false);
+  const [direction, setDirection] = useState<'forward' | 'back'>('forward');
 
   const currentStep = STEPS[stepIndex];
   const StepComponent = currentStep.component;
@@ -54,15 +70,23 @@ export default function NewDaruma() {
     }
   }, [stepIndex, isNavigating]);
 
+  // The old step plays the exit animation it had in its last render, so the direction
+  // is set first and the step changes one frame later, when the old step already knows it.
+  const changeStep = (newDirection: 'forward' | 'back') => {
+    setDirection(newDirection);
+    requestAnimationFrame(() => setStepIndex(i => i + (newDirection === 'forward' ? 1 : -1)));
+  };
+
   const handleNext = async () => {
     if (isNavigating) return;
     setIsNavigating(true);
 
     if (isLast) {
-      await commitDraft();
-      router.replace('/');
+      const newDarumaId = await commitDraft();
+      // home slides the new card in when it gets the id
+      router.replace({ pathname: '/', params: { newDarumaId } });
     } else {
-      setStepIndex(i => i + 1);
+      changeStep('forward');
     }
   };
 
@@ -74,7 +98,7 @@ export default function NewDaruma() {
       resetDraft();
       safeBack();
     } else {
-      setStepIndex(i => i - 1);
+      changeStep('back');
     }
   };
 
@@ -86,12 +110,22 @@ export default function NewDaruma() {
       <KeyboardShift style={{ flex: 1 }}>
         <ProgressIndicator stepIndex={stepIndex} totalSteps={STEPS.length} />
 
-        <StepComponent
-          key={currentStep.key}
-          draft={draft}
-          setDraft={setDraft}
-          onValidChange={setCanProceed}
-        />
+        {/* skipEntering: the first step comes in with the screen, without its own animation */}
+        <LayoutAnimationConfig skipEntering>
+          {/* the key makes every step a new view, so the old one can animate out while the new one animates in */}
+          <Animated.View
+            key={currentStep.key}
+            style={{ flex: 1 }}
+            entering={STEP_ANIMATIONS[direction].entering}
+            exiting={STEP_ANIMATIONS[direction].exiting}
+          >
+            <StepComponent
+              draft={draft}
+              setDraft={setDraft}
+              onValidChange={setCanProceed}
+            />
+          </Animated.View>
+        </LayoutAnimationConfig>
       </KeyboardShift>
 
       <BottomActionBar
@@ -104,4 +138,4 @@ export default function NewDaruma() {
       />
     </View>
   );
-}
+}

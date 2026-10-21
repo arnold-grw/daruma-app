@@ -4,6 +4,9 @@ import { DarumaColor } from '@/types/daruma';
 import { Image } from 'expo-image';
 import { View } from 'react-native';
 
+// height / width of the daruma artwork (viewBox of body.svg / details.svg)
+export const DARUMA_ASPECT = 126.46037 / 122.80622;
+
 interface DarumaDetailsProps {
   color: DarumaColor;
   width?: number;
