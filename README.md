@@ -1,13 +1,13 @@
-<p align="center">
-  <img src="docs/images/home.png" width="250" alt="Home screen" />
-  <img src="docs/images/profile.gif" width="250" alt="Changing language and dark mode" />
-</p>
-
 # Daruma
 
 A goal-tracking app built around the Japanese daruma doll, made with React Native and Expo.
 
 Traditionally, when you set yourself a goal, you paint in the daruma's left eye. Once the goal is reached, you paint the right one. This app brings that ritual to your phone: pick a daruma, write down your goal, paint the first eye with your finger, and paint the second one when you've made it.
+
+<p align="center">
+  <img src="docs/images/home.png" width="400" alt="Home screen" />
+  <img src="docs/images/profile.gif" width="400" alt="Changing language and dark mode" />
+</p>
 
 ## Features
 
@@ -45,3 +45,5 @@ Scan the QR code with Expo Go, or press `w` to open the app in the browser.
 
 - Original daruma artwork: [Flaticon](https://www.flaticon.com/free-icon/daruma_6143324)
 - Font: [M PLUS Rounded 1c](https://fonts.google.com/specimen/M+PLUS+Rounded+1c), SIL Open Font License
+
+© 2026 Arnold Grunwald. All rights reserved.
