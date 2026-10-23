@@ -1,4 +1,6 @@
-import { ScrollView, View } from "react-native";
+import { Pressable, ScrollView, View } from "react-native";
+import { router } from "expo-router";
+import { Text } from "@/components/typography";
 import { SwapText } from "@/components/swap_text";
 import { useSwitchScheme } from "@/components/theme_transition";
 import ToggleButton from "@/components/toggle_button";
@@ -59,6 +61,13 @@ export default function Profile() {
           />
           <SwapText index={4} style={{ color: colors.text, fontSize: 24, marginBottom: 12, marginTop: 50 }}>{t("profile.account.title")}</SwapText>
           <SwapText index={5} style={{ color: colors.text, fontSize: 24, marginBottom: 12, marginTop: 50 }}>{t("profile.widget.title")}</SwapText>
+
+          {/* only in development: entry to the 3D test page */}
+          {__DEV__ && (
+            <Pressable onPress={() => router.push("/daruma/model_test")} style={{ marginTop: 50, padding: 12, borderRadius: 14, backgroundColor: colors.card }}>
+              <Text style={{ color: colors.text, fontSize: 16 }}>3D Test</Text>
+            </Pressable>
+          )}
 
         </View>
       </ScrollView>
