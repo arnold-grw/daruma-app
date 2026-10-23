@@ -4,6 +4,11 @@ import { Daruma } from '@/types/daruma';
 import { View } from 'react-native';
 import { DrawingRenderer } from '../drawing/drawing_renderer';
 
+// where the eyes sit, as share of the daruma size (also used for the eyes on the 3D daruma):
+// size of the square eye area (of the width), distance of each eye from the middle (of the width),
+// and how far above the middle the eyes are (of the height)
+export const EYE_LAYOUT = { size: 0.22, xOffset: 0.167, yOffset: 0.192 };
+
 interface DarumaDisplayProps {
   daruma: Daruma;
   width?: number;
@@ -12,9 +17,9 @@ interface DarumaDisplayProps {
 
 export function DarumaDisplay({ daruma, width = 315, height = 324}: DarumaDisplayProps) {
   const { hex } = getDarumaColor(daruma.color);
-  var eyeSize = width*0.22;
-  var eyeXOffset = width*0.167;
-  var eyeYOffset = -height*0.192;
+  const eyeSize = width*EYE_LAYOUT.size;
+  const eyeXOffset = width*EYE_LAYOUT.xOffset;
+  const eyeYOffset = -height*EYE_LAYOUT.yOffset;
   
   return (
     <View style={{ width, height}}>
@@ -57,4 +62,4 @@ export function DarumaDisplay({ daruma, width = 315, height = 324}: DarumaDispla
       )}
     </View>
   );
-}
+}

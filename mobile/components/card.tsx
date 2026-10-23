@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 
 // how strong the daruma wiggles while the new card slides in
 const NEW_CARD_WIGGLE_IMPULSE = -250;
+const DARUMA_SCALE = 1.1;
 
 interface CardProps {
   daruma: Daruma;
@@ -57,11 +58,11 @@ export default function Card({ daruma, grayscale = false, animateIn = false }: C
       >
         {grayscale ? (
           <View style={{ filter: 'grayscale(1)' }}>
-            <DarumaDisplay daruma={daruma} width={214} height={221} />
+            <DarumaDisplay daruma={daruma} width={214*DARUMA_SCALE} height={221*DARUMA_SCALE} />
           </View>
         ) : (
           <WiggleDaruma ref={wiggleRef} pressable={false}>
-            <DarumaDisplay daruma={daruma} width={214} height={221}/>
+            <DarumaDisplay daruma={daruma} width={214*DARUMA_SCALE} height={221*DARUMA_SCALE}/>
           </WiggleDaruma>
         )}
         <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text, marginTop: 10, maxWidth: 315 }}>{daruma.goal}</Text>

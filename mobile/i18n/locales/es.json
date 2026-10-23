@@ -127,15 +127,16 @@
     "deadline": "Fecha límite: {{date}}",
     "updated": "Última actualización: {{date}}",
     "change_title": "Cambiar título",
-    "delete": "Eliminar daruma",
-    "delete_confirm_title": "¿De verdad quieres eliminarlo?",
+    "delete": "Quemar daruma",
+    "delete_confirm_title": "¿De verdad quieres quemarlo?",
     "delete_confirm_text": "Esta acción no se puede deshacer.",
-    "delete_confirm": "Sí, eliminar",
+    "delete_confirm": "Sí, quemarlo",
     "change_title_title": "¿Cómo se llamará?",
     "change_title_placeholder": "Escribe el nuevo título",
     "save": "Guardar cambios"
   },
   "finish": {
-    "title": "Pinta el segundo ojo para cumplir tu meta"
+    "title": "Pinta el segundo ojo para cumplir tu meta",
+    "confirm_title": "¿Te gusta cómo quedó tu daruma?"
   }
 }

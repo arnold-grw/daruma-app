@@ -13,8 +13,6 @@
 
 # new Fonts for chinese (keep korean in mind): https://github.com/cyanohao/resource-han-rounded looks good but requires work to import properly
 
-# rework drawing - remove changeable thickness? - rework when switching to 3D
-
 # in-app notifications: When deadline overdue, when unlocking new color, ..
 
 

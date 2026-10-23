@@ -127,15 +127,16 @@
     "deadline": "截止日期：{{date}}",
     "updated": "最近更新：{{date}}",
     "change_title": "修改目标",
-    "delete": "删除达摩",
-    "delete_confirm_title": "确定要删除吗？",
+    "delete": "焚烧达摩",
+    "delete_confirm_title": "确定要焚烧吗？",
     "delete_confirm_text": "此操作无法撤销。",
-    "delete_confirm": "删除",
+    "delete_confirm": "焚烧",
     "change_title_title": "新的目标是？",
     "change_title_placeholder": "输入新的目标",
     "save": "保存修改"
   },
   "finish": {
-    "title": "目标达成！为达摩点上右眼，画龙点睛"
+    "title": "目标达成！为达摩点上右眼，画龙点睛",
+    "confirm_title": "就这样完成你的达摩吗？"
   }
 }

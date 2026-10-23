@@ -127,15 +127,16 @@
     "deadline": "Frist: {{date}}",
     "updated": "Zuletzt geändert: {{date}}",
     "change_title": "Titel ändern",
-    "delete": "Daruma löschen",
+    "delete": "Daruma verbrennen",
     "delete_confirm_title": "Bist du sicher?",
     "delete_confirm_text": "Das kann nicht rückgängig gemacht werden.",
-    "delete_confirm": "Ja, löschen",
+    "delete_confirm": "Ja, verbrennen",
     "change_title_title": "Wie soll es heißen?",
     "change_title_placeholder": "Neuen Titel eingeben",
     "save": "Änderungen speichern"
   },
   "finish": {
-    "title": "Male das zweite Auge aus, um dein Ziel abzuschließen"
+    "title": "Male das zweite Auge aus, um dein Ziel abzuschließen",
+    "confirm_title": "Bist du mit deinem Daruma zufrieden?"
   }
 }

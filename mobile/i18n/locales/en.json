@@ -127,15 +127,16 @@
     "deadline": "Deadline: {{date}}",
     "updated": "Last updated: {{date}}",
     "change_title": "Change title",
-    "delete": "Delete Daruma",
+    "delete": "Burn Daruma",
     "delete_confirm_title": "Are you sure?",
     "delete_confirm_text": "This cannot be undone.",
-    "delete_confirm": "Yes, delete",
+    "delete_confirm": "Yes, burn it",
     "change_title_title": "What shall it be?",
     "change_title_placeholder": "Enter new title",
     "save": "Save changes"
   },
   "finish": {
-    "title": "Paint the second eye to complete your goal"
+    "title": "Paint the second eye to complete your goal",
+    "confirm_title": "Happy with your daruma?"
   }
 }

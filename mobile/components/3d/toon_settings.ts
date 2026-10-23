@@ -3,7 +3,7 @@
 // All values are read when the material is created, so changes show up after a reload.
 export const TOON_LIGHT = {
   // where the light comes from (x = right, y = up, z = towards the camera); only the direction counts, not the length
-  direction: [0.5, 1.5, 0.0] as [number, number, number],
+  direction: [1, 1, 0] as [number, number, number],
 
   // light side: brightness of the color where the light hits (1 = exactly the color from daruma_colors)
   litBrightness: 1,
@@ -12,7 +12,7 @@ export const TOON_LIGHT = {
   // where the shadow starts: -1 = only the very back is in shadow, 0 = half/half, 1 = almost everything in shadow
   shadowThreshold: -0.4,
   // softness of the shadow edge (0 = razor sharp, 0.1 = soft)
-  edgeSoftness: 0.0,
+  edgeSoftness: 0.01,
 
   // highlight (the white glossy spot): size (smaller number = bigger spot) and strength (0 = off, 1 = pure white)
   highlightSize: 20,

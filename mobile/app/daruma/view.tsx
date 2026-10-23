@@ -1,6 +1,5 @@
+import Daruma3D from "@/components/3d/daruma_model";
 import BottomActionBar from "@/components/action_bar";
-import { DarumaDisplay } from "@/components/daruma/daruma_display";
-import { WiggleDaruma } from "@/components/daruma/daruma_wiggle";
 import ExtendDeadline from "@/components/extend_deadline";
 import KeyboardShift from "@/components/keyboard_shift";
 import { BottomModal } from "@/components/modals/bottom_modal";
@@ -13,8 +12,12 @@ import { localDateFormat } from "@/i18n/date_format";
 import { safeBack } from "@/utils/navigation";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { Pressable, ScrollView, View } from "react-native";
+import { Pressable, ScrollView, useWindowDimensions, View } from "react-native";
 import { useTranslation } from "react-i18next";
+
+// height of the 3D daruma: share of the screen width, and at most this many px
+const DARUMA_SIZE_RATIO = 0.85;
+const MAX_DARUMA_SIZE = 400;
 
 export default function ViewDaruma() {
 
@@ -23,6 +26,9 @@ export default function ViewDaruma() {
   const daruma = useDarumaStore(state => state.darumas.find(d => d.id === darumaId));
 
   const { colors } = useTheme();
+  const { width: windowWidth } = useWindowDimensions();
+  // the daruma grows with the screen, but not beyond MAX_DARUMA_SIZE on wide devices
+  const darumaSize = Math.min(windowWidth * DARUMA_SIZE_RATIO, MAX_DARUMA_SIZE);
   const { t } = useTranslation();
   const [sheetOpen, setSheetOpen] = useState(false)
   const [localNotes, setLocalNotes] = useState(daruma?.notes ?? "")
@@ -32,16 +38,9 @@ export default function ViewDaruma() {
     setLocalNotes(text)
     localNotesRef.current = text
   }
-  //for wiggle animation when opening page
-  const wiggleRef = useRef<{ applyImpulse: (impulse: number) => void }>(null);
-
   useEffect(() => {
     return () => { updateNotes(darumaId as string, localNotesRef.current) }
   }, [])
-
-  useEffect(() => {
-    setTimeout(() => wiggleRef.current?.applyImpulse(50), 0); // slight delay feels more natural
-  }, []);
 
   const handleComplete = async () => {
     if (!daruma || !darumaId) return;
@@ -74,25 +73,29 @@ export default function ViewDaruma() {
   )
 
   return (
-    <View style={{ justifyContent: "space-between", alignItems: "center", backgroundColor: colors.background, flex: 1 }}>
+    <View style={{ backgroundColor: colors.background, flex: 1 }}>
       {/* Everything except the action bar moves up with the keyboard; the sheet handles its own input */}
       <KeyboardShift style={{ flex: 1 }} enabled={!sheetOpen}>
         <ScrollView style={{overflow: 'visible'}}>
           <View style={{ alignItems: "center", gap: 30 }}>
             <Pressable
               onPress={() => setSheetOpen(true)}
-              style={{ position: 'absolute', top: 45, right: 0 }}
+              style={{ position: 'absolute', top: 42, right: 30 }}
             >
-              <Text style={{ fontSize: 32, color: colors.text }}>⋯</Text>
+              <Text style={{ fontSize: 36, color: colors.text }}>⋯</Text>
             </Pressable>
 
             <Text style={{ color: colors.text, fontSize: 24, marginTop: 50, textAlign: "center", maxWidth: 300, paddingHorizontal: 30 }}>
               {daruma.goal}
             </Text>
 
-            <WiggleDaruma ref={wiggleRef}>
-              <DarumaDisplay daruma={daruma} width={315} height={324} />
-            </WiggleDaruma>
+            {/* 3D daruma with its painted eyes; drag sideways to turn it */}
+            <Daruma3D
+              color={daruma.color}
+              leftEye={daruma.leftEyeDrawing}
+              rightEye={daruma.rightEyeDrawing}
+              size={darumaSize}
+            />
 
             <TextInput
               placeholder={t("view.notes_placeholder")}
@@ -106,16 +109,13 @@ export default function ViewDaruma() {
                 padding: 10,
                 width: 300,
                 borderRadius: 8,
-                height: 120,
+                height: 100,
                 textAlignVertical: 'top',
               }}
             />
 
             {daruma.deadline != null && !daruma.isFailed && !daruma.isCompleted && (
               <View style={{ alignItems: 'center', gap: 4 }}>
-                <Text style={{ color: colors.textSecondary, fontSize: 16 }}>
-                  {t("view.deadline", { date: formatDate(daruma.deadline, localDateFormat(t)) })}
-                </Text>
                 {(() => {
                   const daysRemaining = getDaysUntilDeadline(daruma.deadline);
                   return (
@@ -124,6 +124,9 @@ export default function ViewDaruma() {
                     </Text>
                   );
                 })()}
+                <Text style={{ color: colors.textSecondary, fontSize: 16 }}>
+                  {t("view.deadline", { date: formatDate(daruma.deadline, localDateFormat(t)) })}
+                </Text>
               </View>
             )}
             {daruma.isFailed && daruma.deadline && !daruma.isCompleted && (

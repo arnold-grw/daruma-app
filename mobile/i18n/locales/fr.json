@@ -127,15 +127,16 @@
     "deadline": "Échéance : {{date}}",
     "updated": "Dernière modification : {{date}}",
     "change_title": "Changer le titre",
-    "delete": "Supprimer le Daruma",
-    "delete_confirm_title": "Vraiment supprimer ?",
+    "delete": "Brûler le Daruma",
+    "delete_confirm_title": "Vraiment le brûler ?",
     "delete_confirm_text": "Cette action est irréversible.",
-    "delete_confirm": "Oui, supprimer",
+    "delete_confirm": "Oui, le brûler",
     "change_title_title": "Quel sera le nouveau titre ?",
     "change_title_placeholder": "Saisis le nouveau titre",
     "save": "Enregistrer"
   },
   "finish": {
-    "title": "Peins le second œil pour accomplir ton objectif"
+    "title": "Peins le second œil pour accomplir ton objectif",
+    "confirm_title": "Ton daruma te plaît ?"
   }
 }

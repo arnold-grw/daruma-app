@@ -10,9 +10,15 @@ interface DrawingRendererProps {
   centered?: boolean; // If true, the drawing will be centered within the given width/height
 }
 
+// ViewBox size for normalization
+export const VIEWBOX_SIZE = 1000;
+
+// Stroke width in viewBox units (also used for the eyes on the 3D daruma)
+const MIN_STROKE_WIDTH = 50;
+const MAX_STROKE_WIDTH = 500;
+export const getStrokeWidth = (lineWidth: number = 0.5) => MIN_STROKE_WIDTH + lineWidth * (MAX_STROKE_WIDTH - MIN_STROKE_WIDTH);
+
 export function DrawingRenderer({ drawingData, width = 100, height = 100, centered = false}: DrawingRendererProps) {
-  // ViewBox size for normalization
-  const VIEWBOX_SIZE = 1000;
 
   // Function to transform normalized coords (-1 to 1) to SVG coords (0 to 1000)
   const transformCoord = (coord: number) => (coord + 1) * (VIEWBOX_SIZE / 2);
@@ -27,11 +33,6 @@ export function DrawingRenderer({ drawingData, width = 100, height = 100, center
     });
     return commands.join(' ');
   };
-
-  // Stroke width scale
-  var minWidth = 50;
-  var maxWidth = 500;
-  const getStrokeWidth = (lineWidth: number = 0.5) => (minWidth + lineWidth * (maxWidth - minWidth)).toString();
 
   return (
     <View style={{ 
@@ -49,7 +50,7 @@ export function DrawingRenderer({ drawingData, width = 100, height = 100, center
             d={buildPath(line)}
             fill="none"
             stroke={eyeColor}
-            strokeWidth={getStrokeWidth(line.width)}
+            strokeWidth={getStrokeWidth(line.width).toString()}
             strokeLinecap="round"
             strokeLinejoin="round"
           />
@@ -57,4 +58,4 @@ export function DrawingRenderer({ drawingData, width = 100, height = 100, center
       </Svg>
     </View>
   );
-}
+}

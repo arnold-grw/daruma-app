@@ -18,7 +18,7 @@ export default function ModelTest() {
     <View style={{ flex: 1, backgroundColor: colors.background, paddingTop: insets.top, paddingBottom: insets.bottom + 20 }}>
       <Text style={{ fontSize: 24, textAlign: "center", marginTop: 20 }}>3D Test</Text>
 
-      <Daruma3D color={color} style={{ flex: 1 }} />
+      <Daruma3D color={color} size={300} style={{ flex: 1 }} />
 
       {/* one dot per color */}
       <View style={{ flexDirection: "row", justifyContent: "center", gap: 12, marginBottom: 20 }}>

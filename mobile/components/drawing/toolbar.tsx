@@ -1,27 +1,32 @@
+import { getStrokeWidth, VIEWBOX_SIZE } from "@/components/drawing/drawing_renderer";
 import useTheme, { shadowStyle } from "@/constants/theme";
 import { DrawingSettings } from "@/types/drawing";
 import { Pressable, View } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import Animated, { runOnJS, useAnimatedStyle, useSharedValue } from "react-native-reanimated";
-import { BrushIcon, UndoIcon } from "../icons/toolbar_icons";
+import { UndoIcon } from "../icons/toolbar_icons";
 
 interface Props {
-  height: number;
   width: number;
   settings: DrawingSettings;
   onThicknessChange: (value: number) => void;
   onRemoveLastLine: () => void;
 }
 
-const MIN = 0.0;
-const MAX = 0.5;
-const ICON_AREA = 50; // space for brush icon at top
-const BUTTON_AREA = 60; // space for undo button at bottom
-const PADDING = 10;
-const BUTTON_MARGIN = 10;
+// the three pen sizes to choose from (line width, see getStrokeWidth in drawing_renderer.tsx)
+export const PEN_SIZES = [0.15, 0.3, 0.45];
 
+// size of every tool box (px); gap, frame, dots and the undo icon scale with it
+export const TOOL_BOX_SIZE = 64;
+// space between the boxes
+const GAP = TOOL_BOX_SIZE * 0.19;
+// frame of the chosen pen size
+const SELECTED_BORDER = TOOL_BOX_SIZE * 0.08;
+// size of the preview dot per share of the drawing area the stroke covers
+const DOT_SCALE = TOOL_BOX_SIZE * 1.55;
+// undo icon size
+const ICON_SIZE = TOOL_BOX_SIZE * 0.55;
+
+/** One box per pen size (the chosen one gets a frame) and the undo box below, all the same size. */
 export function Toolbar({
-  height = 200,
   width = 75,
   settings,
   onThicknessChange,
@@ -29,116 +34,41 @@ export function Toolbar({
 }: Props) {
   const { colors, shadows } = useTheme();
 
-  const trackHeight = height - ICON_AREA - BUTTON_AREA - PADDING * 2 - BUTTON_MARGIN;
-  const thumbSize = 22;
-
-  // Convert value → thumb Y position (top = max, bottom = min)
-  const valueToY = (v: number) =>
-    ((MAX - v) / (MAX - MIN)) * (trackHeight - thumbSize);
-
-  const thumbY = useSharedValue(valueToY(settings.thickness));
-  const startY = useSharedValue(0);
-
-  const clamp = (val: number, lo: number, hi: number) =>
-    Math.min(Math.max(val, lo), hi);
-
-  const yToValue = (y: number): number => {
-    const ratio = 1 - y / (trackHeight - thumbSize);
-    return Math.round((MIN + ratio * (MAX - MIN)) / 0.05) * 0.05;
+  const box = {
+    width: TOOL_BOX_SIZE,
+    height: TOOL_BOX_SIZE,
+    borderRadius: 10,
+    alignItems: "center" as const,
+    justifyContent: "center" as const,
+    ...shadowStyle(shadows),
   };
 
-  // reworked by claude to fix pan gesture break in android studio
-  const pan = Gesture.Pan()
-  .onBegin(() => {
-    'worklet';
-    startY.value = thumbY.value;
-  })
-  .onUpdate((e) => {
-    'worklet';
-    const raw = startY.value + e.translationY;
-    thumbY.value = Math.min(Math.max(raw, 0), trackHeight - thumbSize);
-  })
-  .onEnd(() => {
-    'worklet';
-    const ratio = 1 - thumbY.value / (trackHeight - thumbSize);
-    const rawValue = MIN + ratio * (MAX - MIN);
-    const steppedValue = Math.round(rawValue / 0.05) * 0.05;
-    runOnJS(onThicknessChange)(steppedValue);
-  });
-
-  const thumbStyle = useAnimatedStyle(() => ({
-    transform: [{ translateY: thumbY.value }],
-  }));
-
   return (
-    <View style={{
-      height,
-      width,
-      backgroundColor: colors.card,
-      borderRadius: 10,
-      alignItems: "center",
-      paddingVertical: PADDING,
-      justifyContent: "space-between",
-      ...shadowStyle(shadows)
-    }}>
-      {/* Brush icon */}
-      <View style={{ height: ICON_AREA, justifyContent: "center" }}>
-        <BrushIcon color={colors.textSecondary} />
-      </View>
-
-      {/* Vertical slider track */}
-      <GestureDetector gesture={pan}>
-        <View style={{
-            height: trackHeight,
-            width: 44, // ← large enough touch target
-            alignItems: "center",
-            justifyContent: "flex-start",
-            marginBottom: BUTTON_MARGIN
-        }}>
-            {/* Visual track inside, gesture captured by outer View */}
-            <View style={{
-            height: trackHeight,
-            width: 6,
-            backgroundColor: colors.textSecondary,
-            borderRadius: 3,
-            //opacity: 0.4,
-            }}>
-            <Animated.View style={[{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                right: 0,
-                borderRadius: 3,
-                backgroundColor: colors.primary,
-            }, useAnimatedStyle(() => ({
-                height: trackHeight - thumbSize - thumbY.value,
-            }))]} />
-
-            <Animated.View style={[{
-                position: "absolute",
-                left: -(thumbSize / 2 - 3),
-                width: thumbSize,
-                height: thumbSize,
-                borderRadius: thumbSize / 2,
-                backgroundColor: colors.primary,
-                ...shadowStyle({ color: "#000", opacity: 0.2, x_offset: 0, y_offset: 0, radius: 4, elevation: 3 }),
-            }, thumbStyle]} />
-            </View>
-        </View>
-        </GestureDetector>
+    <View style={{ width, alignItems: "center", gap: GAP }}>
+      {/* Pen sizes: each box shows a dot as thick as its stroke */}
+      {PEN_SIZES.map((size) => {
+        const selected = settings.thickness === size;
+        const dot = (getStrokeWidth(size) / VIEWBOX_SIZE) * DOT_SCALE;
+        return (
+          <Pressable
+            key={size}
+            onPress={() => onThicknessChange(size)}
+            style={{
+              ...box,
+              backgroundColor: colors.card,
+              // the frame is always there (transparent when not chosen), so the dot does not move
+              borderWidth: SELECTED_BORDER,
+              borderColor: selected ? colors.primary : "transparent",
+            }}
+          >
+            <View style={{ width: dot, height: dot, borderRadius: dot / 2, backgroundColor: colors.text }} />
+          </Pressable>
+        );
+      })}
 
       {/* Undo button */}
-      <Pressable
-        style={{
-          height: BUTTON_AREA - 10,
-          justifyContent: "center",
-          padding: 10,
-          backgroundColor: colors.primary,
-          borderRadius: 10,
-        }}
-        onPress={onRemoveLastLine}
-      >
-        <UndoIcon color={colors.card} />
+      <Pressable style={{ ...box, backgroundColor: colors.primary }} onPress={onRemoveLastLine}>
+        <UndoIcon color={colors.card} size={ICON_SIZE} />
       </Pressable>
     </View>
   );

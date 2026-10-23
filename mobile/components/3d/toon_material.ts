@@ -1,4 +1,6 @@
 import * as THREE from "three";
+import { eyeColor } from "@/constants/daruma_colors";
+import { EYE_UV } from "./eye_texture";
 import { TOON_GOLD, TOON_LIGHT } from "./toon_settings";
 
 const vertexShader = /* glsl */ `
@@ -30,6 +32,11 @@ const fragmentShader = /* glsl */ `
   uniform float brightBand;
   uniform float brightBandThreshold;
   uniform float dim;
+  uniform sampler2D eyeMap;
+  uniform vec3 eyeColor;
+  uniform vec2 leftEyeCenter;
+  uniform vec2 rightEyeCenter;
+  uniform vec2 eyeHalfSize;
 
   varying vec2 vUv;
   varying vec3 vNormal;
@@ -40,6 +47,16 @@ const fragmentShader = /* glsl */ `
     // (smoothstep needs two different edges, so the softness never reaches exactly 0)
     float softness = max( edgeSoftness, 0.0001 );
     return smoothstep( threshold - softness, threshold + softness, value );
+  }
+
+  // ink of one eye at this point: the eye texture is stretched over the eye area, 0 outside of it
+  float eyeInk( vec2 center, vec4 channel ) {
+    vec2 local = ( vUv - center ) / eyeHalfSize;
+    // always sample, then mask: sampling only inside (an if) breaks the GPU's mipmap choice
+    // at the edge of the area, which showed up as thin dark lines around the eyes
+    float ink = dot( texture2D( eyeMap, local * 0.5 + 0.5 ), channel );
+    float inside = step( abs( local.x ), 1.0 ) * step( abs( local.y ), 1.0 );
+    return ink * inside;
   }
 
   void main() {
@@ -72,6 +89,10 @@ const fragmentShader = /* glsl */ `
     vec4 face = texture2D( faceMap, vUv );
     color = mix( color, face.rgb, face.a );
 
+    // painted eyes on the face, also without light (red channel = left eye, green = right eye)
+    float eyes = max( eyeInk( leftEyeCenter, vec4( 1.0, 0.0, 0.0, 0.0 ) ), eyeInk( rightEyeCenter, vec4( 0.0, 1.0, 0.0, 0.0 ) ) );
+    color = mix( color, eyeColor, eyes );
+
     // darker as a whole, e.g. for darumas in the background (1 = normal)
     color *= dim;
 
@@ -82,9 +103,16 @@ const fragmentShader = /* glsl */ `
 
 /**
  * Toon material of the daruma: base color with the writing on top, both with hard edges between light and shadow
- * and a hard highlight; the face is drawn over it without light. Settings in toon_settings.ts.
+ * and a hard highlight; the face and the painted eyes (see eye_texture.ts) are drawn over it without light.
+ * Settings in toon_settings.ts.
  */
-export function createToonMaterial(faceTexture: THREE.Texture, writingTexture: THREE.Texture, color: string, gold: boolean) {
+export function createToonMaterial(
+  faceTexture: THREE.Texture,
+  writingTexture: THREE.Texture,
+  eyeTexture: THREE.Texture,
+  color: string,
+  gold: boolean
+) {
   const settings = gold ? { ...TOON_LIGHT, ...TOON_GOLD } : TOON_LIGHT;
   return new THREE.ShaderMaterial({
     vertexShader,
@@ -104,6 +132,11 @@ export function createToonMaterial(faceTexture: THREE.Texture, writingTexture: T
       brightBand: { value: TOON_GOLD.brightBand },
       brightBandThreshold: { value: TOON_GOLD.brightBandThreshold },
       dim: { value: 1 },
+      eyeMap: { value: eyeTexture },
+      eyeColor: { value: new THREE.Color(eyeColor) },
+      leftEyeCenter: { value: EYE_UV.leftCenter },
+      rightEyeCenter: { value: EYE_UV.rightCenter },
+      eyeHalfSize: { value: EYE_UV.halfSize },
     },
   });
 }

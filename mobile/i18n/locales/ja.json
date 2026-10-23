@@ -127,15 +127,16 @@
     "deadline": "期限：{{date}}",
     "updated": "最終更新：{{date}}",
     "change_title": "目標を変更",
-    "delete": "だるまを削除",
-    "delete_confirm_title": "本当に削除しますか？",
+    "delete": "だるまをお焚き上げ",
+    "delete_confirm_title": "本当にお焚き上げしますか？",
     "delete_confirm_text": "この操作は取り消せません。",
-    "delete_confirm": "削除する",
+    "delete_confirm": "お焚き上げする",
     "change_title_title": "新しい目標は？",
     "change_title_placeholder": "新しい目標を入力",
     "save": "変更を保存"
   },
   "finish": {
-    "title": "願いが叶いましたね。右目を描き入れて、だるまを完成させましょう"
+    "title": "願いが叶いましたね。右目を描き入れて、だるまを完成させましょう",
+    "confirm_title": "このだるまで完成にしますか？"
   }
 }
