@@ -56,7 +56,7 @@ function Segment({ filled }: { filled: boolean }) {
     const fillStyle = useAnimatedStyle(() => ({ width: `${fill.get() * 100}%` }));
 
     return (
-        <View style={{ flex: 1, height: 15, borderRadius: 7.5, backgroundColor: colors.card, overflow: 'hidden' }}>
+        <View style={{ flex: 1, height: 12, borderRadius: 7.5, backgroundColor: colors.card, overflow: 'hidden' }}>
             <Animated.View style={[{ height: '100%', borderRadius: 5, backgroundColor: colors.primary }, fillStyle]} />
         </View>
     );

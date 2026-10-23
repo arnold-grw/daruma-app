@@ -25,6 +25,8 @@ const DOT_SCALE = TOOL_BOX_SIZE * 1.55;
 // undo icon size
 const ICON_SIZE = TOOL_BOX_SIZE * 0.55;
 
+const BORDER_RADIUS = TOOL_BOX_SIZE * 0.25;
+
 /** One box per pen size (the chosen one gets a frame) and the undo box below, all the same size. */
 export function Toolbar({
   width = 75,
@@ -37,7 +39,7 @@ export function Toolbar({
   const box = {
     width: TOOL_BOX_SIZE,
     height: TOOL_BOX_SIZE,
-    borderRadius: 10,
+    borderRadius: BORDER_RADIUS,
     alignItems: "center" as const,
     justifyContent: "center" as const,
     ...shadowStyle(shadows),
@@ -68,7 +70,7 @@ export function Toolbar({
 
       {/* Undo button */}
       <Pressable style={{ ...box, backgroundColor: colors.primary }} onPress={onRemoveLastLine}>
-        <UndoIcon color={colors.card} size={ICON_SIZE} />
+        <UndoIcon color={colors.background} size={ICON_SIZE} />
       </Pressable>
     </View>
   );
