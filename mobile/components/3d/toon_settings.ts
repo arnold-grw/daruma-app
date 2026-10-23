@@ -15,7 +15,7 @@ export const TOON_LIGHT = {
   edgeSoftness: 0.0,
 
   // highlight (the white glossy spot): size (smaller number = bigger spot) and strength (0 = off, 1 = pure white)
-  highlightSize: 15,
+  highlightSize: 20,
   highlightStrength: 0.2,
 };
 

@@ -18,9 +18,9 @@ const FACE_TEXTURE = require("@/assets/textures/daruma_face.png");
 const WRITING_TEXTURE = require("@/assets/textures/daruma_writing.png");
 
 // height of the daruma in the scene (the model is scaled to it, whatever its size in Blender)
-const MODEL_HEIGHT = 1.5;
+export const MODEL_HEIGHT = 1.5;
 // turns the model so its face looks at the camera (in the Blender file the face points along +x)
-const FRONT_ROTATION = -Math.PI / 2;
+export const FRONT_ROTATION = -Math.PI / 2;
 // how fast the daruma turns while dragging (radians per pixel)
 const DRAG_SPEED = 0.01;
 // how quickly the spin slows down after letting go (share of speed kept per frame)
@@ -54,6 +54,10 @@ function prepareModel(gltf: GLTF) {
 /** Copy of a loaded texture with the settings textures on glTF models need. */
 function prepareTexture(loaded: THREE.Texture) {
   const texture = loaded.clone();
+  // on the phone @react-three/fiber marks loaded textures as data textures so expo-gl can upload them.
+  // clone() drops that flag, and without it the texture stays empty
+  (texture as THREE.Texture & { isDataTexture?: boolean }).isDataTexture =
+    (loaded as THREE.Texture & { isDataTexture?: boolean }).isDataTexture;
   // glTF UVs start at the top left, not bottom left
   texture.flipY = false;
   texture.colorSpace = THREE.SRGBColorSpace;

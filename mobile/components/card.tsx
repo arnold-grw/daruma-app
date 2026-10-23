@@ -57,11 +57,11 @@ export default function Card({ daruma, grayscale = false, animateIn = false }: C
       >
         {grayscale ? (
           <View style={{ filter: 'grayscale(1)' }}>
-            <DarumaDisplay daruma={daruma} width={252} height={260} />
+            <DarumaDisplay daruma={daruma} width={214} height={221} />
           </View>
         ) : (
           <WiggleDaruma ref={wiggleRef} pressable={false}>
-            <DarumaDisplay daruma={daruma} width={252} height={260}/>
+            <DarumaDisplay daruma={daruma} width={214} height={221}/>
           </WiggleDaruma>
         )}
         <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text, marginTop: 10, maxWidth: 315 }}>{daruma.goal}</Text>

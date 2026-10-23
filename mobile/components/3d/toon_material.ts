@@ -29,6 +29,7 @@ const fragmentShader = /* glsl */ `
   uniform bool gold;
   uniform float brightBand;
   uniform float brightBandThreshold;
+  uniform float dim;
 
   varying vec2 vUv;
   varying vec3 vNormal;
@@ -71,6 +72,9 @@ const fragmentShader = /* glsl */ `
     vec4 face = texture2D( faceMap, vUv );
     color = mix( color, face.rgb, face.a );
 
+    // darker as a whole, e.g. for darumas in the background (1 = normal)
+    color *= dim;
+
     gl_FragColor = vec4( color, 1.0 );
     #include <colorspace_fragment>
   }
@@ -99,6 +103,7 @@ export function createToonMaterial(faceTexture: THREE.Texture, writingTexture: T
       gold: { value: gold },
       brightBand: { value: TOON_GOLD.brightBand },
       brightBandThreshold: { value: TOON_GOLD.brightBandThreshold },
+      dim: { value: 1 },
     },
   });
 }

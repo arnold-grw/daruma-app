@@ -2,13 +2,16 @@ import { DARUMA_COLORS } from "@/constants/daruma_colors";
 import { DarumaColor } from "@/types/daruma";
 import React from "react";
 import { useWindowDimensions, View } from "react-native";
+import { useSharedValue } from "react-native-reanimated";
 import { Carousel } from "react-native-reanimated-carousel";
-import { DARUMA_ASPECT, DarumaDetails } from "./daruma/daruma_details";
+import DarumaCarouselScene from "./3d/daruma_carousel_scene";
+import { DARUMA_ASPECT } from "./daruma/daruma_details";
 
 // space between the middle daruma and its (smaller) neighbours
 const NEIGHBOR_GAP = 12;
-// size of the neighbours relative to the middle daruma
+// size of the neighbours relative to the middle daruma (roughly; in 3D they get smaller by moving back)
 const NEIGHBOR_SCALE = 0.8;
+const COLORS = DARUMA_COLORS.map((c) => c.id);
 
 interface Props {
   selected: DarumaColor
@@ -28,6 +31,8 @@ export default function ColorPicker({ selected, onSelect, onPreview, size }: Pro
     const spacing = size / 2 + (size * NEIGHBOR_SCALE) / 2 + NEIGHBOR_GAP;
 
     const startIndex = DARUMA_COLORS.findIndex(c => c.id === selected)
+    // current carousel position, updated every frame while swiping; the 3D scene places the darumas by it
+    const progress = useSharedValue(startIndex);
 
     // progress is the position as a decimal index (e.g. 2.4 = between the 3rd and 4th daruma, closer to the 3rd);
     // rounding gives the daruma that is more than halfway in the middle. With loop it can be negative or too large.
@@ -38,6 +43,9 @@ export default function ColorPicker({ selected, onSelect, onPreview, size }: Pro
     };
 
   return (
+    <View style={{ width, height }}>
+    {/* the 3D darumas are drawn behind the carousel; the carousel itself is empty and only handles the swiping */}
+    <DarumaCarouselScene colors={COLORS} progress={progress} spacing={spacing} width={width} height={height} />
     <Carousel
       style={{ width, height }}
       data={DARUMA_COLORS}
@@ -45,17 +53,8 @@ export default function ColorPicker({ selected, onSelect, onPreview, size }: Pro
       defaultIndex={startIndex}
       onSnapToItem={(index) => onSelect(DARUMA_COLORS[index].id)}
       onProgressChange={handleProgressChange}
-      renderItem={({ item }) => (
-        <View
-          style={{
-            flex: 1, alignItems: "center", justifyContent: "center",
-            // the images must not catch the pointer: in the browser, dragging an image starts a native image drag that cancels the swipe
-            pointerEvents: "none",
-          }}
-          >
-            <DarumaDetails color={item.id} width={size} height={height} />
-        </View>
-      )}
+      progress={progress}
+      renderItem={() => <View style={{ flex: 1 }} />}
       layout={{
         type: "parallax",
         // the middle daruma is shown at full size, so its size is exactly `size`
@@ -65,5 +64,6 @@ export default function ColorPicker({ selected, onSelect, onPreview, size }: Pro
         offset: width - spacing,
       }}
     />
+    </View>
   )
 }

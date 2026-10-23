@@ -22,7 +22,7 @@ export const DARUMA_COLORS: DarumaColorConfig[] = [
   },
   {
     id: 'black',
-    hex: '#313131',
+    hex: '#474747',
     labelKey: 'colors.black.label',
     meaningKey: 'colors.black.meaning',
     label: 'Black',
