@@ -1,0 +1,142 @@
+{
+  "common": {
+    "confirm": "Conferma",
+    "cancel": "Annulla",
+    "return": "Indietro",
+    "next": "Avanti",
+    "back": "Indietro",
+    "finish": "Fine",
+    "complete": "Completo",
+    "go_back": "Torna indietro"
+  },
+  "profile": {
+    "welcome": "Ciao, {{name}}",
+    "welcome_anonymous": "Ciao a te",
+    "settings": {
+      "title": "Impostazioni",
+      "dark_mode": "Modalità scura",
+      "language": "Lingua"
+    },
+    "account": {
+      "title": "Account"
+    },
+    "widget": {
+      "title": "Widget"
+    }
+  },
+  "home": {
+    "your_darumas": "i tuoi Daruma",
+    "empty": {
+      "title": "Ancora niente...",
+      "text": "Tocca il più e dipingi il primo occhio del tuo primo Daruma."
+    }
+  },
+  "archive": {
+    "completed": "raggiunti",
+    "overdue": "scaduti",
+    "empty": {
+      "title": "Per ora è tutto tranquillo...",
+      "text": "Appena un Daruma ha il secondo occhio, trova posto qui."
+    }
+  },
+  "new": {
+    "color": {
+      "title": "Scegli prima un colore adatto al tuo obiettivo"
+    },
+    "goal": {
+      "title": "Metti il tuo obiettivo in parole",
+      "placeholder": "descrivi brevemente il tuo obiettivo",
+      "notes": "note (facoltative)"
+    },
+    "deadline": {
+      "title": "Fissare una scadenza?",
+      "subtitle": "oppure salta questo passaggio se non vuoi un limite.",
+      "remove": "rimuovi la scadenza",
+      "choose": "scegli"
+    },
+    "paint": {
+      "title": "Dipingi l’occhio sinistro per iniziare il tuo cammino"
+    },
+    "confirm": {
+      "title": "Si parte?",
+      "due_until": "scadenza: "
+    }
+  },
+  "colors": {
+    "red": {
+      "label": "rosso",
+      "meaning": "Fortuna e successo"
+    },
+    "black": {
+      "label": "nero",
+      "meaning": "Discrezione e affari"
+    },
+    "blue": {
+      "label": "blu",
+      "meaning": "Concentrazione e produttività"
+    },
+    "green": {
+      "label": "verde",
+      "meaning": "Salute e benessere"
+    },
+    "gold": {
+      "label": "oro",
+      "meaning": "Ricchezza e prosperità"
+    },
+    "pink": {
+      "label": "rosa",
+      "meaning": "Amore e relazioni"
+    }
+  },
+  "date": {
+    "format": "DD/MM/YYYY",
+    "format_time": "DD/MM/YYYY HH:mm",
+    "months": [
+      "GEN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAG",
+      "GIU",
+      "LUG",
+      "AGO",
+      "SET",
+      "OTT",
+      "NOV",
+      "DIC"
+    ],
+    "placeholder_day": "GG",
+    "placeholder_month": "MM",
+    "placeholder_year": "AAAA"
+  },
+  "view": {
+    "not_found": "Daruma non trovato",
+    "notes_placeholder": "note",
+    "deadline": "Scadenza: {{date}}",
+    "last_day": "Oggi è l’ultimo giorno",
+    "days_remaining_one": "Ancora {{count}} giorno",
+    "days_remaining_other": "Ancora {{count}} giorni",
+    "overdue_since": "Scaduto dal {{date}}",
+    "extend_deadline": "Prolunga la scadenza",
+    "new_deadline_title": "Fissa una nuova scadenza"
+  },
+  "info": {
+    "title": "Sul tuo Daruma",
+    "created": "Creato il {{date}}",
+    "completed": "Raggiunto il {{date}}",
+    "deadline": "Scadenza: {{date}}",
+    "updated": "Ultima modifica: {{date}}",
+    "change_title": "Cambia titolo",
+    "delete": "Brucia il Daruma",
+    "delete_confirm_title": "Vuoi davvero bruciarlo?",
+    "delete_confirm_text": "Questa azione non può essere annullata.",
+    "delete_confirm": "Sì, brucialo",
+    "change_title_title": "Quale sarà il nuovo titolo?",
+    "change_title_placeholder": "Inserisci il nuovo titolo",
+    "save": "Salva"
+  },
+  "finish": {
+    "title": "Dipingi il secondo occhio per completare il tuo obiettivo",
+    "confirm_title": "Ti piace il tuo Daruma?"
+  }
+}

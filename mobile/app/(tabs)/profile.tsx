@@ -13,7 +13,7 @@ import { useLanguageStore } from "@/store/language_store";
 import { LangPref } from "@/types/user";
 
 //chinese not included until font is upgraded
-const LANGUAGES: LangPref[] = ["en", "ja", "de", "fr", "es"];
+const LANGUAGES: LangPref[] = ["en", "ja", "de", "fr", "es", "it"];
 
 export default function Profile() {
   const { colors, scheme } = useTheme();

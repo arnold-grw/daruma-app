@@ -15,4 +15,4 @@ export interface AuthSession {
   accessToken: string;
 }
 
-export type LangPref = "en" | "de" | "fr" | "es" | "ja" | "zh";
+export type LangPref = "en" | "de" | "fr" | "es" | "it" | "ja" | "zh";

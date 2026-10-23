@@ -69,7 +69,7 @@ export function StepDeadline({ draft, setDraft, onValidChange }: StepProps) {
         setSelectedDate(date ?? getTomorrow());
         setIsModalVisible(false);
       }}>
-        <View style={{ flexDirection: "column", gap: 20, padding: 50, justifyContent: "center", alignItems: "center", marginBottom: (screenHeight/2) - 180 }}>
+        <View style={{ flexDirection: "column", gap: 20, padding: 50, justifyContent: "center", alignItems: "center", marginBottom: (screenHeight/2) - 200 }}>
           {/*<Text style={{ fontSize: 20, textAlign: "center", maxWidth: 280, padding: 20 }}>Until when do you want to reach your goal?</Text>*/}
           <DatePicker
             value={selectedDate}

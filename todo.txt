@@ -27,6 +27,13 @@
 # sound effects??
 
 
+## OS specific
+
+# widget
+
+# using icloud storage
+
+
 ## CODE CLEANUP
 
 # check ordner structure and file names

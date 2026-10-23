@@ -27,7 +27,7 @@ export function StepGoal({ draft, setDraft, onValidChange }: StepProps) {
                 placeholderTextColor={colors.textSecondary}
                 value={draft.goal}
                 onChangeText={(goal) => setDraft({ goal })}
-                maxLength={40}
+                maxLength={36}
                 style={{
                 borderWidth: 2,
                 borderColor: colors.textSecondary,

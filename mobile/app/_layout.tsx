@@ -7,6 +7,7 @@ import useAppTheme from '@/constants/theme';
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from "expo-router";
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
+import { NAVIGATION } from '@/constants/navigation';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -62,7 +63,8 @@ export default function RootLayout() {
           {/* cross-fades the whole screen when dark/light mode changes */}
           <ThemeTransitionProvider>
             <ThemeProvider value={navigationTheme}>
-              <Stack screenOptions={{ headerShown: false }} />
+              {/* iOS swipe back: see constants/navigation.ts */}
+              <Stack screenOptions={{ headerShown: false, gestureEnabled: NAVIGATION.swipeBack }} />
             </ThemeProvider>
           </ThemeTransitionProvider>
         </KeyboardProvider>

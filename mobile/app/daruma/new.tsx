@@ -4,7 +4,8 @@ import BottomActionBar from "@/components/action_bar";
 import KeyboardShift from "@/components/keyboard_shift";
 import useTheme from "@/constants/theme";
 import { useDarumaStore } from "@/store/daruma_store";
-import { safeBack } from "@/utils/navigation";
+import { NAVIGATION } from "@/constants/navigation";
+import { safeBack, useSwipeBack, useSystemBack } from "@/utils/navigation";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
@@ -102,13 +103,28 @@ export default function NewDaruma() {
     }
   };
 
+  // ✕ at the top: leaves the whole flow from any step
+  const handleCancel = () => {
+    if (isNavigating) return;
+    setIsNavigating(true);
+    resetDraft();
+    safeBack();
+  };
+
   const [canProceed, setCanProceed] = useState(false);
+
+  // no swipe back while painting (iOS); the Android system back goes one step back like the back button
+  useSwipeBack(NAVIGATION.swipeBackWhilePainting);
+  useSystemBack(() => {
+    handleBack();
+    return true;
+  });
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
       {/* Everything except the action bar moves up with the keyboard */}
       <KeyboardShift style={{ flex: 1 }}>
-        <ProgressIndicator stepIndex={stepIndex} totalSteps={STEPS.length} />
+        <ProgressIndicator stepIndex={stepIndex} totalSteps={STEPS.length} onClose={NAVIGATION.cancelButtonTop ? handleCancel : undefined} />
 
         {/* skipEntering: the first step comes in with the screen, without its own animation */}
         <LayoutAnimationConfig skipEntering>

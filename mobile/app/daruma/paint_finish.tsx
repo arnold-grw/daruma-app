@@ -8,6 +8,8 @@ import { Text } from '@/components/typography';
 import { ANIMATION_DURATION } from '@/constants/animations';
 import useTheme from "@/constants/theme";
 import { useDarumaStore } from "@/store/daruma_store";
+import { NAVIGATION } from '@/constants/navigation';
+import { useSwipeBack, useSystemBack } from '@/utils/navigation';
 import { Drawing, DrawingData } from '@/types/drawing';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useRef, useState } from 'react';
@@ -73,6 +75,14 @@ export default function PaintFinish() {
         setDirection(newStep === 'confirm' ? 'forward' : 'back');
         requestAnimationFrame(() => setStep(newStep));
     };
+
+    // no swipe back while painting (iOS); the Android system back goes from the confirm step back to painting
+    useSwipeBack(NAVIGATION.swipeBackWhilePainting);
+    useSystemBack(() => {
+        if (step !== 'confirm') return false;
+        changeStep('paint');
+        return true;
+    });
 
     function handleToConfirm() {
         const drawingData = drawingSpaceRef.current?.getDrawingData();

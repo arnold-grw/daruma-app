@@ -6,7 +6,7 @@ import { LangPref } from "@/types/user";
 
 // Shared look of all flags (and of the fallback box)
 export const FLAG_WIDTH = 36; // default width
-export const FLAG_MIN_WIDTH = 36;
+export const FLAG_MIN_WIDTH = 32;
 export const FLAG_MAX_WIDTH = 54;
 export const FLAG_RATIO = 3 / 4; // height / width, all SVGs in assets/flags are 4:3
 export const FLAG_RADIUS = 6;
@@ -18,6 +18,7 @@ const FLAGS: Partial<Record<LangPref, ImageSource>> = {
   de: require("@/assets/flags/germany.svg"),
   fr: require("@/assets/flags/france.svg"),
   es: require("@/assets/flags/spain.svg"),
+  it: require("@/assets/flags/italy.svg"),
   ja: require("@/assets/flags/japan.svg"),
   zh: require("@/assets/flags/chinese.svg"), // alternative: chinese.svg (language icon 中)
 };
