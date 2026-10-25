@@ -41,7 +41,9 @@
   },
   "new": {
     "color": {
-      "title": "First choose a color that resonates with your goal"
+      "title": "First choose a color that resonates with your goal",
+      "locked_one": "Complete {{count}} more daruma to unlock this color",
+      "locked_other": "Complete {{count}} more darumas to unlock this color"
     },
     "goal": {
       "title": "Put your goal into words",
@@ -116,7 +118,9 @@
     "last_day": "Last day today",
     "days_remaining_one": "{{count}} day remaining",
     "days_remaining_other": "{{count}} days remaining",
-    "overdue_since": "Overdue since: {{date}}",
+    "days_overdue_one": "{{count}} day overdue",
+    "days_overdue_other": "{{count}} days overdue",
+    "deadline_was": "Deadline was {{date}}",
     "extend_deadline": "Extend deadline",
     "new_deadline_title": "Set a new deadline"
   },

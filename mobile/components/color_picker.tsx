@@ -20,9 +20,11 @@ interface Props {
   onPreview?: (color: DarumaColor) => void
   // width of the daruma in the middle; the carousel is exactly as high as that daruma
   size: number
+  // still shown and selectable in the carousel, but in gray
+  lockedColors: DarumaColor[]
 }
 
-export default function ColorPicker({ selected, onSelect, onPreview, size }: Props) {
+export default function ColorPicker({ selected, onSelect, onPreview, size, lockedColors }: Props) {
 
     const { width } = useWindowDimensions();
     const height = size * DARUMA_ASPECT;
@@ -45,7 +47,7 @@ export default function ColorPicker({ selected, onSelect, onPreview, size }: Pro
   return (
     <View style={{ width, height }}>
     {/* the 3D darumas are drawn behind the carousel; the carousel itself is empty and only handles the swiping */}
-    <DarumaCarouselScene colors={COLORS} progress={progress} spacing={spacing} width={width} height={height} />
+    <DarumaCarouselScene colors={COLORS} lockedColors={lockedColors} progress={progress} spacing={spacing} width={width} height={height} />
     <Carousel
       style={{ width, height }}
       data={DARUMA_COLORS}

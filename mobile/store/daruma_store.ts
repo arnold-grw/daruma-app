@@ -103,6 +103,12 @@ export const useDarumaStore = create<DarumaState>((set, get) => ({
     set({
       darumas: darumas.map(d => d.id === id ? updated : d)
     });
+
+    // counts towards unlocking colors (only the first time, in case a daruma gets completed twice)
+    if (!daruma.isCompleted) {
+      const { activeUser, updateCurrentUser } = useUserStore.getState();
+      if (activeUser) await updateCurrentUser({ completedDarumaCount: activeUser.completedDarumaCount + 1 });
+    }
   },
 
   updateNotes: async (id: string, notes: string) => {

@@ -7,7 +7,7 @@ import ToggleButton from "@/components/toggle_button";
 import DropdownSelect from "@/components/dropdown_select";
 import Flag, { FLAG_MAX_WIDTH, FLAG_MIN_WIDTH } from "@/components/flag";
 import useTheme from "@/constants/theme";
-import { useUserStore } from "@/store/user_store";
+import { useCompletedDarumaCount, useUserStore } from "@/store/user_store";
 import { useTranslation } from "react-i18next";
 import { useLanguageStore } from "@/store/language_store";
 import { LangPref } from "@/types/user";
@@ -20,6 +20,8 @@ export default function Profile() {
   // dark/light switch with a cross-fade of the whole screen
   const switchScheme = useSwitchScheme();
   const activeUser = useUserStore((state) => state.activeUser);
+  const updateCurrentUser = useUserStore((state) => state.updateCurrentUser);
+  const completedCount = useCompletedDarumaCount();
   const language = useLanguageStore((s) => s.language);
   const setLanguage = useLanguageStore((s) => s.setLanguage);
   const { t } = useTranslation();
@@ -60,6 +62,12 @@ export default function Profile() {
             tabColor={colors.card}
           />
           <SwapText index={4} style={{ color: colors.text, fontSize: 24, marginBottom: 12, marginTop: 50 }}>{t("profile.account.title")}</SwapText>
+          {/* only in development: completed darumas (they unlock colors), a tap sets them back to 0 */}
+          {__DEV__ && (
+            <Pressable onPress={() => void updateCurrentUser({ completedDarumaCount: 0 })} style={{ padding: 12, borderRadius: 14, backgroundColor: colors.card }}>
+              <Text style={{ color: colors.text, fontSize: 16 }}>Completed darumas: {completedCount} (tap to reset)</Text>
+            </Pressable>
+          )}
           <SwapText index={5} style={{ color: colors.text, fontSize: 24, marginBottom: 12, marginTop: 50 }}>{t("profile.widget.title")}</SwapText>
 
           {/* only in development: entry to the 3D test page */}

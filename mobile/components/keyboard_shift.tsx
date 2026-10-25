@@ -69,15 +69,15 @@ export default function KeyboardShift({ children, style, enabled = true, gap = K
     [enabled, gap, windowHeight]
   );
 
-  // Focus moved to another text field while the keyboard stays open
+  // Focus moved to another text field while the keyboard stays open.
+  // No dependency list: Reanimated tracks the captured values itself (a list only causes a warning on native)
   useAnimatedReaction(
     () => input.get()?.target,
     (current, previous) => {
       if (current == null || current === previous || keyboardHeight.get() === 0) return;
       target.set(computeTarget(input.get()?.layout, shift.get(), keyboardHeight.get(), enabled, gap, windowHeight));
       shift.set(withTiming(target.get(), { duration: 250 }));
-    },
-    [enabled, gap, windowHeight]
+    }
   );
 
   const animatedStyle = useAnimatedStyle(() => ({

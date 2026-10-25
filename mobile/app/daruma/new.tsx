@@ -23,7 +23,8 @@ import { StepPaint } from "@/components/new_daruma/step_paint";
 
 // ── Define steps here — reorder or add freely ──────────────────
 const STEPS = [
-  { key: 'color', component: StepColor, canSkip: true  },
+  // not skippable: a locked color must not be chosen (StepColor reports it via onValidChange)
+  { key: 'color', component: StepColor, canSkip: false },
   { key: 'goal',  component: StepGoal,  canSkip: false },
   { key: 'deadline', component: StepDeadline, canSkip: true },
   { key: 'paint', component: StepPaint, canSkip: false },

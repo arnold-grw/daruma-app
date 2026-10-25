@@ -55,7 +55,7 @@ export default function Index() {
           </Text>
         )}
         {overdueDarumas.map(daruma => (
-          <Card key={daruma.id} daruma={daruma} grayscale={true} />
+          <Card key={daruma.id} daruma={daruma} />
         ))}
 
         </ScrollView>

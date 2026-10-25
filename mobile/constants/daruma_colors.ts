@@ -4,21 +4,53 @@ export interface DarumaColorConfig {
   id: DarumaColor
   hex: string
   labelKey: string        // key for translations
-  meaningKey: string      // key for translations   
+  meaningKey: string      // key for translations
   label: string
   meaning: string
 }
 
 import { DarumaColor } from '@/types/daruma'
 
+// completed darumas needed to unlock a color; colors not listed here can be chosen from the start
+export const COLOR_UNLOCKS: Partial<Record<DarumaColor, number>> = {
+  pink: 1,
+  black: 2,
+  gold: 3,
+}
+
+// also the order of the color carousel: the free colors first, then the locked ones in the order they unlock
 export const DARUMA_COLORS: DarumaColorConfig[] = [
   {
     id: 'red',
-    hex: '#cd4949',
+    hex: '#d54848',
     labelKey: 'colors.red.label',
     meaningKey: 'colors.red.meaning',
     label: 'Red',
     meaning: 'Good luck & success',
+  },
+  {
+    id: 'blue',
+    hex: '#4d73b4',
+    labelKey: 'colors.blue.label',
+    meaningKey: 'colors.blue.meaning',
+    label: 'Blue',
+    meaning: 'Focus & productivity',
+  },
+  {
+    id: 'green',
+    hex: '#408b69',
+    labelKey: 'colors.green.label',
+    meaningKey: 'colors.green.meaning',
+    label: 'Green',
+    meaning: 'Health & wellbeing',
+  },
+  {
+    id: 'pink',
+    hex: '#dc758d',
+    labelKey: 'colors.pink.label',
+    meaningKey: 'colors.pink.meaning',
+    label: 'Pink',
+    meaning: 'Love & relationships',
   },
   {
     id: 'black',
@@ -29,22 +61,6 @@ export const DARUMA_COLORS: DarumaColorConfig[] = [
     meaning: 'Secret & business',
   },
   {
-    id: 'blue',
-    hex: '#5679b6',
-    labelKey: 'colors.blue.label',
-    meaningKey: 'colors.blue.meaning',
-    label: 'Blue',
-    meaning: 'Focus & productivity',
-  },
-  {
-    id: 'green',
-    hex: '#3c785d',
-    labelKey: 'colors.green.label',
-    meaningKey: 'colors.green.meaning',
-    label: 'Green',
-    meaning: 'Health & wellbeing',
-  },
-  {
     id: 'gold',
     hex: '#d3af42',
     labelKey: 'colors.gold.label',
@@ -52,18 +68,19 @@ export const DARUMA_COLORS: DarumaColorConfig[] = [
     label: 'Gold',
     meaning: 'Wealth & prosperity',
   },
-  {
-    id: 'pink',
-    hex: '#db7d93',
-    labelKey: 'colors.pink.label',
-    meaningKey: 'colors.pink.meaning',
-    label: 'Pink',
-    meaning: 'Love & relationships',
-  },
 ]
 // find color config by id, default to first color if not found
 export const getDarumaColor = (id: DarumaColor): DarumaColorConfig => {
   return DARUMA_COLORS.find(c => c.id === id) ?? DARUMA_COLORS[0]
+}
+
+// how many more darumas have to be completed before the color can be chosen (0 = unlocked)
+export const getRemainingUnlocks = (id: DarumaColor, completedCount: number): number => {
+  return Math.max(0, (COLOR_UNLOCKS[id] ?? 0) - completedCount)
+}
+
+export const isColorUnlocked = (id: DarumaColor, completedCount: number): boolean => {
+  return getRemainingUnlocks(id, completedCount) === 0
 }
 
 export const eyeColor = '#302925'

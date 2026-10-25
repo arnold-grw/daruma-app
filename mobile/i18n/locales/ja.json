@@ -41,7 +41,9 @@
   },
   "new": {
     "color": {
-      "title": "まずは、目標に合う色を選びましょう"
+      "title": "まずは、目標に合う色を選びましょう",
+      "locked_one": "あと{{count}}個のだるまを完成させると、この色が使えるようになります",
+      "locked_other": "あと{{count}}個のだるまを完成させると、この色が使えるようになります"
     },
     "goal": {
       "title": "目標を言葉にしましょう",
@@ -116,7 +118,9 @@
     "last_day": "今日が最終日です",
     "days_remaining_one": "残り{{count}}日",
     "days_remaining_other": "残り{{count}}日",
-    "overdue_since": "{{date}}に期限切れ",
+    "days_overdue_one": "{{count}}日超過",
+    "days_overdue_other": "{{count}}日超過",
+    "deadline_was": "期限は{{date}}でした",
     "extend_deadline": "期限を延長",
     "new_deadline_title": "新しい期限を決める"
   },

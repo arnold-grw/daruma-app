@@ -32,6 +32,7 @@ const fragmentShader = /* glsl */ `
   uniform float brightBand;
   uniform float brightBandThreshold;
   uniform float dim;
+  uniform float grayscale;
   uniform sampler2D eyeMap;
   uniform vec3 eyeColor;
   uniform vec2 leftEyeCenter;
@@ -93,6 +94,9 @@ const fragmentShader = /* glsl */ `
     float eyes = max( eyeInk( leftEyeCenter, vec4( 1.0, 0.0, 0.0, 0.0 ) ), eyeInk( rightEyeCenter, vec4( 0.0, 1.0, 0.0, 0.0 ) ) );
     color = mix( color, eyeColor, eyes );
 
+    // gray with the same brightness, e.g. for colors that are still locked (0 = normal, 1 = gray)
+    color = mix( color, vec3( dot( color, vec3( 0.2126, 0.7152, 0.0722 ) ) ), grayscale );
+
     // darker as a whole, e.g. for darumas in the background (1 = normal)
     color *= dim;
 
@@ -111,7 +115,8 @@ export function createToonMaterial(
   writingTexture: THREE.Texture,
   eyeTexture: THREE.Texture,
   color: string,
-  gold: boolean
+  gold: boolean,
+  grayscale = false
 ) {
   const settings = gold ? { ...TOON_LIGHT, ...TOON_GOLD } : TOON_LIGHT;
   return new THREE.ShaderMaterial({
@@ -132,6 +137,7 @@ export function createToonMaterial(
       brightBand: { value: TOON_GOLD.brightBand },
       brightBandThreshold: { value: TOON_GOLD.brightBandThreshold },
       dim: { value: 1 },
+      grayscale: { value: grayscale ? 1 : 0 },
       eyeMap: { value: eyeTexture },
       eyeColor: { value: new THREE.Color(eyeColor) },
       leftEyeCenter: { value: EYE_UV.leftCenter },

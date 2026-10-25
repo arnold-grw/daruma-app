@@ -41,7 +41,9 @@
   },
   "new": {
     "color": {
-      "title": "Primero elige un color que vaya con tu meta"
+      "title": "Primero elige un color que vaya con tu meta",
+      "locked_one": "Completa {{count}} daruma más para desbloquear este color",
+      "locked_other": "Completa {{count}} darumas más para desbloquear este color"
     },
     "goal": {
       "title": "Pon tu meta en palabras",
@@ -116,7 +118,9 @@
     "last_day": "Hoy es el último día",
     "days_remaining_one": "Queda {{count}} día",
     "days_remaining_other": "Quedan {{count}} días",
-    "overdue_since": "Vencido desde: {{date}}",
+    "days_overdue_one": "{{count}} día de retraso",
+    "days_overdue_other": "{{count}} días de retraso",
+    "deadline_was": "La fecha límite era el {{date}}",
     "extend_deadline": "Extender fecha límite",
     "new_deadline_title": "Elige una nueva fecha límite"
   },

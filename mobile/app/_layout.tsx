@@ -1,6 +1,9 @@
 import { ThemeTransitionProvider } from '@/components/theme_transition';
 import { FONT } from '@/components/typography';
 import { useUserStore } from '@/store/user_store';
+// sets up i18n and the saved language before the first screen renders
+// (on web the routes are bundled lazily, so a screen with useTranslation can come before any other import of it)
+import '@/store/language_store';
 import { MPLUSRounded1c_700Bold } from '@expo-google-fonts/m-plus-rounded-1c/700Bold';
 import { useFonts } from 'expo-font';
 import useAppTheme from '@/constants/theme';

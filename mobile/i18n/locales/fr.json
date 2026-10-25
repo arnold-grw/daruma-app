@@ -41,7 +41,9 @@
   },
   "new": {
     "color": {
-      "title": "Choisis d’abord une couleur qui correspond à ton objectif"
+      "title": "Choisis d’abord une couleur qui correspond à ton objectif",
+      "locked_one": "Termine encore {{count}} Daruma pour débloquer cette couleur",
+      "locked_other": "Termine encore {{count}} Darumas pour débloquer cette couleur"
     },
     "goal": {
       "title": "Mets ton objectif en mots",
@@ -116,7 +118,9 @@
     "last_day": "Dernier jour aujourd’hui",
     "days_remaining_one": "Encore {{count}} jour",
     "days_remaining_other": "Encore {{count}} jours",
-    "overdue_since": "En retard depuis le {{date}}",
+    "days_overdue_one": "En retard de {{count}} jour",
+    "days_overdue_other": "En retard de {{count}} jours",
+    "deadline_was": "L’échéance était le {{date}}",
     "extend_deadline": "Prolonger l’échéance",
     "new_deadline_title": "Fixer une nouvelle échéance"
   },

@@ -1,19 +1,42 @@
 ### TODO
 
 ## MAJOR
-# switch to 3D - .obj for body, dynamic textures, eyes need to be transformed from Point Data to texture
 
 # intro & tutorial sequence - maybe reset app button that deletes all data and leads you back to the intro
 
-# widget interface & setup guide / settings
+# widget - home screen widget for iOS and Android with expo-widgets (no native code)
+  - concept: the widget only shows the image of one daruma, like a real daruma standing on a shelf
+    - no text: no daily updates needed, no problem with the font inside the widget
+  - image: render the 3D daruma offscreen to a PNG (same scene as in view: color, painted eyes, toon shading)
+    - expo-gl snapshot, saved in widgetsDirectory (shared between app and widget), shown with Image in the widget
+    - only re-render when the look changes: daruma created, second eye painted, other daruma selected
+  - tap opens the app with a deep link to the daruma view (darumaapp://daruma/view?darumaId=...)
+    - iOS: widgetURL modifier, check that back from the view leads to the tabs
+    - Android: deep link on tap is not documented, test it - fallback: tap just opens the app on home
+  - selection: one daruma for all widgets, same on iOS and Android
+    - default: the newest daruma
+    - view: in the "..." menu "show in widget", or "remove from widget" if it is the current one (falls back to newest)
+    - profile widget section: preview of the current widget image, daruma picker, button to a small tutorial
+    - tutorial: OS specific steps how to add the widget to the home screen
+  - fallbacks
+    - selected daruma burned: show the next newest daruma
+    - no daruma at all (also when the widget is set up before the first daruma): empty state "set a new goal", tap opens /daruma/new
+  - setup
+    - dev build needed (not Expo Go), iOS builds from Windows only via EAS, app groups need a paid Apple Developer account
+    - app.json: set ios.bundleIdentifier (prebuild fails without it), replace android.package com.anonymous.darumaapp
+    - expo-widgets plugin with enableAndroid, Android only supports some components (Image, Text, Column, Row, ...)
+    - layouts per OS with @expo/ui/swift-ui and @expo/ui/jetpack-compose
+    - widget code runs isolated: no hooks, no store, no imports - all data comes via updateSnapshot props
+  - first step: minimal widget in an Android dev build to test prebuild, build and the tap behaviour
 
 
 ## MINOR
-# unlockable Daruma colors - (pink, then black then gold (after completing x darumas))
 
 # new Fonts for chinese (keep korean in mind): https://github.com/cyanohao/resource-han-rounded looks good but requires work to import properly
 
 # in-app notifications: When deadline overdue, when unlocking new color, ..
+
+# animation for unlocking darumas
 
 
 ## NICE TO HAVE

@@ -41,7 +41,9 @@
   },
   "new": {
     "color": {
-      "title": "先选一个与你的目标相契合的颜色"
+      "title": "先选一个与你的目标相契合的颜色",
+      "locked_one": "再完成{{count}}个达摩即可解锁这个颜色",
+      "locked_other": "再完成{{count}}个达摩即可解锁这个颜色"
     },
     "goal": {
       "title": "用一句话写下你的目标",
@@ -116,7 +118,9 @@
     "last_day": "今天是最后一天",
     "days_remaining_one": "还剩{{count}}天",
     "days_remaining_other": "还剩{{count}}天",
-    "overdue_since": "已于{{date}}逾期",
+    "days_overdue_one": "已逾期{{count}}天",
+    "days_overdue_other": "已逾期{{count}}天",
+    "deadline_was": "截止日期为{{date}}",
     "extend_deadline": "延长期限",
     "new_deadline_title": "设定新的期限"
   },

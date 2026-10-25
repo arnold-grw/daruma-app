@@ -83,10 +83,12 @@ interface DarumaModelProps {
   // painted eyes, as saved on the daruma (left eye = right side of the face as seen by the viewer)
   leftEye?: DrawingData;
   rightEye?: DrawingData;
+  // drawn in gray, e.g. a color that is still locked
+  grayscale?: boolean;
 }
 
 /** The daruma mesh; must be placed inside a <Canvas>. */
-export function DarumaModel({ color, leftEye, rightEye }: DarumaModelProps) {
+export function DarumaModel({ color, leftEye, rightEye, grayscale = false }: DarumaModelProps) {
   const gltf = useLoader(GLTFLoader, MODEL) as GLTF;
   const { hex } = getDarumaColor(color);
 
@@ -97,8 +99,8 @@ export function DarumaModel({ color, leftEye, rightEye }: DarumaModelProps) {
   const writingTexture = useMemo(() => prepareTexture(loadedWriting), [loadedWriting]);
   const eyeTexture = useMemo(() => createEyeTexture(leftEye, rightEye), [leftEye, rightEye]);
   const material = useMemo(
-    () => createToonMaterial(faceTexture, writingTexture, eyeTexture, hex, color === "gold"),
-    [faceTexture, writingTexture, eyeTexture, hex, color]
+    () => createToonMaterial(faceTexture, writingTexture, eyeTexture, hex, color === "gold", grayscale),
+    [faceTexture, writingTexture, eyeTexture, hex, color, grayscale]
   );
 
   // free the GPU memory of replaced materials and geometries

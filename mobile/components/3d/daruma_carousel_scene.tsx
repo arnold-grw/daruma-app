@@ -27,6 +27,8 @@ const VIEW_HEIGHT = 2 * CAMERA_DISTANCE * Math.tan(THREE.MathUtils.degToRad(FOV)
 
 interface SceneProps {
   colors: DarumaColor[];
+  // shown in gray
+  lockedColors: DarumaColor[];
   // carousel position as a decimal index (e.g. 2.4 = between the 3rd and 4th daruma)
   progress: SharedValue<number>;
   // distance between two darumas on screen (px) and the height of the view (px)
@@ -35,7 +37,7 @@ interface SceneProps {
 }
 
 /** Places every daruma by the carousel position: the selected one in front, the others further back, smaller and darker. */
-function CarouselDarumas({ colors, progress, spacing, height }: SceneProps) {
+function CarouselDarumas({ colors, lockedColors, progress, spacing, height }: SceneProps) {
   const groups = useRef<(THREE.Group | null)[]>([]);
   // screen px -> scene units at the depth of the middle daruma
   const spacingInScene = spacing * (VIEW_HEIGHT / height);
@@ -68,7 +70,7 @@ function CarouselDarumas({ colors, progress, spacing, height }: SceneProps) {
     <>
       {colors.map((color, index) => (
         <group key={color} ref={(group) => { groups.current[index] = group; }}>
-          <DarumaModel color={color} />
+          <DarumaModel color={color} grayscale={lockedColors.includes(color)} />
         </group>
       ))}
     </>

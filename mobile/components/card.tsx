@@ -17,12 +17,11 @@ const DARUMA_SCALE = 1.1;
 
 interface CardProps {
   daruma: Daruma;
-  grayscale?: boolean;
   // true once for a daruma that was just created: the card slides in from the left while the daruma wiggles
   animateIn?: boolean;
 }
 
-export default function Card({ daruma, grayscale = false, animateIn = false }: CardProps) {
+export default function Card({ daruma, animateIn = false }: CardProps) {
   const { colors, shadows } = useTheme();
   const { width: screenWidth } = useWindowDimensions();
   const slideX = useSharedValue(0);
@@ -56,15 +55,9 @@ export default function Card({ daruma, grayscale = false, animateIn = false }: C
         style={{ width: 300, marginBottom: 30, backgroundColor: colors.card, padding: 20, borderRadius: 40, alignItems: "center",
           ...shadowStyle(shadows) }}
       >
-        {grayscale ? (
-          <View style={{ filter: 'grayscale(1)' }}>
-            <DarumaDisplay daruma={daruma} width={214*DARUMA_SCALE} height={221*DARUMA_SCALE} />
-          </View>
-        ) : (
-          <WiggleDaruma ref={wiggleRef} pressable={false}>
-            <DarumaDisplay daruma={daruma} width={214*DARUMA_SCALE} height={221*DARUMA_SCALE}/>
-          </WiggleDaruma>
-        )}
+        <WiggleDaruma ref={wiggleRef} pressable={false}>
+          <DarumaDisplay daruma={daruma} width={214*DARUMA_SCALE} height={221*DARUMA_SCALE}/>
+        </WiggleDaruma>
         <Text style={{ textAlign: 'center', fontSize: 24, color: colors.text, marginTop: 10, maxWidth: 315 }}>{daruma.goal}</Text>
 
         {daruma.deadline != null && !daruma.isFailed && !daruma.isCompleted && (
@@ -74,6 +67,19 @@ export default function Card({ daruma, grayscale = false, animateIn = false }: C
               return (
                 <Text style={{ color: colors.textSecondary, fontSize: 18 }}>
                   {daysRemaining === 0 ? t("view.last_day") : t("view.days_remaining", { count: daysRemaining })}
+                </Text>
+              );
+            })()}
+          </View>
+        )}
+        {daruma.isFailed && daruma.deadline != null && (
+          <View style={{ alignItems: 'center', gap: 4 }}>
+            {(() => {
+              // negative once the deadline has passed
+              const daysRemaining = getDaysUntilDeadline(daruma.deadline);
+              return (
+                <Text style={{ color: colors.textSecondary, fontSize: 18 }}>
+                  {t("view.days_overdue", { count: -daysRemaining })}
                 </Text>
               );
             })()}

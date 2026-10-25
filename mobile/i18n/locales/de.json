@@ -41,7 +41,9 @@
   },
   "new": {
     "color": {
-      "title": "Wähle zuerst eine Farbe, die zu deinem Ziel passt"
+      "title": "Wähle zuerst eine Farbe, die zu deinem Ziel passt",
+      "locked_one": "Vollende noch {{count}} Daruma, um diese Farbe freizuschalten",
+      "locked_other": "Vollende noch {{count}} Darumas, um diese Farbe freizuschalten"
     },
     "goal": {
       "title": "Fasse dein Ziel in Worte",
@@ -116,7 +118,9 @@
     "last_day": "Heute ist der letzte Tag",
     "days_remaining_one": "Noch {{count}} Tag",
     "days_remaining_other": "Noch {{count}} Tage",
-    "overdue_since": "Überfällig seit: {{date}}",
+    "days_overdue_one": "{{count}} Tag überfällig",
+    "days_overdue_other": "{{count}} Tage überfällig",
+    "deadline_was": "Frist endete am {{date}}",
     "extend_deadline": "Frist verlängern",
     "new_deadline_title": "Neue Frist setzen"
   },

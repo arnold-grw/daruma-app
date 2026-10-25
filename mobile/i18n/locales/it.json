@@ -41,7 +41,9 @@
   },
   "new": {
     "color": {
-      "title": "Scegli prima un colore adatto al tuo obiettivo"
+      "title": "Scegli prima un colore adatto al tuo obiettivo",
+      "locked_one": "Completa ancora {{count}} Daruma per sbloccare questo colore",
+      "locked_other": "Completa ancora {{count}} Daruma per sbloccare questo colore"
     },
     "goal": {
       "title": "Metti il tuo obiettivo in parole",
@@ -116,7 +118,9 @@
     "last_day": "Oggi è l’ultimo giorno",
     "days_remaining_one": "Ancora {{count}} giorno",
     "days_remaining_other": "Ancora {{count}} giorni",
-    "overdue_since": "Scaduto dal {{date}}",
+    "days_overdue_one": "In ritardo di {{count}} giorno",
+    "days_overdue_other": "In ritardo di {{count}} giorni",
+    "deadline_was": "La scadenza era il {{date}}",
     "extend_deadline": "Prolunga la scadenza",
     "new_deadline_title": "Fissa una nuova scadenza"
   },
