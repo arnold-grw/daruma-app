@@ -5,8 +5,6 @@ export interface DarumaColorConfig {
   hex: string
   labelKey: string        // key for translations
   meaningKey: string      // key for translations
-  label: string
-  meaning: string
 }
 
 import { DarumaColor } from '@/types/daruma'
@@ -17,6 +15,10 @@ export const COLOR_UNLOCKS: Partial<Record<DarumaColor, number>> = {
   black: 2,
   gold: 3,
 }
+// a locked color shows "???" instead of its name while at least this many darumas are still missing
+export const HIDE_NAME_FROM_REMAINING = 2
+// shown instead of the name, the same in every language (full-width question marks)
+export const HIDDEN_COLOR_LABEL = '？？？'
 
 // also the order of the color carousel: the free colors first, then the locked ones in the order they unlock
 export const DARUMA_COLORS: DarumaColorConfig[] = [
@@ -24,49 +26,37 @@ export const DARUMA_COLORS: DarumaColorConfig[] = [
     id: 'red',
     hex: '#d54848',
     labelKey: 'colors.red.label',
-    meaningKey: 'colors.red.meaning',
-    label: 'Red',
-    meaning: 'Good luck & success',
+    meaningKey: 'colors.red.meaning'
   },
   {
     id: 'blue',
     hex: '#4d73b4',
     labelKey: 'colors.blue.label',
-    meaningKey: 'colors.blue.meaning',
-    label: 'Blue',
-    meaning: 'Focus & productivity',
+    meaningKey: 'colors.blue.meaning'
   },
   {
     id: 'green',
     hex: '#408b69',
     labelKey: 'colors.green.label',
-    meaningKey: 'colors.green.meaning',
-    label: 'Green',
-    meaning: 'Health & wellbeing',
+    meaningKey: 'colors.green.meaning'
   },
   {
     id: 'pink',
     hex: '#dc758d',
     labelKey: 'colors.pink.label',
-    meaningKey: 'colors.pink.meaning',
-    label: 'Pink',
-    meaning: 'Love & relationships',
+    meaningKey: 'colors.pink.meaning'
   },
   {
     id: 'black',
     hex: '#474747',
     labelKey: 'colors.black.label',
-    meaningKey: 'colors.black.meaning',
-    label: 'Black',
-    meaning: 'Secret & business',
+    meaningKey: 'colors.black.meaning'
   },
   {
     id: 'gold',
     hex: '#d3af42',
     labelKey: 'colors.gold.label',
-    meaningKey: 'colors.gold.meaning',
-    label: 'Gold',
-    meaning: 'Wealth & prosperity',
+    meaningKey: 'colors.gold.meaning'
   },
 ]
 // find color config by id, default to first color if not found

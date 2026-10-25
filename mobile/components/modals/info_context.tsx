@@ -64,9 +64,11 @@ const renderDefaultView = (
         {t("info.deadline", { date: formatDate(daruma.deadline, localDateFormat(t)) })}
       </Text>
     )}
+    {/*
     <Text style={{ color: colors.textSecondary }}>
       {t("info.updated", { date: formatDate(daruma.updatedAt, localDateFormat(t, true)) })}
     </Text>
+    */}
 
     <Pressable
       onPress={() => setConfirmGoalChange(true)}

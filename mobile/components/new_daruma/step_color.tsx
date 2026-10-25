@@ -2,7 +2,7 @@
 import ColorPicker from "@/components/color_picker";
 import { DARUMA_ASPECT } from "@/components/daruma/daruma_details";
 import { Text } from "@/components/typography";
-import { DARUMA_COLORS, getDarumaColor, getRemainingUnlocks, isColorUnlocked } from "@/constants/daruma_colors";
+import { DARUMA_COLORS, getDarumaColor, getRemainingUnlocks, HIDDEN_COLOR_LABEL, HIDE_NAME_FROM_REMAINING, isColorUnlocked } from "@/constants/daruma_colors";
 import { useCompletedDarumaCount } from "@/store/user_store";
 import useTheme from "@/constants/theme";
 import { DarumaColor } from "@/types/daruma";
@@ -74,7 +74,7 @@ export function StepColor({ draft, setDraft, onValidChange}: StepProps) {
         {/* No exiting layout animation here: on web the exiting copy is placed off-center */}
         <Animated.View style={[{ alignItems: "center", gap: 4 }, swapStyle]}>
           <Text style={{ color: labelColor, fontSize: 24 }}>
-            {t(colorConfig.labelKey)}
+            {remainingUnlocks >= HIDE_NAME_FROM_REMAINING ? HIDDEN_COLOR_LABEL : t(colorConfig.labelKey)}
           </Text>
           {/* locked: how to unlock it instead of the meaning */}
           <Text style={{ color: colors.textSecondary, fontSize: 18, textAlign: "center", paddingHorizontal: 20 }}>
