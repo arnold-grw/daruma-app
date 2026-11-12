@@ -18,7 +18,12 @@
       "language": "Langue"
     },
     "account": {
-      "title": "Compte"
+      "title": "Compte",
+      "replay_intro": "Revoir l’intro",
+      "reset": "Réinitialiser l’app",
+      "reset_confirm_title": "Réinitialiser l’app ?",
+      "reset_confirm_text": "Tous tes Darumas, ta progression et tes paramètres seront supprimés. Cette action est irréversible.",
+      "reset_confirm": "Oui, tout supprimer"
     },
     "widget": {
       "title": "Widget"
@@ -142,5 +147,35 @@
   "finish": {
     "title": "Peins le second œil pour accomplir ton objectif",
     "confirm_title": "Ton daruma te plaît ?"
+  },
+  "intro": {
+    "skip": "Passer",
+    "welcome": {
+      "title": "Bienvenue sur Daruma",
+      "text": "Un petit compagnon venu du Japon qui t’aide à te fixer des objectifs et à les atteindre."
+    },
+    "language": {
+      "title": "Choisis ta langue",
+      "text": "Tu peux la changer à tout moment dans ton profil."
+    },
+    "tradition": {
+      "title": "Qu’est-ce qu’un Daruma ?",
+      "text": "Les poupées Daruma sont des porte-bonheur japonais inspirés de Bodhidharma, le fondateur du zen. Lestées à la base, elles se relèvent toujours : tomber sept fois, se relever huit.",
+      "hint": "Astuce : touche le Daruma pour le faire vaciller, ou glisse sur le côté pour le faire tourner."
+    },
+    "first_eye": {
+      "title": "Un œil pour ton objectif",
+      "text": "Un Daruma n’a pas d’yeux. Quand tu te fixes un objectif, tu peins son œil gauche. Dès lors, le Daruma borgne te rappelle ce que tu t’es promis."
+    },
+    "second_eye": {
+      "title": "Le deuxième œil pour la réussite",
+      "text": "Une fois ton objectif atteint, le Daruma reçoit son deuxième œil en remerciement. Au Japon, on rapporte les Darumas au temple en fin d’année, où ils sont brûlés lors d’une cérémonie."
+    },
+    "first_daruma": {
+      "title": "Ton premier Daruma",
+      "text": "Que veux-tu accomplir ? Choisis une couleur, formule ton objectif et peins le premier œil.",
+      "create": "C’est parti",
+      "later": "Plus tard"
+    }
   }
 }

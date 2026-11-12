@@ -6,7 +6,7 @@ import useTheme from "@/constants/theme";
 import { useDarumaStore } from "@/store/daruma_store";
 import { NAVIGATION } from "@/constants/navigation";
 import { safeBack, useSwipeBack, useSystemBack } from "@/utils/navigation";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { useTranslation } from "react-i18next";
@@ -49,6 +49,8 @@ export default function NewDaruma() {
   const { colors } = useTheme();
   const { t } = useTranslation();
   const { draft, setDraft, commitDraft, resetDraft } = useDarumaStore();
+  // opened from the last intro page: on the first step "Cancel" reads "Later" (it leads to home either way)
+  const { fromIntro } = useLocalSearchParams<{ fromIntro?: string }>();
   const [stepIndex, setStepIndex] = useState(0);
   const [isNavigating, setIsNavigating] = useState(false);
   const [direction, setDirection] = useState<'forward' | 'back'>('forward');
@@ -150,7 +152,7 @@ export default function NewDaruma() {
         onCancel={handleBack}
         canConfirm={(canProceed || currentStep.canSkip)}
         confirmLabel={isLast ? t("common.confirm") : t("common.next")}
-        cancelLabel={isFirst ? t("common.cancel") : t("common.back")}
+        cancelLabel={isFirst ? (fromIntro ? t("intro.first_daruma.later") : t("common.cancel")) : t("common.back")}
         canClick={!isNavigating}
       />
     </View>

@@ -18,7 +18,12 @@
       "language": "Language"
     },
     "account": {
-      "title": "Account"
+      "title": "Account",
+      "replay_intro": "Watch intro again",
+      "reset": "Reset app",
+      "reset_confirm_title": "Reset the app?",
+      "reset_confirm_text": "All your Darumas, your progress and your settings will be deleted. This cannot be undone.",
+      "reset_confirm": "Yes, delete everything"
     },
     "widget": {
       "title": "Widget"
@@ -142,5 +147,35 @@
   "finish": {
     "title": "Paint the second eye to complete your goal",
     "confirm_title": "Happy with your daruma?"
+  },
+  "intro": {
+    "skip": "Skip",
+    "welcome": {
+      "title": "Welcome to Daruma",
+      "text": "A little companion from Japan that helps you set goals and see them through."
+    },
+    "language": {
+      "title": "Choose your language",
+      "text": "You can change it any time in your profile."
+    },
+    "tradition": {
+      "title": "What is a Daruma?",
+      "text": "Daruma dolls are Japanese good luck charms, modeled after Bodhidharma, the founder of Zen. They are weighted at the bottom, so they always stand back up: fall down seven times, get up eight.",
+      "hint": "Tip: tap the Daruma to make it wobble, or swipe sideways to turn it."
+    },
+    "first_eye": {
+      "title": "One eye for your goal",
+      "text": "A Daruma comes without eyes. When you set yourself a goal, you paint in its left eye. From then on, the one-eyed Daruma reminds you of what you set out to do."
+    },
+    "second_eye": {
+      "title": "The second eye for success",
+      "text": "Once you reach your goal, the Daruma gets its second eye as a thank you. In Japan, Darumas are brought back to the temple at the end of the year and burned in a ceremony."
+    },
+    "first_daruma": {
+      "title": "Your first Daruma",
+      "text": "What do you want to achieve? Choose a color, put your goal into words and paint the first eye.",
+      "create": "Let's go",
+      "later": "Later"
+    }
   }
 }

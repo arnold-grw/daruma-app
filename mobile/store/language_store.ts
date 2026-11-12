@@ -5,6 +5,7 @@ import { create } from "zustand";
 import { LangPref } from "../types/user";
 import i18n, { setLanguage as i18nSetLanguage } from "@/i18n";
 import { useUserStore } from "@/store/user_store";
+import { SUPPORTED_LANGUAGES } from "@/constants/languages";
 
 const STORAGE_KEY = "daruma-language";
 
@@ -58,9 +59,10 @@ export const useLanguageStore = create<LanguageState>((set, get) => ({
 		}
 
 		// 3) use device locale (first part)
+		// (a language without translation, e.g. Polish, falls back to English)
 		const locales = Localization.getLocales();
-    const device = (locales[0]?.languageCode || "en") as LangPref;
-    const fallback: LangPref = device || "en";
+		const device = normalizeLang(locales[0]?.languageCode || "en");
+		const fallback: LangPref = SUPPORTED_LANGUAGES.includes(device) ? device : "en";
 		await i18nSetLanguage(fallback);
 		set({ language: fallback });
 	},
@@ -85,4 +87,4 @@ export const useLanguageStore = create<LanguageState>((set, get) => ({
 }));
 
 // initialize immediately
-void useLanguageStore.getState().initialize();
+void useLanguageStore.getState().initialize();

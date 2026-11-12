@@ -1,4 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Appearance } from "react-native";
 import { create } from "zustand";
 
 export type ThemeScheme = "light" | "dark";
@@ -13,12 +14,16 @@ interface ThemeState {
   toggleScheme: () => void;
 }
 
+// nothing chosen in the profile yet (first launch, after an app reset): the scheme of the system
+const systemScheme = (): ThemeScheme => (Appearance.getColorScheme() === "dark" ? "dark" : "light");
+
 const readStoredScheme = async (): Promise<ThemeScheme> => {
   try {
     const stored = await AsyncStorage.getItem(STORAGE_KEY);
-    return stored === "dark" ? "dark" : "light";
+    if (stored === "dark" || stored === "light") return stored;
+    return systemScheme();
   } catch {
-    return "light";
+    return systemScheme();
   }
 };
 

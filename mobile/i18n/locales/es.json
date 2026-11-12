@@ -18,7 +18,12 @@
       "language": "Idioma"
     },
     "account": {
-      "title": "Cuenta"
+      "title": "Cuenta",
+      "replay_intro": "Ver la intro otra vez",
+      "reset": "Restablecer la app",
+      "reset_confirm_title": "¿Restablecer la app?",
+      "reset_confirm_text": "Se borrarán todos tus Daruma, tu progreso y tu configuración. Esta acción no se puede deshacer.",
+      "reset_confirm": "Sí, borrar todo"
     },
     "widget": {
       "title": "Widget"
@@ -142,5 +147,35 @@
   "finish": {
     "title": "Pinta el segundo ojo para cumplir tu meta",
     "confirm_title": "¿Te gusta cómo quedó tu daruma?"
+  },
+  "intro": {
+    "skip": "Omitir",
+    "welcome": {
+      "title": "Bienvenido a Daruma",
+      "text": "Un pequeño compañero de Japón que te ayuda a ponerte metas y a cumplirlas."
+    },
+    "language": {
+      "title": "Elige tu idioma",
+      "text": "Puedes cambiarlo cuando quieras en tu perfil."
+    },
+    "tradition": {
+      "title": "¿Qué es un Daruma?",
+      "text": "Los Daruma son amuletos japoneses de la buena suerte inspirados en Bodhidharma, el fundador del zen. Tienen peso en la base, así que siempre vuelven a levantarse: caer siete veces, levantarse ocho.",
+      "hint": "Consejo: toca el Daruma para que se tambalee, o desliza hacia un lado para girarlo."
+    },
+    "first_eye": {
+      "title": "Un ojo para tu meta",
+      "text": "Un Daruma viene sin ojos. Cuando te pones una meta, le pintas el ojo izquierdo. Desde entonces, el Daruma tuerto te recuerda lo que te propusiste."
+    },
+    "second_eye": {
+      "title": "El segundo ojo para el éxito",
+      "text": "Cuando cumples tu meta, el Daruma recibe su segundo ojo como agradecimiento. En Japón, al final del año los Daruma se llevan de vuelta al templo, donde se queman en una ceremonia."
+    },
+    "first_daruma": {
+      "title": "Tu primer Daruma",
+      "text": "¿Qué quieres lograr? Elige un color, pon tu meta en palabras y pinta el primer ojo.",
+      "create": "¡Vamos!",
+      "later": "Más tarde"
+    }
   }
 }

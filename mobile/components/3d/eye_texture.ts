@@ -7,14 +7,17 @@ import * as THREE from "three";
 // pixels per side of one eye area (the eye area is about 225 px wide on the 1024 px face texture)
 const RESOLUTION = 256;
 
+//slight offset for the eye texture to center it
+const EYE_3D_SHIFT_DOWN = 0.005
+
 /**
  * Where the eye areas sit on the face texture (UV 0..1, v from the top), the same places as in the 2D daruma.
  * The face texture has the same layout as the 2D artwork, so the 2D share values can be used directly.
  * The left eye is on the right side of the face as seen by the viewer, like in DarumaDisplay.
  */
 export const EYE_UV = {
-  leftCenter: new THREE.Vector2(0.5 + EYE_LAYOUT.xOffset, 0.5 - EYE_LAYOUT.yOffset),
-  rightCenter: new THREE.Vector2(0.5 - EYE_LAYOUT.xOffset, 0.5 - EYE_LAYOUT.yOffset),
+  leftCenter: new THREE.Vector2(0.5 + EYE_LAYOUT.xOffset, 0.5 - EYE_LAYOUT.yOffset + EYE_3D_SHIFT_DOWN),
+  rightCenter: new THREE.Vector2(0.5 - EYE_LAYOUT.xOffset, 0.5 - EYE_LAYOUT.yOffset + EYE_3D_SHIFT_DOWN),
   // half the size of the square eye area; the artwork is a bit higher than wide, so it is a bit less in v
   halfSize: new THREE.Vector2(EYE_LAYOUT.size / 2, EYE_LAYOUT.size / 2 / DARUMA_ASPECT),
 };

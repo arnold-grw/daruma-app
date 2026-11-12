@@ -18,7 +18,12 @@
       "language": "Lingua"
     },
     "account": {
-      "title": "Account"
+      "title": "Account",
+      "replay_intro": "Rivedi l’intro",
+      "reset": "Reimposta l’app",
+      "reset_confirm_title": "Reimpostare l’app?",
+      "reset_confirm_text": "Tutti i tuoi Daruma, i tuoi progressi e le tue impostazioni verranno eliminati. Questa azione non può essere annullata.",
+      "reset_confirm": "Sì, elimina tutto"
     },
     "widget": {
       "title": "Widget"
@@ -142,5 +147,35 @@
   "finish": {
     "title": "Dipingi il secondo occhio per completare il tuo obiettivo",
     "confirm_title": "Ti piace il tuo Daruma?"
+  },
+  "intro": {
+    "skip": "Salta",
+    "welcome": {
+      "title": "Benvenuto in Daruma",
+      "text": "Un piccolo compagno dal Giappone che ti aiuta a porti degli obiettivi e a raggiungerli."
+    },
+    "language": {
+      "title": "Scegli la tua lingua",
+      "text": "Puoi cambiarla in qualsiasi momento nel tuo profilo."
+    },
+    "tradition": {
+      "title": "Cos’è un Daruma?",
+      "text": "Le bambole Daruma sono portafortuna giapponesi ispirati a Bodhidharma, il fondatore dello zen. Sono appesantite alla base e si rialzano sempre: cadi sette volte, rialzati otto.",
+      "hint": "Suggerimento: tocca il Daruma per farlo dondolare, o scorri di lato per farlo girare."
+    },
+    "first_eye": {
+      "title": "Un occhio per il tuo obiettivo",
+      "text": "Un Daruma nasce senza occhi. Quando ti poni un obiettivo, gli dipingi l’occhio sinistro. Da quel momento il Daruma con un occhio solo ti ricorda ciò che ti sei prefissato."
+    },
+    "second_eye": {
+      "title": "Il secondo occhio per il successo",
+      "text": "Quando raggiungi il tuo obiettivo, il Daruma riceve il secondo occhio come ringraziamento. In Giappone, a fine anno i Daruma vengono riportati al tempio e bruciati in una cerimonia."
+    },
+    "first_daruma": {
+      "title": "Il tuo primo Daruma",
+      "text": "Cosa vuoi raggiungere? Scegli un colore, metti in parole il tuo obiettivo e dipingi il primo occhio.",
+      "create": "Iniziamo",
+      "later": "Più tardi"
+    }
   }
 }

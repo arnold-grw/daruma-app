@@ -1,7 +1,8 @@
 import { HomeIcon, HourglassIcon, ProfileIcon } from "@/components/icons/tab_icons";
 import { FONT, Text } from '@/components/typography';
 import useTheme, { shadowStyle } from "@/constants/theme";
-import { router, Tabs } from "expo-router";
+import { useIntroStore } from "@/store/intro_store";
+import { Redirect, router, Tabs } from "expo-router";
 import { ComponentType } from "react";
 import { Pressable, PressableProps } from "react-native";
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -37,6 +38,12 @@ function TabButton({ Icon, onPress, 'aria-selected': selected }: TabButtonProps)
 export default function TabsLayout() {
   const { colors, shadows } = useTheme();
   const insets = useSafeAreaInsets();
+  // first launch (or after an app reset): the intro comes first, it replaces the tabs
+  const introSeen = useIntroStore((state) => state.seen);
+
+  if (!introSeen) {
+    return <Redirect href="/intro" />;
+  }
 
   return (
     <Tabs

@@ -1,5 +1,6 @@
 import { ThemeTransitionProvider } from '@/components/theme_transition';
 import { FONT } from '@/components/typography';
+import { useIntroStore } from '@/store/intro_store';
 import { useUserStore } from '@/store/user_store';
 // sets up i18n and the saved language before the first screen renders
 // (on web the routes are bundled lazily, so a screen with useTranslation can come before any other import of it)
@@ -40,9 +41,14 @@ export default function RootLayout() {
     },
   };
 
-  // Load the local user once at startup, so every screen (and new darumas) can rely on an active user
+  // Load the local user once at startup, so every screen (and new darumas) can rely on an active user.
+  // The intro flag is read at the same time: app/(tabs)/_layout.tsx opens the intro on the first launch,
+  // and the splash stays until it is known, so home never flashes up before the intro.
   useEffect(() => {
-    useUserStore.getState().load()
+    Promise.all([
+      useUserStore.getState().load(),
+      useIntroStore.getState().load(),
+    ])
       .catch((error) => console.error('Failed to load users:', error))
       .finally(() => setUsersLoaded(true));
   }, []);

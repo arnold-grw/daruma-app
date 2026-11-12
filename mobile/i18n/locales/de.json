@@ -18,7 +18,12 @@
       "language": "Sprache"
     },
     "account": {
-      "title": "Account"
+      "title": "Account",
+      "replay_intro": "Intro erneut ansehen",
+      "reset": "App zurücksetzen",
+      "reset_confirm_title": "App zurücksetzen?",
+      "reset_confirm_text": "Alle deine Darumas, dein Fortschritt und deine Einstellungen werden gelöscht. Das kann nicht rückgängig gemacht werden.",
+      "reset_confirm": "Ja, alles löschen"
     },
     "widget": {
       "title": "Widget"
@@ -142,5 +147,35 @@
   "finish": {
     "title": "Male das zweite Auge aus, um dein Ziel abzuschließen",
     "confirm_title": "Bist du mit deinem Daruma zufrieden?"
+  },
+  "intro": {
+    "skip": "Überspringen",
+    "welcome": {
+      "title": "Willkommen bei Daruma",
+      "text": "Ein kleiner Begleiter aus Japan, der dir hilft, dir Ziele zu setzen und sie zu erreichen."
+    },
+    "language": {
+      "title": "Wähle deine Sprache",
+      "text": "Du kannst sie jederzeit in deinem Profil ändern."
+    },
+    "tradition": {
+      "title": "Was ist ein Daruma?",
+      "text": "Darumas sind japanische Glücksbringer nach dem Vorbild von Bodhidharma, dem Begründer des Zen. Sie sind unten beschwert und stehen deshalb immer wieder auf: siebenmal hinfallen, achtmal aufstehen.",
+      "hint": "Tipp: Tippe das Daruma an, damit es wackelt, oder wische zur Seite, um es zu drehen."
+    },
+    "first_eye": {
+      "title": "Ein Auge für dein Ziel",
+      "text": "Ein Daruma kommt ohne Augen. Wenn du dir ein Ziel setzt, malst du sein linkes Auge aus. Von da an erinnert dich das einäugige Daruma daran, was du dir vorgenommen hast."
+    },
+    "second_eye": {
+      "title": "Das zweite Auge für den Erfolg",
+      "text": "Hast du dein Ziel erreicht, bekommt das Daruma zum Dank sein zweites Auge. In Japan bringt man Darumas am Jahresende zurück in den Tempel, wo sie feierlich verbrannt werden."
+    },
+    "first_daruma": {
+      "title": "Dein erstes Daruma",
+      "text": "Was möchtest du erreichen? Wähle eine Farbe, fasse dein Ziel in Worte und male das erste Auge.",
+      "create": "Los geht's",
+      "later": "Später"
+    }
   }
 }
