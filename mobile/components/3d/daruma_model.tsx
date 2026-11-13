@@ -38,6 +38,12 @@ const DRAG_THRESHOLD = 10;
 const WIGGLE_PIVOT = MODEL_HEIGHT * (0.5 - 140 / 324);
 // how strong a tap makes it wobble (same as tapping the 2D daruma)
 const TAP_IMPULSE = 150;
+// entrance (prop `entrance`): full turns while rising from below the view (negative = the other way round)
+const ENTRANCE_TURNS = 1;
+// entrance: extra distance below the view edge it starts from (1 = just hidden), room for its width while turning
+const ENTRANCE_START_MARGIN = 1.05;
+// entrance: wobble when it arrives (0 = none)
+const LANDING_IMPULSE = 100;
 
 /**
  * Reads the meshes from the loaded file. Their geometry is copied and moved/scaled,
@@ -125,31 +131,62 @@ interface TurntableProps {
   dragging: SharedValue<boolean>;
   // wobble tilt in degrees (positive = top to the right), from useWiggle
   tilt: SharedValue<number>;
+  // optional entrance, 0 = hidden below the view, 1 = in place (see Daruma3D)
+  entrance?: SharedValue<number>;
+  // height of the daruma on screen (px), to know how far below the view edge it has to start
+  darumaSize: number;
+  // called once when the entrance reaches 1
+  onLanded?: () => void;
   children: ReactNode;
 }
 
 /** Turns its children around the vertical axis and tilts them sideways for the wobble. */
-function Turntable({ speed, dragging, tilt, children }: TurntableProps) {
+function Turntable({ speed, dragging, tilt, entrance, darumaSize, onLanded, children }: TurntableProps) {
   const turn = useRef<THREE.Group>(null);
   const wobble = useRef<THREE.Group>(null);
+  const rise = useRef<THREE.Group>(null);
+  const landed = useRef(false);
 
-  useFrame(() => {
-    if (!turn.current || !wobble.current) return;
+  useFrame(({ size: view }) => {
+    if (!turn.current || !wobble.current || !rise.current) return;
     turn.current.rotation.y += speed.get();
     // keep turning a little after letting go, then slow down
     if (!dragging.get()) speed.set(speed.get() * SPIN_DAMPING);
     // around the axis pointing at the camera; three.js turns counterclockwise, so minus for "top to the right"
     wobble.current.rotation.z = -THREE.MathUtils.degToRad(tilt.get());
+
+    if (entrance) {
+      const progress = entrance.get();
+      // the camera looks at the middle of the daruma: it is hidden once its top is below the bottom edge of the view
+      const viewHeight = (view.height * MODEL_HEIGHT) / darumaSize;
+      const hiddenOffset = ((MODEL_HEIGHT + viewHeight) / 2) * ENTRANCE_START_MARGIN;
+      rise.current.position.y = -(1 - progress) * hiddenOffset;
+      rise.current.rotation.y = -(1 - progress) * ENTRANCE_TURNS * Math.PI * 2;
+      if (progress >= 1 && !landed.current) {
+        landed.current = true;
+        onLanded?.();
+      }
+    }
   });
 
   // the wobble group sits at the pivot, so the daruma rocks on its bottom instead of spinning around its middle
   return (
-    <group ref={wobble} position-y={WIGGLE_PIVOT}>
-      <group position-y={-WIGGLE_PIVOT}>
-        <group ref={turn} rotation-y={FRONT_ROTATION}>{children}</group>
+    <group ref={rise}>
+      <group ref={wobble} position-y={WIGGLE_PIVOT}>
+        <group position-y={-WIGGLE_PIVOT}>
+          <group ref={turn} rotation-y={FRONT_ROTATION}>{children}</group>
+        </group>
       </group>
     </group>
   );
+}
+
+/** Calls onReady once everything in the surrounding <Suspense> (model and textures) has loaded. */
+function ReadySignal({ onReady }: { onReady?: () => void }) {
+  useEffect(() => {
+    onReady?.();
+  }, [onReady]);
+  return null;
 }
 
 /**
@@ -175,10 +212,15 @@ interface Daruma3DProps extends DarumaModelProps {
   size: number;
   // the view is as wide as the screen (room for the wobble) and a bit higher than the daruma; style can change that
   style?: StyleProp<ViewStyle>;
+  // optional entrance animation: 0 = hidden below the view, 1 = in place. Animate it from 0 to 1 (e.g. after onReady)
+  // and the daruma rises from below while turning to the front, then wobbles once
+  entrance?: SharedValue<number>;
+  // called when the model and its textures have loaded and the daruma can be drawn
+  onReady?: () => void;
 }
 
 /** 3D daruma in a screen-wide view: drag sideways to turn it, tap to make it wobble. */
-export default function Daruma3D({ color, leftEye, rightEye, size, style }: Daruma3DProps) {
+export default function Daruma3D({ color, leftEye, rightEye, size, style, entrance, onReady }: Daruma3DProps) {
   const { width: windowWidth } = useWindowDimensions();
   // shared between the gesture and the render loop (useFrame)
   const speed = useSharedValue(0);
@@ -212,9 +254,17 @@ export default function Daruma3D({ color, leftEye, rightEye, size, style }: Daru
           <FitCamera size={size} />
           {/* no three.js lights: the toon material has its own light, see toon_settings.ts */}
           <Suspense fallback={null}>
-            <Turntable speed={speed} dragging={dragging} tilt={tilt}>
+            <Turntable
+              speed={speed}
+              dragging={dragging}
+              tilt={tilt}
+              entrance={entrance}
+              darumaSize={size}
+              onLanded={() => applyImpulse(LANDING_IMPULSE)}
+            >
               <DarumaModel color={color} leftEye={leftEye} rightEye={rightEye} />
             </Turntable>
+            <ReadySignal onReady={onReady} />
           </Suspense>
         </Canvas>
       </View>

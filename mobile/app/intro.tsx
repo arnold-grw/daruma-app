@@ -1,8 +1,10 @@
 // app/intro.tsx
 // Shown on the first launch (app/(tabs)/_layout.tsx redirects here), again from the profile ("Watch intro again")
-// and after an app reset. Every page can be skipped with the ✕; skipping or finishing leads to home.
+// and after an app reset. It starts with a title screen (components/intro/intro_splash.tsx) without progress bar
+// and action bar; "Start" leads to the pages. Every page can be skipped with the ✕; skipping or finishing leads to home.
 import BottomActionBar from "@/components/action_bar";
 import { FirstDarumaPage, FirstEyePage, LanguagePage, SecondEyePage, TraditionPage, WelcomePage } from "@/components/intro/intro_pages";
+import IntroSplash from "@/components/intro/intro_splash";
 import { ProgressIndicator } from "@/components/new_daruma/progress_indicator";
 import { ANIMATION_DURATION } from "@/constants/animations";
 import useTheme from "@/constants/theme";
@@ -11,8 +13,8 @@ import { useSystemBack } from "@/utils/navigation";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { View } from "react-native";
-import Animated, { FadeInLeft, FadeInRight, FadeOutLeft, FadeOutRight, LayoutAnimationConfig } from "react-native-reanimated";
+import { StyleSheet, View } from "react-native";
+import Animated, { FadeIn, FadeInLeft, FadeInRight, FadeOut, FadeOutLeft, FadeOutRight, LayoutAnimationConfig, SlideInDown } from "react-native-reanimated";
 
 // ── Pages of the intro, in this order — reorder or add freely ──
 const PAGES = ["welcome", "language", "tradition", "first_eye", "second_eye", "first_daruma"] as const;
@@ -37,6 +39,8 @@ export default function Intro() {
   const [pageIndex, setPageIndex] = useState(0);
   const [direction, setDirection] = useState<"forward" | "back">("forward");
   const [isNavigating, setIsNavigating] = useState(false);
+  // title screen before the first page
+  const [showSplash, setShowSplash] = useState(true);
 
   const page = PAGES[pageIndex];
   const isFirst = pageIndex === 0;
@@ -74,9 +78,12 @@ export default function Intro() {
     router.replace({ pathname: "/daruma/new", params: { fromIntro: "1" } });
   };
 
-  // Android system back: one page back; on the first page the app closes as usual
+  // "Start" on the title screen: it fades out, then the first page fades in
+  const startIntro = () => setShowSplash(false);
+
+  // Android system back: one page back; on the title screen and the first page the app closes as usual
   useSystemBack(() => {
-    if (isFirst) return false;
+    if (showSplash || isFirst) return false;
     changePage("back");
     return true;
   });
@@ -94,27 +101,44 @@ export default function Intro() {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
-      {/* ✕ skips the whole intro */}
-      <ProgressIndicator stepIndex={pageIndex} totalSteps={PAGES.length} onClose={finish} />
-
-      <LayoutAnimationConfig skipEntering>
-        <Animated.View
-          key={page}
-          style={{ flex: 1 }}
-          entering={PAGE_ANIMATIONS[direction].entering}
-          exiting={PAGE_ANIMATIONS[direction].exiting}
-        >
-          {renderPage()}
+      {showSplash ? (
+        // on top of everything while it fades out
+        <Animated.View key="splash" style={StyleSheet.absoluteFill} exiting={FadeOut.duration(ANIMATION_DURATION.splashOut)}>
+          <IntroSplash onStart={startIntro} />
         </Animated.View>
-      </LayoutAnimationConfig>
+      ) : (
+        // fades in once the title screen is gone
+        <Animated.View
+          key="pages"
+          style={{ flex: 1 }}
+          entering={FadeIn.duration(ANIMATION_DURATION.splashPagesIn).delay(ANIMATION_DURATION.splashOut)}
+        >
+          {/* ✕ skips the whole intro */}
+          <ProgressIndicator stepIndex={pageIndex} totalSteps={PAGES.length} onClose={finish} />
 
-      <BottomActionBar
-        onConfirm={isLast ? createFirstDaruma : () => changePage("forward")}
-        onCancel={isFirst ? finish : () => changePage("back")}
-        confirmLabel={isLast ? t("intro.first_daruma.create") : t("common.next")}
-        cancelLabel={isFirst ? t("intro.skip") : t("common.back")}
-        canClick={!isNavigating}
-      />
+          <LayoutAnimationConfig skipEntering>
+            <Animated.View
+              key={page}
+              style={{ flex: 1 }}
+              entering={PAGE_ANIMATIONS[direction].entering}
+              exiting={PAGE_ANIMATIONS[direction].exiting}
+            >
+              {renderPage()}
+            </Animated.View>
+          </LayoutAnimationConfig>
+
+          {/* slides up from the bottom edge together with the fade-in */}
+          <Animated.View entering={SlideInDown.duration(ANIMATION_DURATION.splashPagesIn).delay(ANIMATION_DURATION.splashOut)}>
+            <BottomActionBar
+              onConfirm={isLast ? createFirstDaruma : () => changePage("forward")}
+              onCancel={isFirst ? finish : () => changePage("back")}
+              confirmLabel={isLast ? t("intro.first_daruma.create") : t("common.next")}
+              cancelLabel={isFirst ? t("intro.skip") : t("common.back")}
+              canClick={!isNavigating}
+            />
+          </Animated.View>
+        </Animated.View>
+      )}
     </View>
   );
 }

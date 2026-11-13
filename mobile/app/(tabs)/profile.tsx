@@ -121,4 +121,4 @@ export default function Profile() {
       </CenterModal>
     </View>
   );
-}
+}

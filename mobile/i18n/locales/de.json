@@ -150,6 +150,7 @@
   },
   "intro": {
     "skip": "Überspringen",
+    "start": "Starten",
     "welcome": {
       "title": "Willkommen bei Daruma",
       "text": "Ein kleiner Begleiter aus Japan, der dir hilft, dir Ziele zu setzen und sie zu erreichen."
