@@ -18,7 +18,12 @@
       "language": "Langue"
     },
     "account": {
-      "title": "Compte"
+      "title": "Compte",
+      "replay_intro": "Revoir l’intro",
+      "reset": "Réinitialiser l’app",
+      "reset_confirm_title": "Réinitialiser l’app ?",
+      "reset_confirm_text": "Tous tes Darumas, ta progression et tes paramètres seront supprimés. Cette action est irréversible.",
+      "reset_confirm": "Oui, tout supprimer"
     },
     "widget": {
       "title": "Widget"
@@ -41,7 +46,9 @@
   },
   "new": {
     "color": {
-      "title": "Choisis d’abord une couleur qui correspond à ton objectif"
+      "title": "Choisis d’abord une couleur qui correspond à ton objectif",
+      "locked_one": "Termine encore {{count}} Daruma pour débloquer cette couleur",
+      "locked_other": "Termine encore {{count}} Darumas pour débloquer cette couleur"
     },
     "goal": {
       "title": "Mets ton objectif en mots",
@@ -116,7 +123,9 @@
     "last_day": "Dernier jour aujourd’hui",
     "days_remaining_one": "Encore {{count}} jour",
     "days_remaining_other": "Encore {{count}} jours",
-    "overdue_since": "En retard depuis le {{date}}",
+    "days_overdue_one": "En retard de {{count}} jour",
+    "days_overdue_other": "En retard de {{count}} jours",
+    "deadline_was": "L’échéance était le {{date}}",
     "extend_deadline": "Prolonger l’échéance",
     "new_deadline_title": "Fixer une nouvelle échéance"
   },
@@ -127,15 +136,47 @@
     "deadline": "Échéance : {{date}}",
     "updated": "Dernière modification : {{date}}",
     "change_title": "Changer le titre",
-    "delete": "Supprimer le Daruma",
-    "delete_confirm_title": "Vraiment supprimer ?",
+    "delete": "Brûler le Daruma",
+    "delete_confirm_title": "Vraiment le brûler ?",
     "delete_confirm_text": "Cette action est irréversible.",
-    "delete_confirm": "Oui, supprimer",
+    "delete_confirm": "Oui, le brûler",
     "change_title_title": "Quel sera le nouveau titre ?",
     "change_title_placeholder": "Saisis le nouveau titre",
     "save": "Enregistrer"
   },
   "finish": {
-    "title": "Peins le second œil pour accomplir ton objectif"
+    "title": "Peins le second œil pour accomplir ton objectif",
+    "confirm_title": "Ton daruma te plaît ?"
+  },
+  "intro": {
+    "skip": "Passer",
+    "start": "Commencer",
+    "welcome": {
+      "title": "Bienvenue sur Daruma",
+      "text": "Un petit compagnon venu du Japon qui t’aide à te fixer des objectifs et à les atteindre."
+    },
+    "language": {
+      "title": "Choisis ta langue",
+      "text": "Tu peux la changer à tout moment dans ton profil."
+    },
+    "tradition": {
+      "title": "Qu’est-ce qu’un Daruma ?",
+      "text": "Les poupées Daruma sont des porte-bonheur japonais inspirés de Bodhidharma, le fondateur du zen. Lestées à la base, elles se relèvent toujours : tomber sept fois, se relever huit.",
+      "hint": "Astuce : touche le Daruma pour le faire vaciller, ou glisse sur le côté pour le faire tourner."
+    },
+    "first_eye": {
+      "title": "Un œil pour ton objectif",
+      "text": "Un Daruma n’a pas d’yeux. Quand tu te fixes un objectif, tu peins son œil gauche. Dès lors, le Daruma borgne te rappelle ce que tu t’es promis."
+    },
+    "second_eye": {
+      "title": "Le deuxième œil pour la réussite",
+      "text": "Une fois ton objectif atteint, le Daruma reçoit son deuxième œil en remerciement. Au Japon, on rapporte les Darumas au temple en fin d’année, où ils sont brûlés lors d’une cérémonie."
+    },
+    "first_daruma": {
+      "title": "Ton premier Daruma",
+      "text": "Que veux-tu accomplir ? Choisis une couleur, formule ton objectif et peins le premier œil.",
+      "create": "C’est parti",
+      "later": "Plus tard"
+    }
   }
 }

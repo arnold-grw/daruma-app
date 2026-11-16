@@ -22,7 +22,7 @@ export default function ExtendDeadline( { deadline, onConfirm }: ExtendDeadlineP
     return (
         <View style={{ alignItems: 'center', gap: 4, borderWidth: 2, borderColor: colors.danger, borderRadius: 8, width: 300 }}>
             <Text style={{ color: colors.danger, fontSize: 18, paddingVertical: 10, textAlign: 'center' }}>
-                {t("view.overdue_since", { date: formatDate(deadline, localDateFormat(t)) })}
+                {t("view.deadline_was", { date: formatDate(deadline, localDateFormat(t)) })}
             </Text>
             <Pressable style={{ backgroundColor: colors.danger, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 8, width: 300, alignItems: 'center', borderColor: colors.danger, borderWidth: 2 }} onPress={() => setIsModalVisible(true)}>
                 <Text style={{ color: colors.background, fontSize: 18 }}>

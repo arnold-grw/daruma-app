@@ -1,12 +1,17 @@
 import { ThemeTransitionProvider } from '@/components/theme_transition';
 import { FONT } from '@/components/typography';
+import { useIntroStore } from '@/store/intro_store';
 import { useUserStore } from '@/store/user_store';
+// sets up i18n and the saved language before the first screen renders
+// (on web the routes are bundled lazily, so a screen with useTranslation can come before any other import of it)
+import '@/store/language_store';
 import { MPLUSRounded1c_700Bold } from '@expo-google-fonts/m-plus-rounded-1c/700Bold';
 import { useFonts } from 'expo-font';
 import useAppTheme from '@/constants/theme';
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from "expo-router";
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
+import { NAVIGATION } from '@/constants/navigation';
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { KeyboardProvider } from "react-native-keyboard-controller";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -36,9 +41,14 @@ export default function RootLayout() {
     },
   };
 
-  // Load the local user once at startup, so every screen (and new darumas) can rely on an active user
+  // Load the local user once at startup, so every screen (and new darumas) can rely on an active user.
+  // The intro flag is read at the same time: app/(tabs)/_layout.tsx opens the intro on the first launch,
+  // and the splash stays until it is known, so home never flashes up before the intro.
   useEffect(() => {
-    useUserStore.getState().load()
+    Promise.all([
+      useUserStore.getState().load(),
+      useIntroStore.getState().load(),
+    ])
       .catch((error) => console.error('Failed to load users:', error))
       .finally(() => setUsersLoaded(true));
   }, []);
@@ -62,7 +72,8 @@ export default function RootLayout() {
           {/* cross-fades the whole screen when dark/light mode changes */}
           <ThemeTransitionProvider>
             <ThemeProvider value={navigationTheme}>
-              <Stack screenOptions={{ headerShown: false }} />
+              {/* iOS swipe back: see constants/navigation.ts */}
+              <Stack screenOptions={{ headerShown: false, gestureEnabled: NAVIGATION.swipeBack }} />
             </ThemeProvider>
           </ThemeTransitionProvider>
         </KeyboardProvider>

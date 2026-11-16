@@ -10,6 +10,7 @@ export const TEST_USER: User = {
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
   languagePreference: "en",
+  completedDarumaCount: 0,
 };
 
 export const TEST_DARUMA: Daruma = {

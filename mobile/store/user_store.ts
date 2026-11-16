@@ -34,6 +34,12 @@ export const useUserStore = create<UserState>((set, get) => ({
     let users = stored.filter((user) => !LEGACY_SEED_USER_IDS.includes(user.id));
     let changed = users.length !== stored.length;
 
+    // users saved before completedDarumaCount existed start at 0
+    if (users.some((user) => user.completedDarumaCount == null)) {
+      users = users.map((user) => ({ ...user, completedDarumaCount: user.completedDarumaCount ?? 0 }));
+      changed = true;
+    }
+
     // first launch: create the local user (the name gets set in the onboarding later)
     if (!users.length) {
       users = [createUser({ name: "" })];
@@ -102,5 +108,6 @@ export const useUserStore = create<UserState>((set, get) => ({
 }));
 
 export const useActiveUser = () => useUserStore((state) => state.activeUser);
+export const useCompletedDarumaCount = () => useUserStore((state) => state.activeUser?.completedDarumaCount ?? 0);
 export const useOtherUsers = () =>
   useUserStore((state) => state.users.filter((user) => user.id !== state.activeUserId));

@@ -18,7 +18,12 @@
       "language": "Sprache"
     },
     "account": {
-      "title": "Account"
+      "title": "Account",
+      "replay_intro": "Intro erneut ansehen",
+      "reset": "App zurücksetzen",
+      "reset_confirm_title": "App zurücksetzen?",
+      "reset_confirm_text": "Alle deine Darumas, dein Fortschritt und deine Einstellungen werden gelöscht. Das kann nicht rückgängig gemacht werden.",
+      "reset_confirm": "Ja, alles löschen"
     },
     "widget": {
       "title": "Widget"
@@ -41,7 +46,9 @@
   },
   "new": {
     "color": {
-      "title": "Wähle zuerst eine Farbe, die zu deinem Ziel passt"
+      "title": "Wähle zuerst eine Farbe, die zu deinem Ziel passt",
+      "locked_one": "Vollende noch {{count}} Daruma, um diese Farbe freizuschalten",
+      "locked_other": "Vollende noch {{count}} Darumas, um diese Farbe freizuschalten"
     },
     "goal": {
       "title": "Fasse dein Ziel in Worte",
@@ -116,7 +123,9 @@
     "last_day": "Heute ist der letzte Tag",
     "days_remaining_one": "Noch {{count}} Tag",
     "days_remaining_other": "Noch {{count}} Tage",
-    "overdue_since": "Überfällig seit: {{date}}",
+    "days_overdue_one": "{{count}} Tag überfällig",
+    "days_overdue_other": "{{count}} Tage überfällig",
+    "deadline_was": "Frist endete am {{date}}",
     "extend_deadline": "Frist verlängern",
     "new_deadline_title": "Neue Frist setzen"
   },
@@ -127,15 +136,47 @@
     "deadline": "Frist: {{date}}",
     "updated": "Zuletzt geändert: {{date}}",
     "change_title": "Titel ändern",
-    "delete": "Daruma löschen",
+    "delete": "Daruma verbrennen",
     "delete_confirm_title": "Bist du sicher?",
     "delete_confirm_text": "Das kann nicht rückgängig gemacht werden.",
-    "delete_confirm": "Ja, löschen",
+    "delete_confirm": "Ja, verbrennen",
     "change_title_title": "Wie soll es heißen?",
     "change_title_placeholder": "Neuen Titel eingeben",
     "save": "Änderungen speichern"
   },
   "finish": {
-    "title": "Male das zweite Auge aus, um dein Ziel abzuschließen"
+    "title": "Male das zweite Auge aus, um dein Ziel abzuschließen",
+    "confirm_title": "Bist du mit deinem Daruma zufrieden?"
+  },
+  "intro": {
+    "skip": "Überspringen",
+    "start": "Starten",
+    "welcome": {
+      "title": "Willkommen bei Daruma",
+      "text": "Ein kleiner Begleiter aus Japan, der dir hilft, dir Ziele zu setzen und sie zu erreichen."
+    },
+    "language": {
+      "title": "Wähle deine Sprache",
+      "text": "Du kannst sie jederzeit in deinem Profil ändern."
+    },
+    "tradition": {
+      "title": "Was ist ein Daruma?",
+      "text": "Darumas sind japanische Glücksbringer nach dem Vorbild von Bodhidharma, dem Begründer des Zen. Sie sind unten beschwert und stehen deshalb immer wieder auf: siebenmal hinfallen, achtmal aufstehen.",
+      "hint": "Tipp: Tippe das Daruma an, damit es wackelt, oder wische zur Seite, um es zu drehen."
+    },
+    "first_eye": {
+      "title": "Ein Auge für dein Ziel",
+      "text": "Ein Daruma kommt ohne Augen. Wenn du dir ein Ziel setzt, malst du sein linkes Auge aus. Von da an erinnert dich das einäugige Daruma daran, was du dir vorgenommen hast."
+    },
+    "second_eye": {
+      "title": "Das zweite Auge für den Erfolg",
+      "text": "Hast du dein Ziel erreicht, bekommt das Daruma zum Dank sein zweites Auge. In Japan bringt man Darumas am Jahresende zurück in den Tempel, wo sie feierlich verbrannt werden."
+    },
+    "first_daruma": {
+      "title": "Dein erstes Daruma",
+      "text": "Was möchtest du erreichen? Wähle eine Farbe, fasse dein Ziel in Worte und male das erste Auge.",
+      "create": "Los geht's",
+      "later": "Später"
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { ANIMATION_DURATION, timing } from "@/constants/animations";
 import { ThemeScheme, useThemeStore } from "@/store/theme_store";
-import { createContext, ReactNode, useContext, useRef, useState } from "react";
+import { ComponentRef, createContext, ReactNode, useContext, useRef, useState } from "react";
 import { Image, Platform, StyleSheet, View } from "react-native";
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
 import { captureRef, releaseCapture } from "react-native-view-shot";
@@ -21,7 +21,7 @@ export function useSwitchScheme() {
  */
 export function ThemeTransitionProvider({ children }: { children: ReactNode }) {
   const setScheme = useThemeStore((state) => state.setScheme);
-  const screenRef = useRef<View>(null);
+  const screenRef = useRef<ComponentRef<typeof View>>(null);
   const [snapshot, setSnapshot] = useState<string | null>(null);
   // true while a switch runs (further taps are ignored)
   const busy = useRef(false);

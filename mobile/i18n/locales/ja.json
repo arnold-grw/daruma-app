@@ -18,7 +18,12 @@
       "language": "言語"
     },
     "account": {
-      "title": "アカウント"
+      "title": "アカウント",
+      "replay_intro": "イントロをもう一度見る",
+      "reset": "アプリをリセット",
+      "reset_confirm_title": "アプリをリセットしますか？",
+      "reset_confirm_text": "すべてのだるま、進捗、設定が削除されます。この操作は取り消せません。",
+      "reset_confirm": "すべて削除する"
     },
     "widget": {
       "title": "ウィジェット"
@@ -41,7 +46,9 @@
   },
   "new": {
     "color": {
-      "title": "まずは、目標に合う色を選びましょう"
+      "title": "まずは、目標に合う色を選びましょう",
+      "locked_one": "あと{{count}}個のだるまを完成させると、この色が使えるようになります",
+      "locked_other": "あと{{count}}個のだるまを完成させると、この色が使えるようになります"
     },
     "goal": {
       "title": "目標を言葉にしましょう",
@@ -116,7 +123,9 @@
     "last_day": "今日が最終日です",
     "days_remaining_one": "残り{{count}}日",
     "days_remaining_other": "残り{{count}}日",
-    "overdue_since": "{{date}}に期限切れ",
+    "days_overdue_one": "{{count}}日超過",
+    "days_overdue_other": "{{count}}日超過",
+    "deadline_was": "期限は{{date}}でした",
     "extend_deadline": "期限を延長",
     "new_deadline_title": "新しい期限を決める"
   },
@@ -127,15 +136,47 @@
     "deadline": "期限：{{date}}",
     "updated": "最終更新：{{date}}",
     "change_title": "目標を変更",
-    "delete": "だるまを削除",
-    "delete_confirm_title": "本当に削除しますか？",
+    "delete": "だるまをお焚き上げ",
+    "delete_confirm_title": "本当にお焚き上げしますか？",
     "delete_confirm_text": "この操作は取り消せません。",
-    "delete_confirm": "削除する",
+    "delete_confirm": "お焚き上げする",
     "change_title_title": "新しい目標は？",
     "change_title_placeholder": "新しい目標を入力",
     "save": "変更を保存"
   },
   "finish": {
-    "title": "願いが叶いましたね。右目を描き入れて、だるまを完成させましょう"
+    "title": "願いが叶いましたね。右目を描き入れて、だるまを完成させましょう",
+    "confirm_title": "このだるまで完成にしますか？"
+  },
+  "intro": {
+    "skip": "スキップ",
+    "start": "はじめる",
+    "welcome": {
+      "title": "だるまへようこそ",
+      "text": "目標を立てて、やり遂げるのを手伝ってくれる日本の小さな相棒です。"
+    },
+    "language": {
+      "title": "言語を選んでください",
+      "text": "プロフィールからいつでも変更できます。"
+    },
+    "tradition": {
+      "title": "だるまとは？",
+      "text": "だるまは、禅の開祖・達磨大師をかたどった日本の縁起物です。底に重りが入っているので、倒れても必ず起き上がります。七転び八起き。",
+      "hint": "ヒント：だるまをタップすると揺れます。横にスワイプすると回せます。"
+    },
+    "first_eye": {
+      "title": "目標に片目を",
+      "text": "だるまには最初、目がありません。目標を立てたら、左目を描き入れます。片目のだるまが、決めたことをいつも思い出させてくれます。"
+    },
+    "second_eye": {
+      "title": "達成したら両目に",
+      "text": "目標を達成したら、感謝を込めてもう片方の目を描き入れます。日本では年の終わりにだるまをお寺へ納め、お焚き上げをします。"
+    },
+    "first_daruma": {
+      "title": "最初のだるま",
+      "text": "何を達成したいですか？色を選び、目標を言葉にして、最初の目を描き入れましょう。",
+      "create": "はじめる",
+      "later": "あとで"
+    }
   }
 }

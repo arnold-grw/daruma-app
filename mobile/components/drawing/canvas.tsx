@@ -11,8 +11,6 @@ interface Props {
 }
 
 export const Canvas = forwardRef(({ size = 200, settings, onDrawingChange, initialDrawing }: Props & { initialDrawing?: DrawingData | Drawing }, ref) => {
-    const canvasRef = useRef<View>(null);
-    const canvasOrigin = useRef({ x: 0, y: 0 });
     const convertDrawingData = (data?: DrawingData | Drawing): Drawing => {
       if (!data) return new Drawing();
       // If already a Drawing instance, return as-is
@@ -31,12 +29,6 @@ export const Canvas = forwardRef(({ size = 200, settings, onDrawingChange, initi
     const drawingSpaceSize = size * drawingSpaceFactor;
     const { thickness } = settings;
     const minDistance = 0.1; // Minimum distance in normalized coordinates to add a new point
-
-    const measureCanvas = () => {
-        canvasRef.current?.measure((x, y, width, height, pageX, pageY) => {
-        canvasOrigin.current = { x: pageX, y: pageY };
-        });
-    };
 
     const transformCoordinates = (canvasX: number, canvasY: number): Point => {
         const normalizedX = (canvasX / size) * 2 - 1;
@@ -109,33 +101,23 @@ export const Canvas = forwardRef(({ size = 200, settings, onDrawingChange, initi
 
 
   return (
+    // locationX/Y: touch position relative to this view, so moving the canvas (transforms, animations)
+    // never shifts the strokes. The children ignore touches, so the position is always relative to the canvas itself.
     <View
-      ref={canvasRef}
       style={{ width: size, height: size }}
-      onLayout={measureCanvas} // re-measure whenever layout changes
       onStartShouldSetResponder={() => true}
       onMoveShouldSetResponder={() => true}
       onResponderGrant={(event) => {
-        measureCanvas(); // also re-measure on touch start, layout may have shifted
-        const { pageX, pageY } = event.nativeEvent; // ← use pageX/pageY
-        startDrawing(
-          pageX - canvasOrigin.current.x,
-          pageY - canvasOrigin.current.y
-        );
+        const { locationX, locationY } = event.nativeEvent;
+        startDrawing(locationX, locationY);
       }}
       onResponderMove={(event) => {
-        const { pageX, pageY } = event.nativeEvent;
-        whileDrawing(
-          pageX - canvasOrigin.current.x,
-          pageY - canvasOrigin.current.y
-        );
+        const { locationX, locationY } = event.nativeEvent;
+        whileDrawing(locationX, locationY);
       }}
       onResponderRelease={(event) => {
-        const { pageX, pageY } = event.nativeEvent;
-        endDrawing(
-          pageX - canvasOrigin.current.x,
-          pageY - canvasOrigin.current.y
-        );
+        const { locationX, locationY } = event.nativeEvent;
+        endDrawing(locationX, locationY);
       }}
     >
         <View style={{
@@ -145,6 +127,7 @@ export const Canvas = forwardRef(({ size = 200, settings, onDrawingChange, initi
             borderColor: "red", // visualize canvas
             borderWidth: 10, // visualize canvas
             opacity: 0.0, // opacity 1.0 to visualize canvas
+            pointerEvents: "none",
             borderRadius: drawingSpaceSize/2,
             transform: [
                 { translateX: size/2 - drawingSpaceSize/2 },

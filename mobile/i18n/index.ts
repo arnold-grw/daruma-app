@@ -8,10 +8,11 @@ import en from "./locales/en.json";
 import de from "./locales/de.json";
 import fr from "./locales/fr.json";
 import es from "./locales/es.json"; // Latin American Spanish
+import it from "./locales/it.json";
 import ja from "./locales/ja.json";
 import zh from "./locales/zh.json"; // Simplified Chinese (Mandarin)
 
-const LOCALES: Record<string, any> = { en, de, fr, es, ja, zh };
+const LOCALES: Record<string, any> = { en, de, fr, es, it, ja, zh };
 
 i18n.use(initReactI18next).init({
   fallbackLng: "en",
@@ -41,4 +42,4 @@ export async function initLanguage() {
   await setLanguage(device);
 }
 
-export default i18n;
+export default i18n;

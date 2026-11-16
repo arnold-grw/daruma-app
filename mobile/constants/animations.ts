@@ -14,6 +14,11 @@ export const ANIMATION_DURATION = {
   textSwapIn: 200,     // profile: new text fades in
   textSwapStagger: 60, // profile: delay between two lines, so the texts change from top to bottom
   themeFade: 350,      // dark/light switch: the picture of the old colors fades out
+  splashRise: 1400,    // intro title screen: the 3D daruma rises from below and turns to the front
+  splashTitle: 900,    // intro title screen: "Daruma" and the Japanese name glide in
+  splashButton: 500,   // intro title screen: the start button fades in
+  splashOut: 300,      // intro title screen fades out after "Start"
+  splashPagesIn: 400,  // then the first intro page fades in and the action bar slides up
 };
 
 // Starts fast and slows down at the end: for things that appear or open

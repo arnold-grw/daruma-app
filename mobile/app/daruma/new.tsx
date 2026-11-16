@@ -4,8 +4,9 @@ import BottomActionBar from "@/components/action_bar";
 import KeyboardShift from "@/components/keyboard_shift";
 import useTheme from "@/constants/theme";
 import { useDarumaStore } from "@/store/daruma_store";
-import { safeBack } from "@/utils/navigation";
-import { router } from "expo-router";
+import { NAVIGATION } from "@/constants/navigation";
+import { safeBack, useSwipeBack, useSystemBack } from "@/utils/navigation";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { View } from "react-native";
 import { useTranslation } from "react-i18next";
@@ -22,7 +23,8 @@ import { StepPaint } from "@/components/new_daruma/step_paint";
 
 // ── Define steps here — reorder or add freely ──────────────────
 const STEPS = [
-  { key: 'color', component: StepColor, canSkip: true  },
+  // not skippable: a locked color must not be chosen (StepColor reports it via onValidChange)
+  { key: 'color', component: StepColor, canSkip: false },
   { key: 'goal',  component: StepGoal,  canSkip: false },
   { key: 'deadline', component: StepDeadline, canSkip: true },
   { key: 'paint', component: StepPaint, canSkip: false },
@@ -47,6 +49,8 @@ export default function NewDaruma() {
   const { colors } = useTheme();
   const { t } = useTranslation();
   const { draft, setDraft, commitDraft, resetDraft } = useDarumaStore();
+  // opened from the last intro page: on the first step "Cancel" reads "Later" (it leads to home either way)
+  const { fromIntro } = useLocalSearchParams<{ fromIntro?: string }>();
   const [stepIndex, setStepIndex] = useState(0);
   const [isNavigating, setIsNavigating] = useState(false);
   const [direction, setDirection] = useState<'forward' | 'back'>('forward');
@@ -102,13 +106,28 @@ export default function NewDaruma() {
     }
   };
 
+  // ✕ at the top: leaves the whole flow from any step
+  const handleCancel = () => {
+    if (isNavigating) return;
+    setIsNavigating(true);
+    resetDraft();
+    safeBack();
+  };
+
   const [canProceed, setCanProceed] = useState(false);
+
+  // no swipe back while painting (iOS); the Android system back goes one step back like the back button
+  useSwipeBack(NAVIGATION.swipeBackWhilePainting);
+  useSystemBack(() => {
+    handleBack();
+    return true;
+  });
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.background }}>
       {/* Everything except the action bar moves up with the keyboard */}
       <KeyboardShift style={{ flex: 1 }}>
-        <ProgressIndicator stepIndex={stepIndex} totalSteps={STEPS.length} />
+        <ProgressIndicator stepIndex={stepIndex} totalSteps={STEPS.length} onClose={NAVIGATION.cancelButtonTop ? handleCancel : undefined} />
 
         {/* skipEntering: the first step comes in with the screen, without its own animation */}
         <LayoutAnimationConfig skipEntering>
@@ -133,7 +152,7 @@ export default function NewDaruma() {
         onCancel={handleBack}
         canConfirm={(canProceed || currentStep.canSkip)}
         confirmLabel={isLast ? t("common.confirm") : t("common.next")}
-        cancelLabel={isFirst ? t("common.cancel") : t("common.back")}
+        cancelLabel={isFirst ? (fromIntro ? t("intro.first_daruma.later") : t("common.cancel")) : t("common.back")}
         canClick={!isNavigating}
       />
     </View>

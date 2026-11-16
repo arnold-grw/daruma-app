@@ -7,6 +7,8 @@ export interface User {
   updatedAt: string;
   languagePreference?: LangPref;
   useDarkmode?: boolean;
+  // darumas that got their second eye; unlocks colors (see COLOR_UNLOCKS)
+  completedDarumaCount: number;
 }
 
 export interface AuthSession {
@@ -15,4 +17,4 @@ export interface AuthSession {
   accessToken: string;
 }
 
-export type LangPref = "en" | "de" | "fr" | "es" | "ja" | "zh";
+export type LangPref = "en" | "de" | "fr" | "es" | "it" | "ja" | "zh";

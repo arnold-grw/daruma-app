@@ -13,6 +13,7 @@ export const createUser = (input: Partial<User> & Pick<User, "name">): User => {
     updatedAt: input.updatedAt ?? now,
     languagePreference: input.languagePreference, // unset = follow the system language
     useDarkmode: input.useDarkmode ?? false,
+    completedDarumaCount: input.completedDarumaCount ?? 0,
   };
 };
 

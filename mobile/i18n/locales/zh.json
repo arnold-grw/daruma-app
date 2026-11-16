@@ -18,7 +18,12 @@
       "language": "语言"
     },
     "account": {
-      "title": "账户"
+      "title": "账户",
+      "replay_intro": "重新观看介绍",
+      "reset": "重置应用",
+      "reset_confirm_title": "要重置应用吗？",
+      "reset_confirm_text": "你所有的达摩、进度和设置都将被删除。此操作无法撤销。",
+      "reset_confirm": "是的，全部删除"
     },
     "widget": {
       "title": "小组件"
@@ -41,7 +46,9 @@
   },
   "new": {
     "color": {
-      "title": "先选一个与你的目标相契合的颜色"
+      "title": "先选一个与你的目标相契合的颜色",
+      "locked_one": "再完成{{count}}个达摩即可解锁这个颜色",
+      "locked_other": "再完成{{count}}个达摩即可解锁这个颜色"
     },
     "goal": {
       "title": "用一句话写下你的目标",
@@ -116,7 +123,9 @@
     "last_day": "今天是最后一天",
     "days_remaining_one": "还剩{{count}}天",
     "days_remaining_other": "还剩{{count}}天",
-    "overdue_since": "已于{{date}}逾期",
+    "days_overdue_one": "已逾期{{count}}天",
+    "days_overdue_other": "已逾期{{count}}天",
+    "deadline_was": "截止日期为{{date}}",
     "extend_deadline": "延长期限",
     "new_deadline_title": "设定新的期限"
   },
@@ -127,15 +136,47 @@
     "deadline": "截止日期：{{date}}",
     "updated": "最近更新：{{date}}",
     "change_title": "修改目标",
-    "delete": "删除达摩",
-    "delete_confirm_title": "确定要删除吗？",
+    "delete": "焚烧达摩",
+    "delete_confirm_title": "确定要焚烧吗？",
     "delete_confirm_text": "此操作无法撤销。",
-    "delete_confirm": "删除",
+    "delete_confirm": "焚烧",
     "change_title_title": "新的目标是？",
     "change_title_placeholder": "输入新的目标",
     "save": "保存修改"
   },
   "finish": {
-    "title": "目标达成！为达摩点上右眼，画龙点睛"
+    "title": "目标达成！为达摩点上右眼，画龙点睛",
+    "confirm_title": "就这样完成你的达摩吗？"
+  },
+  "intro": {
+    "skip": "跳过",
+    "start": "开始",
+    "welcome": {
+      "title": "欢迎来到达摩",
+      "text": "来自日本的小伙伴，帮你定下目标并坚持到底。"
+    },
+    "language": {
+      "title": "选择你的语言",
+      "text": "你可以随时在个人资料中更改。"
+    },
+    "tradition": {
+      "title": "什么是达摩？",
+      "text": "达摩不倒翁是日本的吉祥物，以禅宗始祖菩提达摩为原型。它底部有重量，所以总能重新站起来：七倒八起。",
+      "hint": "提示：轻点达摩会让它摇晃，左右滑动可以转动它。"
+    },
+    "first_eye": {
+      "title": "为目标点上一只眼",
+      "text": "达摩起初没有眼睛。当你定下目标时，为它点上左眼。从此，独眼的达摩会时时提醒你许下的决心。"
+    },
+    "second_eye": {
+      "title": "成功时点上第二只眼",
+      "text": "实现目标后，为了感谢，给达摩点上第二只眼。在日本，人们会在年末把达摩送回寺庙，举行仪式焚烧。"
+    },
+    "first_daruma": {
+      "title": "你的第一个达摩",
+      "text": "你想实现什么？选一种颜色，把目标写成文字，再点上第一只眼。",
+      "create": "开始吧",
+      "later": "以后再说"
+    }
   }
 }
