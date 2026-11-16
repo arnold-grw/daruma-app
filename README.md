@@ -5,9 +5,9 @@ A goal-tracking app built around the Japanese daruma doll, made with React Nativ
 Traditionally, when you set yourself a goal, you paint in the daruma's left eye. Once the goal is reached, you paint the right one. This app brings that ritual to your phone: pick a daruma, write down your goal, paint the first eye with your finger, and paint the second one when you've made it.
 
 <p align="center">
-  <img src="docs/images/home.png" width="300" alt="Home screen" />
-  <img src="docs/images/profile.gif" width="300" alt="Changing language and dark mode" />
-  <img src="docs/images/view.png" width="300" alt="Daruma overview" />
+  <img src="docs/images/home.png" width="250" alt="Home screen" />
+  <img src="docs/images/profile.gif" width="250" alt="Changing language and dark mode" />
+  <img src="docs/images/view.png" width="250" alt="Daruma overview" />
 </p>
 
 ## Features
