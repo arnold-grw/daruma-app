@@ -21,7 +21,7 @@ Traditionally, when you set yourself a goal, you paint in the daruma's left eye.
 
 ## Tech stack
 
-- [Expo](https://expo.dev) (SDK 57) and React Native, written in TypeScript
+- [Expo](https://expo.dev) (SDK 58) and React Native, written in TypeScript
 - expo-router for navigation
 - zustand and AsyncStorage for local data (everything stays on your device)
 - react-native-reanimated for animations, react-native-svg for the drawing canvas
