@@ -5,9 +5,9 @@ A goal-tracking app built around the Japanese daruma doll, made with React Nativ
 Traditionally, when you set yourself a goal, you paint in the daruma's left eye. Once the goal is reached, you paint the right one. This app brings that ritual to your phone: pick a daruma, write down your goal, paint the first eye with your finger, and paint the second one when you've made it.
 
 <p align="center">
-  <img src="docs/images/home.png" width="200" alt="Home screen" />
-  <img src="docs/images/profile.gif" width="200" alt="Changing language and dark mode" />
-  <img src="docs/images/view.png" width="200" alt="Daruma overview" />
+  <img src="docs/images/home.png" width="300" alt="Home screen" />
+  <img src="docs/images/profile.gif" width="300" alt="Changing language and dark mode" />
+  <img src="docs/images/view.png" width="300" alt="Daruma overview" />
 </p>
 
 ## Features
@@ -15,6 +15,7 @@ Traditionally, when you set yourself a goal, you paint in the daruma's left eye.
 - **Create a daruma** in a few steps: pick a color (each with its traditional meaning), describe your goal, set an optional deadline and paint the left eye.
 - **Complete it** by painting the right eye. Finished darumas move to your archive.
 - **Deadlines**: darumas past their deadline are marked as overdue, and you can extend the deadline.
+- **3D Models**: darumas are presented in 3D with cartoon shading, tab them to rotate or push them.
 - **Dark mode** and **multiple languages**: English, German, French, Spanish and Japanese, with Chinese in progress.
 - **Small animations** throughout: smooth step transitions, a wiggling daruma, and confetti when you reach a goal.
 
@@ -25,6 +26,7 @@ Traditionally, when you set yourself a goal, you paint in the daruma's left eye.
 - zustand and AsyncStorage for local data (everything stays on your device)
 - react-native-reanimated for animations, react-native-svg for the drawing canvas
 - i18next for translations
+- Three.js for 3D rendering.
 
 ## Getting started
 
@@ -38,7 +40,6 @@ Scan the QR code with Expo Go, or press `w` to open the app in the browser.
 
 ## Roadmap
 
-- 3D view of the daruma with a cartoon look
 - Home screen widget for each daruma
 - Release on the Google Play Store, with iOS to follow
 
